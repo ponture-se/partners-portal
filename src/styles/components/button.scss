@@ -15,7 +15,7 @@
   min-height: 40px;
   &[disabled] {
     cursor: no-drop;
-    opacity: 0 !important;
+    opacity: .7 !important;
   }
   &.--small {
     min-height: 35px;
