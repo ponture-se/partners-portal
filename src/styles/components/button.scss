@@ -1,0 +1,145 @@
+*[disabled] {
+  cursor: no-drop;
+  opacity: 0.5 !important;
+}
+.btn {
+  font-family: OpenSance;
+  border-radius: 3px;
+  border: none;
+  transition-duration: 0.5s;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 15px !important;
+  min-height: 40px;
+  &[disabled] {
+    cursor: no-drop;
+    opacity: 0 !important;
+  }
+  &.--small {
+    min-height: 35px;
+    padding: 0 10px !important;
+  }
+  &.--medium {
+    min-height: 40px;
+    padding: 0 15px !important;
+  }
+  &.--large {
+    min-height: 50px;
+    padding: 0 20px !important;
+  }
+  &.--light {
+    @include variable(my-btn-light-bg, -webkit-background-color, lightgray);
+    @include variable(my-btn-light-bg, -moz-background-color, lightgray);
+    @include variable(my-btn-light-bg, -ms-background-color, lightgray);
+    @include variable(my-btn-light-bg, -o-background-color, lightgray);
+    @include variable(my-btn-light-bg, background-color, lightgray);
+    @include variable(my-btn-light-color, color, white);
+    background-color: lightgray;
+    border: none;
+    transition-duration: 0.5s;
+    &:focus {
+      outline: none;
+      @include variable(
+        my-btn-light-shadow,
+        box-shadow,
+        0 0 5px rgb(66, 204, 173)
+      );
+      transition-duration: 0.5s;
+    }
+    &:hover {
+      @include variable(my-btn-light-hover-bg, background-color, lightgray);
+    }
+  }
+  &.--outline-light {
+    border-width: 1px;
+    border-style: solid;
+    @include variable(my-btn-light-bg, border-color, rgb(66, 204, 173));
+    @include variable(my-btn-light-bg, color, rgb(66, 204, 173));
+    transition-duration: 0.3s;
+    &:focus {
+      outline: none;
+      @include variable(
+        my-btn-warning-shadow,
+        box-shadow,
+        0 0 5px rgb(66, 204, 173)
+      );
+      transition-duration: 0.5s;
+    }
+    &:hover {
+      @include variable(my-btn-light-bg, background, blue);
+      @include variable(my-btn-light-color, color, white);
+    }
+  }
+  &.--primary {
+    @include variable(my-btn-primary-bg, background, rgb(23, 145, 164));
+    @include variable(my-btn-primary-color, color, white);
+    border: none;
+    transition-duration: 0.5s;
+    &:hover {
+      @include variable(my-btn-primary-hover-bg, background, rgb(21, 138, 155));
+    }
+
+    &:focus {
+      outline: none;
+      @include variable(
+        my-btn-primary-shadow,
+        box-shadow,
+        0 0 5px rgb(66, 204, 173)
+      );
+      transition-duration: 0.5s;
+    }
+  }
+  &.--outline-primary {
+    border-width: 1px;
+    border-style: solid;
+    @include variable(my-btn-primary-bg, border-color, rgb(66, 204, 173));
+    @include variable(my-btn-primary-bg, color, rgb(66, 204, 173));
+    transition-duration: 0.3s;
+    &:focus {
+      outline: none;
+      @include variable(
+        my-btn-warning-shadow,
+        box-shadow,
+        0 0 5px rgb(66, 204, 173)
+      );
+      transition-duration: 0.5s;
+    }
+    &:hover {
+      @include variable(my-btn-primary-bg, background, blue);
+      @include variable(my-btn-primary-color, color, white);
+    }
+  }
+  &.--success {
+    @include variable(my-btn-success-bg, background, rgb(66, 204, 173));
+    @include variable(my-btn-success-color, color, white);
+    border: none;
+    transition-duration: 0.5s;
+    &:focus {
+      outline: none;
+      @include variable(
+        my-btn-success-shadow,
+        box-shadow,
+        0 0 5px rgb(66, 204, 173)
+      );
+      transition-duration: 0.5s;
+    }
+    &:hover {
+      @include variable(my-btn-success-hover-bg, background, rgb(66, 204, 173));
+    }
+  }
+  &.--warning {
+    @include variable(my-btn-warning-bg, background, orange);
+    @include variable(my-btn-warning-color, color, white);
+
+    &:focus {
+      outline: none;
+      @include variable(my-btn-warning-shadow, box-shadow, 0 0 5px orange);
+      transition-duration: 0.5s;
+    }
+    &:hover {
+      @include variable(my-btn-warning-hover-bg, background, darkorange);
+    }
+  }
+}

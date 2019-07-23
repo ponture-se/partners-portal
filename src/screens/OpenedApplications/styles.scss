@@ -1,0 +1,85 @@
+@import "./../../styles/variables.scss";
+.openedApps {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+}
+.openedApp {
+  min-height: 350px;
+  background: white;
+  box-shadow: 0 0 2px lightgray;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  &__header {
+    margin: 20px 40px 0 40px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray;
+  }
+  &__title {
+    font-size: 20px;
+    font-family: OpenSanceBold;
+    margin-bottom: 20px;
+  }
+  &__headerinfo {
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-family: OpenSanceBold;
+    span {
+      font-size: 13px;
+    }
+  }
+  &__body {
+    flex: 1;
+    padding: 20px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__bodyRow {
+    flex: 1;
+    display: flex;
+    font-size: 13px;
+    max-width: 90%;
+    &__left {
+      width: 280px;
+      font-family: OpenSanceBold;
+    }
+    &__right {
+      flex: 1;
+      display: flex;
+      justify-content: space-between;
+      span {
+        flex: 1;
+      }
+      & span:first-child {
+        flex: 2;
+      }
+      & span:last-child span {
+        font-family: OpenSanceBold;
+      }
+    }
+    i {
+      padding: 0 5px;
+      color: greenyellow;
+    }
+  }
+  &__footer {
+    background: whitesmoke;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    .--warning {
+      margin-right: 150px;
+      width: 130px;
+      font-family: OpenSanceBold;
+    }
+    .--primary {
+      min-width: 150px;
+      margin-right: 20px;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@import "./../../styles/mixins.scss";
+//
+.mainPage {
+  @include variable(main-header-height, margin-top, 100px);
+  &__content {
+    @include variable(main-content-width, width, 992px);
+    margin: auto;
+  }
+}
