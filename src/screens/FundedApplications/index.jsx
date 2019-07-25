@@ -8,15 +8,16 @@ import Item from "./item";
 import SquareSpinner from "../../components/SquareSpinner";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
 //
-import { getOpenedApplications } from "./../../api/main-api";
+import { getFundedApps } from "../../api/main-api";
 
-const OpenedApplications = props => {
+const FundedApps = props => {
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
+
   useEffect(() => {
     let didCancel = false;
-    getOpenedApplications()
+    getFundedApps()
       .onOk(result => {
         setTimeout(() => {
           toggleSpinner(false);
@@ -80,23 +81,17 @@ const OpenedApplications = props => {
         }
       })
       .call();
+
     return () => {
       didCancel = true;
     };
   }, []);
-
-  function handleViewClicked(app) {
-    props.history.push(
-      `/${currentLangName}/viewApplication/${app.opportunityID}`
-    );
-  }
-
   return (
-    <div className="openedApps">
+    <div className="fundedApps">
       {spinner ? (
         <div className="page-loading">
           <SquareSpinner />
-          <h2>{t("OPEN_APPS_LOADING_TEXT")}</h2>
+          <h2>{t("NEW_APPS_LOADING_TEXT")}</h2>
         </div>
       ) : error ? (
         <div className="page-list-error animated fadeIn">
@@ -107,11 +102,11 @@ const OpenedApplications = props => {
       ) : !data || data.length === 0 ? (
         <div className="page-empty-list animated fadeIn">
           <Empty />
-          <h2>{t("OPEN_APPS_EMPTY_LIST_TITLE")}</h2>
-          <span>{t("OPEN_APPS_EMPTY_LIST_MSG")}</span>
+          <h2>{t("NEW_APPS_EMPTY_LIST_TITLE")}</h2>
+          <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => <Item item={app} onViewClicked={handleViewClicked} />)
+        data.map(app => <Item item={app} />)
       )}
     </div>
   );
@@ -126,4 +121,4 @@ const mapDispatchToProps = {};
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(OpenedApplications);
+)(FundedApps);

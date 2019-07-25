@@ -32,6 +32,11 @@ const ViewApplication = props => {
           toggleSpinner(false);
           if (result && !didCancel) {
             setData(result);
+          } else {
+            setError({
+              title: t("GET_APP_ERROR_RESULT"),
+              message: t("GET_APP_ERROR_RESULT_MSG")
+            });
           }
         })
         .onServerError(result => {
@@ -111,36 +116,67 @@ const ViewApplication = props => {
         <>
           <div className="viewAppItem animated fadeIn">
             <div className="viewAppItem__header">
-              <span className="viewAppItem__title">Business Loan</span>
+              <span className="viewAppItem__title">
+                {data.opportunityDetails &&
+                  data.opportunityDetails.RecordType}
+              </span>
               <div className="viewAppItem__headerinfo">
-                <span>Ericsson AB (330299-1234)</span>
-                <span>2019,07,12</span>
-                <span>24 month</span>
-                <span>2 300 000.00 Kr</span>
+                <span>
+                  {data.opportunityDetails && data.opportunityDetails.Name}
+                </span>
+                <span>
+                  {data.opportunityDetails &&
+                    data.opportunityDetails.createdAt}
+                </span>
+                <span>
+                  {data.opportunityDetails &&
+                    data.opportunityDetails.amortizationPeriod}
+                </span>
+                <span>
+                  {data.opportunityDetails && data.opportunityDetails.amount}{" "}
+                  Kr
+                </span>
               </div>
             </div>
             <div className="viewAppItem__body">
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>Company registered</span>
+                  <span>{t("APP_COMPANY_REGISTERED")}</span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
-                  <span>2018-05</span>
                   <span>
-                    <i className="icon-checkmark" />
-                    <span>BankID verified</span>
+                    {data.opportunityDetails &&
+                      data.opportunityDetails.CompanyRegistrationDate}
+                  </span>
+                  <span>
+                    {data.opportunityDetails &&
+                    data.opportunityDetails.bankVerified ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
+                    <span>{t("APP_BANKID_VERIFIED")}</span>
                   </span>
                 </div>
               </div>
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>Need For</span>
+                  <span>{t("APP_NEED_FOR")}</span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
-                  <span>Renovation Salary</span>
                   <span>
-                    <i className="icon-checkmark" />
-                    <span>Active Company</span>
+                    {data.opportunityDetails &&
+                      data.opportunityDetails.need &&
+                      data.opportunityDetails.need.join("  , ")}
+                  </span>
+                  <span>
+                    {data.opportunityDetails &&
+                    data.opportunityDetails.activeCompany ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
+                    <span>{t("APP_ACTIVE_COMPANY")}</span>
                   </span>
                 </div>
               </div>
@@ -151,27 +187,39 @@ const ViewApplication = props => {
                 <div className="viewAppItem__bodyRow__right">
                   <span>12 000 000.00 Kr</span>
                   <span>
-                    <i className="icon-checkmark" />
-                    <span>Company verified</span>
+                    {data.opportunityDetails &&
+                    data.opportunityDetails.companyVerified ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
+                    <span>{t("APP_COMPANY_VERIFIED")}</span>
                   </span>
                 </div>
               </div>
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>Creditsafe Score</span>
+                  <span>{t("APP_CREDITSAFE_SCRORE")}</span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
-                  <span>70</span>
+                  <span>
+                    {data.opportunityDetails &&
+                      data.opportunityDetails.creditSafeScore}
+                  </span>
                 </div>
               </div>
             </div>
           </div>
           <div className="detail animated fadeIn">
             <div className="detail__header">
-              <button className="btn --warning">Reject</button>
-              <button className="btn --primary">View Credit Report</button>
-              <button className="btn --primary">View Application</button>
-              <button className="btn --primary">Issue Offer</button>
+              <button className="btn --warning">{t("REJECT")}</button>
+              <button className="btn --primary">
+                {t("VIEW_CREDIT_REPORT")}
+              </button>
+              <button className="btn --primary">
+                {t("VIEW_APPLICATION")}
+              </button>
+              <button className="btn --primary">{t("ISSUE_OFFER")}</button>
             </div>
             <div className="detail__body">
               <div className="detail__icon">
@@ -179,125 +227,191 @@ const ViewApplication = props => {
               </div>
               <div className="detail__row">
                 <div className="detail__row__item">
-                  <span>Organization Number:</span>
-                  <span>550519-1234</span>
+                  <span>{t("APP_DETAIL_ORGANIZATION_NUMBER")}:</span>
+                  <span>
+                    {data.accountDetails && data.accountDetails.orgNumber}
+                  </span>
                 </div>
                 <div className="detail__row__item">
-                  <span>CEO:</span>
-                  <span>Erik Ericsson</span>
+                  <span>{t("APP_DETAIL_CEO")}:</span>
+                  <span>
+                    {data.accountDetails && data.accountDetails.CEO}
+                  </span>
                 </div>
                 <div className="detail__row__item">
-                  <span>Business Activities:</span>
+                  <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
                   <span>77330 brnhcs...s.dsdsdd</span>
                 </div>
                 <div className="detail__row__item">
-                  <span>Number of:</span>
-                  <span>11</span>
-                </div>
-              </div>
-              <div className="detail__row">
-                <div className="detail__row__item">
-                  <span>Registered Address:</span>
-                  <span>Biger Jarlsgatan 57C 113 56 Stockholm</span>
-                </div>
-                <div className="detail__row__item">
-                  <span>Signatary Power:</span>
-                  <span>Firman tecknas av styrelsen</span>
-                </div>
-                <div className="detail__row__item">
-                  <span>Legal form:</span>
-                  <span>Private aktiebolag</span>
-                </div>
-              </div>
-              <div className="detail__row">
-                <div className="detail__row__item">
-                  <span>Registered for Tax(f-skatt):</span>
+                  <span>{t("APP_DETAIL_NUMBER_OF")}:</span>
                   <span>
-                    <i className="icon-checkmark" />
+                    {data.accountDetails &&
+                      data.accountDetails.numOfEmployees}
+                  </span>
+                </div>
+              </div>
+              <div className="detail__row">
+                <div className="detail__row__item">
+                  <span>{t("APP_DETAIL_REGISTERED_ADDRESS")}:</span>
+                  <span>
+                    {data.accountDetails &&
+                      data.accountDetails.registeredAddress}
+                  </span>
+                </div>
+                <div className="detail__row__item">
+                  <span>{t("APP_DETAIL_SIGNATARY_POWER")}:</span>
+                  <span>
+                    {data.accountDetails &&
+                      data.accountDetails.signatoryPower}
+                  </span>
+                </div>
+                <div className="detail__row__item">
+                  <span>{t("APP_DETAIL_LEGAL_FORM")}:</span>
+                  <span>
+                    {data.accountDetails && data.accountDetails.legalForm}
+                  </span>
+                </div>
+              </div>
+              <div className="detail__row">
+                <div className="detail__row__item">
+                  <span>{t("APP_DETAIL_REGISTERED_FOR_TAX")}:</span>
+                  <span>
+                    {data.accountDetails &&
+                    data.accountDetails.registeredForTax ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
                     <span>Biger Jarlsgatan 57C 113 56 Stockholm</span>
                   </span>
                 </div>
                 <div className="detail__row__item">
-                  <span>Registered as Employer:</span>
+                  <span>{t("APP_DETAIL_REGISTERED_AS_EMPLOYER")}:</span>
                   <span>
-                    <i className="icon-checkmark" />
+                    {data.accountDetails &&
+                    data.accountDetails.registeredAsEmployer ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
                     <span>ja(from 2019-06-10)</span>
                   </span>
                 </div>
                 <div className="detail__row__item">
-                  <span>Registered for VAT:</span>
+                  <span>{t("APP_DETAIL_REGISTERED_FOR_VAT")}:</span>
                   <span>
-                    <i className="icon-checkmark" />
+                    {data.accountDetails &&
+                    data.accountDetails.registeredForVAT ? (
+                      <i className="icon-checkmark" />
+                    ) : (
+                      <i className="icon-cross" style={{ color: "red" }} />
+                    )}
                     <span>ja(from 2019-06-10)</span>
                   </span>
                 </div>
               </div>
               <div className="detail__row">
                 <div className="detail__row__item">
-                  <span>Business Activities:</span>
+                  <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
                   <span>Biger Jarlsgatan 57C 113 56 Stockholm</span>
                 </div>
               </div>
               <div className="detail__table">
-                <span>Board of Directors</span>
+                <span>{t("APP_DETAIL_BOARD_MEMBER")}</span>
                 <div className="table">
                   <table>
                     <thead>
                       <tr>
-                        <td>Name</td>
-                        <td>Personal Number</td>
-                        <td>Role</td>
-                        <td>Access</td>
+                        <td>{t("APP_DETAIL_BOARD_NAME")}</td>
+                        <td>{t("APP_DETAIL_BOARD_P_NUMBER")}</td>
+                        <td>{t("APP_DETAIL_BOARD_ROLE")}</td>
+                        <td>{t("APP_DETAIL_BOARD_ACCESS")}</td>
                       </tr>
                     </thead>
                     <tbody>
-                      {[1, 1, 1, 1].map(item => (
-                        <tr>
-                          <td>Saeed Padyab</td>
-                          <td>860212-1234</td>
-                          <td>Chairman</td>
-                          <td>2019-06-12</td>
-                        </tr>
-                      ))}
+                      {data.accountDetails &&
+                        data.accountDetails.BoardMember.map(item => (
+                          <tr>
+                            <td>{item.firstName}</td>
+                            <td>{item.personalNum}</td>
+                            <td>{item.role}</td>
+                            <td>{item.access}</td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
               </div>
-              <div className="detail__finan">Financials (year 2018)</div>
-              <div className="detail__finan">Last published: 2019-01-21</div>
+              <div className="detail__finan">
+                {t("APP_DETAIL_FINANCIAL_YEAR")}{" "}
+                {data.accountDetails && data.accountDetails.financialYear}
+              </div>
+              <div className="detail__finan">
+                {t("APP_DETAIL_LAST_PUBLISHED")}:{" "}
+                {data.accountDetails && data.accountDetails.lastPublished}
+              </div>
               <div className="detail__lastBox">
                 <div className="detail__lastBox__left">
                   <div className="lastBoxItem">
                     <div className="lastBoxItem__header">
-                      <span>Revenue</span>
+                      <span>{t("APP_DETAIL_REVENUE")}</span>
                     </div>
                     <div className="lastBoxItem__body">
                       <div className="lastBoxItem__body__row">
-                        <span>Total revenue</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_REVENUE_TOTAL")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.revenue &&
+                            data.accountDetails.revenue.totalRevenue}{" "}
+                          Kr
+                        </span>
                       </div>
                     </div>
                   </div>
                   <div className="lastBoxItem">
                     <div className="lastBoxItem__header">
-                      <span>Annual accounts</span>
+                      <span>{t("APP_DETAIL_ANNUAL_ACCOUNTS")}</span>
                     </div>
                     <div className="lastBoxItem__body">
                       <div className="lastBoxItem__body__row">
-                        <span>Aktiekapital</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_ANNUAL_SHARE_CAPITAL")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.annualAccounts &&
+                            data.accountDetails.annualAccounts
+                              .shareCapital}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Kass och bank</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_ANNUAL_CASH_BANK")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.annualAccounts &&
+                            data.accountDetails.annualAccounts
+                              .cashAndBankBalance}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Summa tillganger</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_ANNUAL_TOTAL_ASSETS")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.annualAccounts &&
+                            data.accountDetails.annualAccounts
+                              .totalAssets}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Summa eget kapital</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_ANNUAL_TOTAL_EQUALITY")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.annualAccounts &&
+                            data.accountDetails.annualAccounts
+                              .totalEquity}{" "}
+                          Kr
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -305,39 +419,71 @@ const ViewApplication = props => {
                 <div className="detail__lastBox__right">
                   <div className="lastBoxItem">
                     <div className="lastBoxItem__header">
-                      <span>Profit and Loss</span>
+                      <span>{t("APP_DETAIL_PROFIT_LOSS")}</span>
                     </div>
                     <div className="lastBoxItem__body">
                       <div className="lastBoxItem__body__row">
-                        <span>Net profit/loss</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_PROFIT_LOSS_NET")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.profitLoss &&
+                            data.accountDetails.profitLoss.netProfitLoss}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Operating profit/loss</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_PROFIT_LOSS_OPERATION")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.profitLoss &&
+                            data.accountDetails.profitLoss
+                              .operatingProfitLoss}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Profit after financial items</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_PROFIT_LOSS_AFTER")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.profitLoss &&
+                            data.accountDetails.profitLoss
+                              .profitAfterFinancial}{" "}
+                          Kr
+                        </span>
                       </div>
                     </div>
                   </div>
                   <div className="lastBoxItem">
                     <div className="lastBoxItem__header">
-                      <span>Key ratios</span>
+                      <span>{t("APP_DETAIL_KEY_RATIOS")}</span>
                     </div>
                     <div className="lastBoxItem__body">
                       <div className="lastBoxItem__body__row">
-                        <span>Net margin</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_KEY_NET")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.keyRatio &&
+                            data.accountDetails.keyRatio.netMargin}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Cash flow</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_KEY_CASH")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.keyRatio &&
+                            data.accountDetails.keyRatio.cashFlow}{" "}
+                          Kr
+                        </span>
                       </div>
                       <div className="lastBoxItem__body__row">
-                        <span>Solidity</span>
-                        <span>1 000 000 Kr</span>
+                        <span>{t("APP_DETAIL_KEY_SOLIDITY")}</span>
+                        <span>
+                          {data.accountDetails &&
+                            data.accountDetails.keyRatio &&
+                            data.accountDetails.keyRatio.solidity}{" "}
+                          Kr
+                        </span>
                       </div>
                     </div>
                   </div>

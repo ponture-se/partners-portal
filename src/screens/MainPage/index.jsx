@@ -7,6 +7,10 @@ import Header from "./header";
 const NewApplications = lazy(() => import("./../NewApplications"));
 const OpenedApplications = lazy(() => import("./../OpenedApplications"));
 const ViewApplication = lazy(() => import("./../ViewApplication"));
+const MyOffers = lazy(() => import("./../MyOffers"));
+const AcceptedOffers = lazy(() => import("./../AcceptedOffers"));
+const FundedApplications = lazy(() => import("./../FundedApplications"));
+const LostApplications = lazy(() => import("./../LostApplications"));
 //
 const MainPage = props => {
   return (
@@ -29,9 +33,33 @@ const MainPage = props => {
             />
             <PrivateRoute
               exact
-              key="openedApplications"
+              key="viewApplications"
               path="/:lang/viewApplication/:id"
               render={props => <ViewApplication {...props} />}
+            />
+            <PrivateRoute
+              exact
+              key="myOffers"
+              path="/:lang/myOffers"
+              render={props => <MyOffers {...props} />}
+            />
+            <PrivateRoute
+              exact
+              key="acceptedOffers"
+              path="/:lang/acceptedOffers"
+              render={props => <AcceptedOffers {...props} />}
+            />
+            <PrivateRoute
+              exact
+              key="fundedApplications"
+              path="/:lang/fundedApplications"
+              render={props => <FundedApplications {...props} />}
+            />
+            <PrivateRoute
+              exact
+              key="lostApplications"
+              path="/:lang/lostApplications"
+              render={props => <LostApplications {...props} />}
             />
           </Switch>
         </Suspense>

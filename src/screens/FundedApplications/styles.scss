@@ -1,0 +1,79 @@
+@import "./../../styles/mixins.scss";
+.fundedApps {
+  display: flex;
+  flex-direction: column;
+  padding-top: 50px;
+}
+.fundedAppsItem {
+  min-height: 350px;
+  background: white;
+  box-shadow: 0 0 2px lightgray;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  &__header {
+    margin: 20px 40px 0 40px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray;
+  }
+  &__title {
+    font-size: 20px;
+    font-family: OpenSanceBold;
+    margin-bottom: 20px;
+  }
+  &__headerinfo {
+    max-width: 80%;
+    display: flex;
+    justify-content: space-between;
+    font-family: OpenSanceBold;
+    span {
+      font-size: 13px;
+    }
+  }
+  &__body {
+    flex: 1;
+    padding: 20px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+  }
+  &__bodyRow {
+    flex: 1;
+    display: flex;
+    font-size: 13px;
+    // max-width: 80%;
+    span {
+      flex: 1;
+    }
+    & span:first-child {
+      font-family: OpenSanceBold;
+    }
+    & span:last-child span {
+      font-family: OpenSanceBold;
+    }
+    i {
+      padding: 0 5px;
+      color: greenyellow;
+    }
+  }
+  &__footer {
+    background: whitesmoke;
+    height: 60px;
+    display: flex;
+    align-items: center;
+
+    flex-direction: row-reverse;
+    padding: 0 10px;
+    a {
+      display: flex;
+      align-items: center;
+      font-family: OpenSanceBold;
+      text-decoration: none;
+      @include variable(app-item-footer-link-color, color, blue);
+      i {
+        padding: 0 10px;
+      }
+    }
+  }
+}

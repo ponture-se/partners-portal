@@ -2,6 +2,12 @@ import React from "react";
 import { t, currentLangName } from "../../services/languageManager";
 const Item = props => {
   const { item } = props;
+
+  function handleViewClicked() {
+    if (props.onViewClicked) {
+      props.onViewClicked(item);
+    }
+  }
   return (
     <div className="openedApp animated fadeIn">
       <div className="openedApp__header">
@@ -21,9 +27,9 @@ const Item = props => {
             <span>{t("APP_COMPANY_REGISTERED")}</span>
           </div>
           <div className="openedApp__bodyRow__right">
-            <span>{item.CompanyRegisterationDate}</span>
+            <span>{item.CompanyRegistrationDate}</span>
             <span>
-              {item.bankIdVeridied ? (
+              {item.bankVerified ? (
                 <i className="icon-checkmark" />
               ) : (
                 <i className="icon-cross" style={{ color: "red" }} />
@@ -75,7 +81,9 @@ const Item = props => {
       </div>
       <div className="openedApp__footer">
         <button className="btn --warning">{t("REJECT")}</button>
-        <button className="btn --primary">{t("VIEW_APPLICATION")}</button>
+        <button className="btn --primary" onClick={handleViewClicked}>
+          {t("VIEW_APPLICATION")}
+        </button>
         <button className="btn --primary">{t("ISSUE_OFFER")}</button>
       </div>
     </div>
