@@ -6,18 +6,20 @@ import * as serviceWorker from "./serviceWorker";
 //
 import { setAppLang } from "./services/languageManager";
 import { configureStore } from "./services/stateManager/store";
-import Cookies from "./services/storageManager";
+import Storage from "./services/storageManager";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
+import { setStore } from "./utils/store";
 import { setAuthorization } from "./services/stateManager/actions/auth";
 //
 const store = configureStore();
+setStore(store);
 // app language
 const pathName = window.location.pathname;
 const lang = pathName.split("/")[1];
 setAppLang(lang);
 //
 // check localStorage to grab token
-const token = Cookies.get("p_token");
+const token = Storage.get("p_token");
 if (token) {
   setAuthorizationToken(token);
   store.dispatch(setAuthorization(true));

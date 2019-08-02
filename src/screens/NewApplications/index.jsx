@@ -9,7 +9,7 @@ import SquareSpinner from "../../components/SquareSpinner";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
 //
 import { getNewApplications } from "./../../api/main-api";
-
+//
 const NewApplications = props => {
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
@@ -19,12 +19,10 @@ const NewApplications = props => {
     let didCancel = false;
     getNewApplications()
       .onOk(result => {
-        setTimeout(() => {
-          toggleSpinner(false);
-          if (result && !didCancel) {
-            setData(result);
-          }
-        }, 1000);
+        toggleSpinner(false);
+        if (result && !didCancel) {
+          setData(result);
+        }
       })
       .onServerError(result => {
         if (!didCancel) {
@@ -106,14 +104,19 @@ const NewApplications = props => {
           <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => <Item item={app} />)
+        data.map(app => <Item key={app.opportunityID} item={app} />)
       )}
     </div>
   );
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    loading: state.mainReducer.loading,
+    data: state.mainReducer.data,
+    success: state.mainReducer.success,
+    error: state.mainReducer.error
+  };
 }
 
 const mapDispatchToProps = {};

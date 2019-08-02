@@ -18,12 +18,10 @@ const OpenedApplications = props => {
     let didCancel = false;
     getOpenedApplications()
       .onOk(result => {
-        setTimeout(() => {
-          toggleSpinner(false);
-          if (result && !didCancel) {
-            setData(result);
-          }
-        }, 1000);
+        toggleSpinner(false);
+        if (result && !didCancel) {
+          setData(result);
+        }
       })
       .onServerError(result => {
         if (!didCancel) {
@@ -85,10 +83,19 @@ const OpenedApplications = props => {
     };
   }, []);
 
+  function handleRejectedSuccess(app) {
+    const newData = data.filter(
+      item => item.opportunityID !== app.opportunityID
+    );
+    setData(newData);
+  }
   function handleViewClicked(app) {
     props.history.push(
       `/${currentLangName}/viewApplication/${app.opportunityID}`
     );
+  }
+  function handleViewClicked(app) {
+    props.history.push(`/${currentLangName}/issueOffer/${app.opportunityID}`);
   }
 
   return (
@@ -111,7 +118,15 @@ const OpenedApplications = props => {
           <span>{t("OPEN_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => <Item item={app} onViewClicked={handleViewClicked} />)
+        data.map(app => (
+          <Item
+            key={app.opportunityID}
+            item={app}
+            onViewClicked={handleViewClicked}
+            onOfferClicked={handleViewClicked}
+            onSuccessRejected={handleRejectedSuccess}
+          />
+        ))
       )}
     </div>
   );

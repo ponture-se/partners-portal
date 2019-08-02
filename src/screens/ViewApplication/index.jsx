@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 //
 import { t, currentLangName } from "../../services/languageManager";
 //
 import "./styles.scss";
 import SquareSpinner from "../../components/SquareSpinner";
+import CircleSpinner from "../../components/CircleSpinner";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
 //
-import { getApplicationById } from "./../../api/main-api";
+import { getApplicationById, rejectApp } from "./../../api/main-api";
 
 const ViewApplication = props => {
+  let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
+  const [rejectSpinner, toggleRejectSpinner] = useState();
   const [data, setData] = useState();
   const [error, setError] = useState();
   useEffect(() => {
-    let didCancel = false;
     const id = props.match
       ? props.match.params
         ? props.match.params.id
@@ -30,13 +33,15 @@ const ViewApplication = props => {
       getApplicationById()
         .onOk(result => {
           toggleSpinner(false);
-          if (result && !didCancel) {
-            setData(result);
-          } else {
-            setError({
-              title: t("GET_APP_ERROR_RESULT"),
-              message: t("GET_APP_ERROR_RESULT_MSG")
-            });
+          if (!didCancel) {
+            if (result) {
+              setData(result);
+            } else {
+              setError({
+                title: t("GET_APP_ERROR_RESULT"),
+                message: t("GET_APP_ERROR_RESULT_MSG")
+              });
+            }
           }
         })
         .onServerError(result => {
@@ -93,12 +98,73 @@ const ViewApplication = props => {
             });
           }
         })
-        .call();
+        .call(id);
     }
     return () => {
       didCancel = true;
     };
   }, []);
+
+  function handleRejectApp() {
+    if (!rejectSpinner) {
+      toggleRejectSpinner(true);
+      rejectApp()
+        .onOk(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
+            props.history.goBack();
+          }
+        })
+        .onServerError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("INTERNAL_SERVER_ERROR"));
+          }
+        })
+        .onBadRequest(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("BAD_REQUEST"));
+          }
+        })
+        .unAuthorized(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("UNKNOWN_ERROR"));
+          }
+        })
+        .notFound(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("NOT_FOUND"));
+          }
+        })
+        .unKnownError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("UNKNOWN_ERROR"));
+          }
+        })
+        .onRequestError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("ON_REQUEST_ERROR"));
+          }
+        })
+        .call(props.match.params.id);
+    }
+  }
+  function handleViewCredit() {
+    props.history.push(`/${currentLangName}/issueOffer/${data}`);
+  }
+  function handleOffer() {
+    props.history.push(
+      `/${currentLangName}/issueOffer/${
+        data.opportunityDetails ? data.opportunityDetails.opportunityID : ""
+      }`
+    );
+  }
   return (
     <div className="viewApp">
       {spinner ? (
@@ -112,29 +178,26 @@ const ViewApplication = props => {
           <h2>{error.title}</h2>
           <span>{error.message}</span>
         </div>
-      ) : (
+      ) : data ? (
         <>
           <div className="viewAppItem animated fadeIn">
             <div className="viewAppItem__header">
               <span className="viewAppItem__title">
-                {data.opportunityDetails &&
-                  data.opportunityDetails.RecordType}
+                {data.opportunityDetails && data.opportunityDetails.RecordType}
               </span>
               <div className="viewAppItem__headerinfo">
                 <span>
                   {data.opportunityDetails && data.opportunityDetails.Name}
                 </span>
                 <span>
-                  {data.opportunityDetails &&
-                    data.opportunityDetails.createdAt}
+                  {data.opportunityDetails && data.opportunityDetails.createdAt}
                 </span>
                 <span>
                   {data.opportunityDetails &&
                     data.opportunityDetails.amortizationPeriod}
                 </span>
                 <span>
-                  {data.opportunityDetails && data.opportunityDetails.amount}{" "}
-                  Kr
+                  {data.opportunityDetails && data.opportunityDetails.amount} Kr
                 </span>
               </div>
             </div>
@@ -182,10 +245,18 @@ const ViewApplication = props => {
               </div>
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>Revenue 2018</span>
+                  <span>
+                    {t("APP_REVENUE")}{" "}
+                    {data.accountDetails && data.accountDetails.financialYear}
+                  </span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
-                  <span>12 000 000.00 Kr</span>
+                  <span>
+                    {data.accountDetails &&
+                      data.accountDetails.revenue &&
+                      data.accountDetails.revenue.totalRevenue}{" "}
+                    Kr
+                  </span>
                   <span>
                     {data.opportunityDetails &&
                     data.opportunityDetails.companyVerified ? (
@@ -212,14 +283,16 @@ const ViewApplication = props => {
           </div>
           <div className="detail animated fadeIn">
             <div className="detail__header">
-              <button className="btn --warning">{t("REJECT")}</button>
-              <button className="btn --primary">
+              <button className="btn --warning" onClick={handleRejectApp}>
+                <CircleSpinner show={rejectSpinner} />
+                {!rejectSpinner && t("REJECT")}
+              </button>
+              <button className="btn --primary" onClick={handleViewCredit}>
                 {t("VIEW_CREDIT_REPORT")}
               </button>
-              <button className="btn --primary">
-                {t("VIEW_APPLICATION")}
+              <button className="btn --primary" onClick={handleOffer}>
+                {t("ISSUE_OFFER")}
               </button>
-              <button className="btn --primary">{t("ISSUE_OFFER")}</button>
             </div>
             <div className="detail__body">
               <div className="detail__icon">
@@ -234,9 +307,7 @@ const ViewApplication = props => {
                 </div>
                 <div className="detail__row__item">
                   <span>{t("APP_DETAIL_CEO")}:</span>
-                  <span>
-                    {data.accountDetails && data.accountDetails.CEO}
-                  </span>
+                  <span>{data.accountDetails && data.accountDetails.CEO}</span>
                 </div>
                 <div className="detail__row__item">
                   <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
@@ -245,8 +316,7 @@ const ViewApplication = props => {
                 <div className="detail__row__item">
                   <span>{t("APP_DETAIL_NUMBER_OF")}:</span>
                   <span>
-                    {data.accountDetails &&
-                      data.accountDetails.numOfEmployees}
+                    {data.accountDetails && data.accountDetails.numOfEmployees}
                   </span>
                 </div>
               </div>
@@ -260,9 +330,12 @@ const ViewApplication = props => {
                 </div>
                 <div className="detail__row__item">
                   <span>{t("APP_DETAIL_SIGNATARY_POWER")}:</span>
-                  <span>
-                    {data.accountDetails &&
-                      data.accountDetails.signatoryPower}
+                  <span
+                    title={
+                      data.accountDetails && data.accountDetails.signatoryPower
+                    }
+                  >
+                    {data.accountDetails && data.accountDetails.signatoryPower}
                   </span>
                 </div>
                 <div className="detail__row__item">
@@ -398,8 +471,7 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts
-                              .totalAssets}{" "}
+                            data.accountDetails.annualAccounts.totalAssets}{" "}
                           Kr
                         </span>
                       </div>
@@ -408,8 +480,7 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts
-                              .totalEquity}{" "}
+                            data.accountDetails.annualAccounts.totalEquity}{" "}
                           Kr
                         </span>
                       </div>
@@ -492,7 +563,7 @@ const ViewApplication = props => {
             </div>
           </div>
         </>
-      )}
+      ) : null}
     </div>
   );
 };

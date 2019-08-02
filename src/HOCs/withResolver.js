@@ -19,7 +19,6 @@ const widthResolver = WrappedComponent => {
     mapStateToProps,
     mapDispatchToProps
   )(props => {
-    console.log(props);
     const [loading, toggleLoading] = useState(props.userInfo ? false : true);
     const [error, setError] = useState();
 
@@ -27,48 +26,48 @@ const widthResolver = WrappedComponent => {
       window.location.reload();
     }
     useEffect(() => {
-      if (loading) {
-        getUserInfo()
-          .onOk(result => {
-            props.setUserInfo(result);
-            toggleLoading(false);
-          })
-          .onServerError(result => {
-            setError("Internal server error");
-            toggleLoading(false);
-          })
-          .onBadRequest(result => {
-            setError("Bad request");
-            toggleLoading(false);
-          })
-          .unAuthorized(result => {
-            setError(
-              "There is an error which has occured in the request.\ntry again "
-            );
-            toggleLoading(false);
-          })
-          .notFound(result => {
-            setError(
-              "There is an error which has occured in the request.\ntry again "
-            );
-            toggleLoading(false);
-          })
-          .onRequestError(result => {
-            setError(
-              "There is an error which has occured in the request.\ntry again "
-            );
-            toggleLoading(false);
-          })
-          .unKnownError(result => {
-            setError(
-              "There is an error which has occured in the request.\ntry again "
-            );
-            toggleLoading(false);
-          })
-          .call();
-      }
+      // if (loading) {
+      //   getUserInfo()
+      //     .onOk(result => {
+      //       props.setUserInfo(result);
+      //       toggleLoading(false);
+      //     })
+      //     .onServerError(result => {
+      //       setError("Internal server error");
+      //       toggleLoading(false);
+      //     })
+      //     .onBadRequest(result => {
+      //       setError("Bad request");
+      //       toggleLoading(false);
+      //     })
+      //     .unAuthorized(result => {
+      //       setError(
+      //         "There is an error which has occured in the request.\ntry again "
+      //       );
+      //       toggleLoading(false);
+      //     })
+      //     .notFound(result => {
+      //       setError(
+      //         "There is an error which has occured in the request.\ntry again "
+      //       );
+      //       toggleLoading(false);
+      //     })
+      //     .onRequestError(result => {
+      //       setError(
+      //         "There is an error which has occured in the request.\ntry again "
+      //       );
+      //       toggleLoading(false);
+      //     })
+      //     .unKnownError(result => {
+      //       setError(
+      //         "There is an error which has occured in the request.\ntry again "
+      //       );
+      //       toggleLoading(false);
+      //     })
+      //     .call();
+      // }
     }, []);
-
+    return <WrappedComponent {...props} />;
     return !loading ? (
       error ? (
         <div className="rosolverError animated fadeIn">

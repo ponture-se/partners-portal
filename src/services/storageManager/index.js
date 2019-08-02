@@ -1,17 +1,17 @@
-export default class Cookies {
+import Cookies from "js-cookie";
+
+
+export default class Storage {
+
   static set(name, value, days = 1) {
-    var d = new Date();
-    d.setTime(d.getTime() + 24 * 60 * 60 * 1000 * days);
-    document.cookie = name + "=" + value + ";path=/;expires=" + d.toGMTString();
+    Cookies.set(name, value, { expires: days });
   }
   static get(name) {
-    const v = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
-    return v ? v[2] : null;
+    return Cookies.get(name);
   }
   static remove(name) {
-    var d = new Date(); //Create an date object
-    d.setTime(d.getTime() - 1000 * 60 * 60 * 24); //Set the time to the past. 1000 milliseonds = 1 second
-    var expires = "expires=" + d.toGMTString(); //Compose the expirartion date
-    window.document.cookie = name + "=" + "; " + expires; //Set the cookie with name and the expiration date
+    Cookies.remove(name);
   }
+
+  
 }

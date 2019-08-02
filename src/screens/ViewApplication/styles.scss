@@ -2,7 +2,6 @@
 .viewApp {
   display: flex;
   flex-direction: column;
-  padding-top: 50px;
 }
 .viewAppItem {
   min-height: 300px;
@@ -128,7 +127,10 @@
         font-size: 14px;
       }
       & span:last-child {
-        display: flex;
+        width: 100%;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
       }
       i {
         color: greenyellow;
@@ -196,14 +198,14 @@
         padding: 10px 0;
         border-bottom: 1px solid lightgray;
       }
-      &__body{
-        &__row{
+      &__body {
+        &__row {
           display: flex;
           justify-content: space-between;
           padding: 10px 0;
           font-size: 13px;
-          & span:first-child{
-            font-family: OpenSanceBold
+          & span:first-child {
+            font-family: OpenSanceBold;
           }
         }
       }

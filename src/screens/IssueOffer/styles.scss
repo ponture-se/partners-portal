@@ -1,0 +1,5 @@
+@import "./../../styles/mixins.scss";
+.issueOffer {
+  @include variable(form-bg, background, white);
+  min-height: 300px;
+}

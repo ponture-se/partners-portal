@@ -27,6 +27,8 @@ export default {
   "main-content-width": "992px",
   "app-item-footer-link-color": $color3,
 
+  //common
+  "form-bg": $color7,
   // elements
   "input-border-color": $color8,
   "input-outline-color": $color5,

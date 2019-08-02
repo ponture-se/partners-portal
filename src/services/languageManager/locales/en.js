@@ -13,15 +13,20 @@ export default {
     NOT_FOUND_MSG: "Not Found",
     ON_REQUEST_ERROR: "Request Error",
     ON_REQUEST_ERROR_MSG: "Request Error",
+    UN_AUTHORIZED: "Session has expired",
     MONTH: "Month",
     //
-    LOGIN_TITLE1: "Get more things done with",
-    LOGIN_TITLE2: "Logging Platform",
+    LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
       "Access to the most powerful tool in the entire design and web industry",
+    LOGIN_USERNAME: "Username",
+    LOGIN_USERNAME_INFO: "Try to enter valid username",
+    LOGIN_PASSWORD: "Password",
+    LOGIN_PASSWORD_INFO: "Password must be at least 6 characters",
     LOGIN_USERNAME_INPUT_PLACEHOLDER: "Enter username",
     LOGIN_PASSWORD_INPUT_PLACEHOLDER: "Password",
     LOGIN_BTN_NAME: "Login",
+
     SIGN_OUT: "Sign Out",
     HEADER_TABS_FIRST: "New Application",
     HEADER_TABS_SECOND: "Opened Applications",
@@ -76,6 +81,8 @@ export default {
     APP_DETAIL_KEY_NET: "Net margin",
     APP_DETAIL_KEY_CASH: "Cash flow",
     APP_DETAIL_KEY_SOLIDITY: "Solidity",
+    APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
+
     //
     APP_COMPANY_REGISTERED: "Company registered",
     APP_BANKID_VERIFIED: "BankID verified",
@@ -83,6 +90,7 @@ export default {
     APP_ACTIVE_COMPANY: "Active Company",
     APP_COMPANY_VERIFIED: "Company verified",
     APP_CREDITSAFE_SCRORE: "Creditsafe Score",
-    APP_OPEN_APP_LINK: "Open Application"
+    APP_OPEN_APP_LINK: "Open Application",
+    APP_REVENUE: "Revenue"
   }
 };

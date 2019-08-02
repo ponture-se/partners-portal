@@ -2,8 +2,8 @@ const axios = require("axios");
 
 const config = process.env;
 const baseUrl = config.REACT_APP_BASE_URL;
-const getTokenUrl = baseUrl + config.REACT_APP_GET_TOKEN_URL;
-const isMock = config.REACT_APP_IS_MOCK_DATA === "true" ? true : false;
+const getTokenUrl = baseUrl + config.REACT_APP_LOGIN_URL;
+const isMock = false;
 
 export function getToken() {
   let _onOkCallBack;
@@ -50,51 +50,43 @@ export function getToken() {
   }
 
   const _call = async (userName, password) => {
-    try {
-      let rawResponse;
-      if (!isMock) {
-        const url = getTokenUrl;
-        rawResponse = await axios({
-          url: url,
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          data: {
-            userName,
-            password
+    const url = getTokenUrl;
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        "Content-Type": "application/json"
+      },
+      data: {
+        userName,
+        password
+      }
+    })
+      .then(response => {
+        _onOk(response.data);
+      })
+      .catch(error => {
+        if (error.response) {
+          const status = error.response.status;
+          switch (status) {
+            case 400:
+              _onBadRequest();
+              break;
+            case 401:
+              _unAuthorized();
+              break;
+            case 404:
+              _notFound();
+              break;
+            case 500:
+              _onServerError();
+              break;
+            default:
+              _unKnownError();
+              break;
           }
-        });
-      } else {
-        rawResponse = { status: 200, data: { access_token: "hghgh" } };
-      }
-
-      const status = rawResponse.status;
-      const result = rawResponse.data;
-
-      switch (status) {
-        case 200:
-          _onOk(result);
-          break;
-        case 400:
-          _onBadRequest();
-          break;
-        case 401:
-          _unAuthorized();
-          break;
-        case 404:
-          _notFound();
-          break;
-        case 500:
-          _onServerError(result);
-          break;
-        default:
-          _unKnownError();
-          break;
-      }
-    } catch (error) {
-      _onRequestError(error.message);
-    }
+        }
+      });
   };
 
   return {
@@ -184,7 +176,7 @@ export function getUserInfo() {
           method: "GET",
           headers: {
             "Content-Type": "application/json"
-          },
+          }
         });
       } else {
         rawResponse = {

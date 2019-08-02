@@ -1,14 +1,81 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+//
 import { t, currentLangName } from "../../services/languageManager";
+import CircleSpinner from "../../components/CircleSpinner";
+import { rejectApp } from "./../../api/main-api";
+//
 const Item = props => {
+  let didCancel = false;
   const { item } = props;
-
+  const [rejectSpinner, toggleRejectSpinner] = useState();
   function handleViewClicked() {
     if (props.onViewClicked) {
       props.onViewClicked(item);
     }
   }
+  useEffect(() => {
+    return () => {
+      didCancel = true;
+    };
+  }, []);
+  function handleRejectApp() {
+    if (!rejectSpinner) {
+      toggleRejectSpinner(true);
+      rejectApp()
+        .onOk(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
+            if (props.onSuccessRejected) {
+              props.onSuccessRejected(item);
+            }
+          }
+        })
+        .onServerError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("INTERNAL_SERVER_ERROR"));
+          }
+        })
+        .onBadRequest(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("BAD_REQUEST"));
+          }
+        })
+        .unAuthorized(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("UNKNOWN_ERROR"));
+          }
+        })
+        .notFound(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("NOT_FOUND"));
+          }
+        })
+        .unKnownError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("UNKNOWN_ERROR"));
+          }
+        })
+        .onRequestError(result => {
+          if (!didCancel) {
+            toggleRejectSpinner(false);
+            toast.error(t("ON_REQUEST_ERROR"));
+          }
+        })
+        .call(item.opportunityID);
+    }
+  }
+  function handleOfferClicked() {
+    if (props.onOfferClicked) props.onOfferClicked(item);
+  }
   return (
+    
     <div className="openedApp animated fadeIn">
       <div className="openedApp__header">
         <span className="openedApp__title">{item.RecordType}</span>
@@ -80,11 +147,16 @@ const Item = props => {
         </div>
       </div>
       <div className="openedApp__footer">
-        <button className="btn --warning">{t("REJECT")}</button>
+        <button className="btn --warning" onClick={handleRejectApp}>
+          <CircleSpinner show={rejectSpinner} />
+          {!rejectSpinner && t("REJECT")}
+        </button>
         <button className="btn --primary" onClick={handleViewClicked}>
           {t("VIEW_APPLICATION")}
         </button>
-        <button className="btn --primary">{t("ISSUE_OFFER")}</button>
+        <button className="btn --primary" onClick={handleOfferClicked}>
+          {t("ISSUE_OFFER")}
+        </button>
       </div>
     </div>
   );

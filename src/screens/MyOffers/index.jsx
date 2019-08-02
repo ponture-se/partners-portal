@@ -19,12 +19,10 @@ const NewApplications = props => {
     let didCancel = false;
     getMyOffers()
       .onOk(result => {
-        setTimeout(() => {
-          toggleSpinner(false);
-          if (result && !didCancel) {
-            setData(result);
-          }
-        }, 1000);
+        toggleSpinner(false);
+        if (result && !didCancel) {
+          setData(result);
+        }
       })
       .onServerError(result => {
         if (!didCancel) {

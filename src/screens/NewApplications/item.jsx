@@ -63,7 +63,7 @@ const Item = props => {
         </div>
       </div>
       <div className="application__footer">
-        <Link to={`/${currentLangName}/viewApplication/12`}>
+        <Link to={`/${currentLangName}/viewApplication/${item.opportunityID}`}>
           {t("APP_OPEN_APP_LINK")}
           <i className="icon-arrow-right2" />
         </Link>

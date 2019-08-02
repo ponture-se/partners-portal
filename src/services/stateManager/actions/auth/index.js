@@ -1,4 +1,4 @@
-import Cookies from "./../../../storageManager";
+import Storage from "./../../../storageManager";
 import setAuthorizationToken from "./../../../../utils/setAuthorizationToken";
 
 export const SET_USER = "SET_USER";
@@ -17,7 +17,6 @@ export function setUser(user) {
     user
   };
 }
-
 export function logout() {
   return {
     type: LOGOUT
@@ -25,16 +24,26 @@ export function logout() {
 }
 
 export const loginUser = token => dispatch => {
-  Cookies.set("p_token", token);
+  Storage.set("p_token", token);
   setAuthorizationToken(token); // set axios token
   dispatch(setAuthorization(true));
 };
 
 export const logoutUser = () => dispatch => {
-  Cookies.remove("p_token");
+  Storage.remove("p_token");
   setAuthorizationToken(false); // remove axios token
   dispatch(logout());
 };
+
+export function unAuthorizedUser() {
+  _unAuthorizedUser()();
+}
+const _unAuthorizedUser = () => dispatch => {
+  Storage.remove("p_token");
+  setAuthorizationToken(false); // remove axios token
+  dispatch(logout());
+};
+
 export const setUserInfo = user => dispatch => {
   dispatch(setUser(user));
 };

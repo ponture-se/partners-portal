@@ -1,7 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
-import { useTheme, useLocale, useLayout } from "./hooks";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 //
+import { useTheme } from "./hooks";
 import { currentLangName } from "./services/languageManager";
 import "./styles/app.scss";
 import "./styles/animate.css";
@@ -15,24 +17,26 @@ const Main = withResolver(MainPage);
 
 function App() {
   useTheme("theme1");
-  // useLayout("ltr");
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route
-          exact
-          key="login"
-          path="/:lang/login"
-          render={props => <Login {...props} />}
-        />
-        <PrivateRoute
-          key="mainPage"
-          path="/:lang"
-          render={props => <Main {...props} />}
-        />
-        <Redirect from="/" to={`/${currentLangName}/newApplications`} exact />
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route
+            exact
+            key="login"
+            path="/:lang/login"
+            render={props => <Login {...props} />}
+          />
+          <PrivateRoute
+            key="mainPage"
+            path="/:lang"
+            render={props => <Main {...props} />}
+          />
+          <Redirect from="/" to={`/${currentLangName}/newApplications`} exact />
+        </Switch>
+      </BrowserRouter>
+      <ToastContainer />
+    </>
   );
 }
 

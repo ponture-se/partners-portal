@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
 //
 import { CircleSpinner } from "./../../components";
 import "./styles.scss";
@@ -36,21 +37,23 @@ const Login = props => {
         })
         .onServerError(result => {
           toggleSpinner(false);
+          toast.error(t("INTERNAL_SERVER_ERROR"));
         })
         .onBadRequest(result => {
           toggleSpinner(false);
-        })
-        .unAuthorized(result => {
-          toggleSpinner(false);
+          toast.error(t("BAD_REQUEST"));
         })
         .notFound(result => {
           toggleSpinner(false);
+          toast.error(t("NOT_FOUND"));
         })
         .unKnownError(result => {
           toggleSpinner(false);
+          toast.error(t("UNKNOWN_ERROR"));
         })
         .onRequestError(result => {
           toggleSpinner(false);
+          toast.error(t("ON_REQUEST_ERROR"));
         })
         .call(userName, password);
     }
@@ -61,15 +64,18 @@ const Login = props => {
       <div className="loginHeader">
         <img src={require("./../../assets/logo-c.png")} alt="" />
       </div>
-      <div className="loginBox">
-        <h1 className="animated fadeIn">
-          {t("LOGIN_TITLE1")}
-          <br />
-          {t("LOGIN_TITLE2")}
-        </h1>
-        <span className="animated fadeIn">{t("LOGIN_INFO")}</span>
+      <div className="loginBox animated fadeIn">
+        <div className="loginBox__header">
+          <span>{t("LOGIN_TITLE")}</span>
+          <span>{t("LOGIN_INFO")}</span>
+        </div>
         <form onSubmit={handleLoginClicked}>
-          <div className="formInput animated fadeIn">
+          <div className="formInput">
+            <div className="formInput__header">
+              <div className="formInput__header__left">
+                {t("LOGIN_USERNAME")}
+              </div>
+            </div>
             <div className="formInput__body">
               <input
                 type="text"
@@ -80,8 +86,18 @@ const Login = props => {
                 onChange={handleUsernameChanged}
               />
             </div>
+            <div className="formInput__footer">
+              <div className="formInput__footer__left">
+                <span className="elementInfo">{t("LOGIN_USERNAME_INFO")}</span>
+              </div>
+            </div>
           </div>
-          <div className="formInput animated fadeIn">
+          <div className="formInput">
+            <div className="formInput__header">
+              <div className="formInput__header__left">
+                {t("LOGIN_PASSWORD")}
+              </div>
+            </div>
             <div className="formInput__body">
               <input
                 type="password"
@@ -91,9 +107,14 @@ const Login = props => {
                 onChange={handlePasswordChanged}
               />
             </div>
+            <div className="formInput__footer">
+              <div className="formInput__footer__left">
+                <span className="elementInfo">{t("LOGIN_PASSWORD_INFO")}</span>
+              </div>
+            </div>
           </div>
           <button
-            className="btn --primary animated fadeIn"
+            className="btn --primary"
             disabled={
               !(
                 userName &&
