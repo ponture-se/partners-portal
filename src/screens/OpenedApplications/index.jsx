@@ -94,7 +94,7 @@ const OpenedApplications = props => {
       `/${currentLangName}/viewApplication/${app.opportunityID}`
     );
   }
-  function handleViewClicked(app) {
+  function handleOfferClicked(app) {
     props.history.push(`/${currentLangName}/issueOffer/${app.opportunityID}`);
   }
 
@@ -123,7 +123,7 @@ const OpenedApplications = props => {
             key={app.opportunityID}
             item={app}
             onViewClicked={handleViewClicked}
-            onOfferClicked={handleViewClicked}
+            onOfferClicked={handleOfferClicked}
             onSuccessRejected={handleRejectedSuccess}
           />
         ))

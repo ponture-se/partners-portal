@@ -2,7 +2,7 @@ import React, { useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import "./styles.scss";
-import { logoutUser } from "./../../../services/stateManager/actions/auth";
+import { logoutUser } from "../../../services/redux/auth/actions";
 import { t, currentLangName } from "./../../../services/languageManager";
 
 const Header = props => {

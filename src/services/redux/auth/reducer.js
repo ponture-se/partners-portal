@@ -1,11 +1,34 @@
-import { SET_USER, SET_AUTHORIZATION, LOGOUT } from "./../../actions/auth";
+import {
+  SUCCESS_TOKEN,
+  FAILED_TOKEN,
+  SET_USER,
+  SET_AUTHORIZATION,
+  LOGOUT,
+  LOADING
+} from "./actions";
+
 const initialState = {
+  loading: false,
   isAuthenticated: false,
   userInfo: null
 };
+
 export default function authReducer(state = initialState, action) {
   switch (action.type) {
+    case LOADING: {
+      return {
+        ...state,
+        loading: true
+      };
+    }
+    case SUCCESS_TOKEN: {
+      return {
+        ...state,
+        loading: false
+      };
+    }
     case SET_AUTHORIZATION: {
+      console.log(0);
       return {
         ...state,
         isAuthenticated: action.value

@@ -28,14 +28,13 @@
     @include variable(login-box-bg, background, white);
     &__header {
       border-bottom: 0.5px solid lightgray;
-      min-height: 120px;
+      min-height: 100px;
       display: flex;
       justify-content: center;
       flex-direction: column;
       font-size: 13px;
       & span:first-child {
         font-size: 25px;
-        margin-bottom: 10px;
       }
     }
     form {

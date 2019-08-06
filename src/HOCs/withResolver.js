@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { t, currentLangName } from "../services/languageManager";
 import { getUserInfo } from "../api/account-api";
-import { setUserInfo } from "./../services/stateManager/actions/auth";
+import { setUserInfo } from "../services/redux/auth/actions";
 //
 const widthResolver = WrappedComponent => {
   function mapStateToProps(state) {

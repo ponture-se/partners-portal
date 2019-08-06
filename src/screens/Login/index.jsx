@@ -1,17 +1,14 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
 //
 import { CircleSpinner } from "./../../components";
 import "./styles.scss";
-import { t, currentLangName } from "./../../services/languageManager";
-import { getToken } from "./../../api/account-api";
-import { loginUser } from "./../../services/stateManager/actions/auth";
+import { t } from "./../../services/languageManager";
+import { login } from "../../services/redux/auth/actions";
 
 const Login = props => {
-  const [spinner, toggleSpinner] = useState();
-  const [userName, setUsername] = useState();
-  const [password, setPassword] = useState();
+  const [userName, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   function handleUsernameChanged(e) {
     setUsername(e.target.value);
@@ -21,42 +18,7 @@ const Login = props => {
   }
   function handleLoginClicked(e) {
     e.preventDefault();
-    if (!spinner) {
-      toggleSpinner(true);
-      getToken()
-        .onOk(result => {
-          toggleSpinner(false);
-          if (result) {
-            props.loginUser(result.access_token);
-            props.history.replace(
-              !props.location.state
-                ? "/" + currentLangName + "/newApplications"
-                : props.location.state.from.pathname
-            );
-          }
-        })
-        .onServerError(result => {
-          toggleSpinner(false);
-          toast.error(t("INTERNAL_SERVER_ERROR"));
-        })
-        .onBadRequest(result => {
-          toggleSpinner(false);
-          toast.error(t("BAD_REQUEST"));
-        })
-        .notFound(result => {
-          toggleSpinner(false);
-          toast.error(t("NOT_FOUND"));
-        })
-        .unKnownError(result => {
-          toggleSpinner(false);
-          toast.error(t("UNKNOWN_ERROR"));
-        })
-        .onRequestError(result => {
-          toggleSpinner(false);
-          toast.error(t("ON_REQUEST_ERROR"));
-        })
-        .call(userName, password);
-    }
+    if (!props.loading) props.login(userName, password, props);
   }
 
   return (
@@ -67,7 +29,6 @@ const Login = props => {
       <div className="loginBox animated fadeIn">
         <div className="loginBox__header">
           <span>{t("LOGIN_TITLE")}</span>
-          <span>{t("LOGIN_INFO")}</span>
         </div>
         <form onSubmit={handleLoginClicked}>
           <div className="formInput">
@@ -124,7 +85,11 @@ const Login = props => {
               )
             }
           >
-            {!spinner ? t("LOGIN_BTN_NAME") : <CircleSpinner show={true} />}
+            {!props.loading ? (
+              t("LOGIN_BTN_NAME")
+            ) : (
+              <CircleSpinner show={true} />
+            )}
           </button>
         </form>
       </div>
@@ -133,11 +98,13 @@ const Login = props => {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    loading: state.authReducer.loading
+  };
 }
 
 const mapDispatchToProps = {
-  loginUser
+  login
 };
 
 export default connect(

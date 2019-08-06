@@ -82,6 +82,10 @@ export default {
     APP_DETAIL_KEY_CASH: "Cash flow",
     APP_DETAIL_KEY_SOLIDITY: "Solidity",
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
+    ISSUE_OFFER_PRODUCTS_LOADING_TEXT: "Loading products...",
+    ISSUE_OFFER_PRODUCTS_EMPTY_TITLE: "List Empty!",
+    ISSUE_OFFER_PRODUCTS_EMPTY_INFO: "There aren't any products.",
+    ISSUE_OFFER_PRODUCTS_TITLE:"Products List",
 
     //
     APP_COMPANY_REGISTERED: "Company registered",

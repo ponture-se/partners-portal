@@ -4,20 +4,16 @@ import { Provider } from "react-redux";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 //
+import store from "./services/redux/store";
 import { setAppLang } from "./services/languageManager";
-import { configureStore } from "./services/stateManager/store";
 import Storage from "./services/storageManager";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
-import { setStore } from "./utils/store";
-import { setAuthorization } from "./services/stateManager/actions/auth";
-//
-const store = configureStore();
-setStore(store);
+import { setAuthorization } from "./services/redux/auth/actions";
+
 // app language
 const pathName = window.location.pathname;
 const lang = pathName.split("/")[1];
 setAppLang(lang);
-//
 // check localStorage to grab token
 const token = Storage.get("p_token");
 if (token) {
