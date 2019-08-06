@@ -6,7 +6,7 @@ const initialState = {
   error: null
 };
 
-export default function newAppsReducer(state = initialState, action) {
+export default function openedAppsReducer(state = initialState, action) {
   switch (action.type) {
     case LOADING: {
       return {

@@ -12,7 +12,7 @@ import { loadNewApps } from "services/redux/newApps/actions";
 //
 const NewApplications = props => {
   useEffect(() => {
-    props.loadNewApps();
+    if (props.loadNewApps) props.loadNewApps();
   }, []);
   return (
     <div className="newApps">

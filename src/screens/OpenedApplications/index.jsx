@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 //
 import { t, currentLangName } from "../../services/languageManager";
@@ -8,86 +8,18 @@ import Item from "./item";
 import SquareSpinner from "../../components/SquareSpinner";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
 //
-import { getOpenedApplications } from "./../../api/main-api";
+import { loadOpenedApps } from "./../../services/redux/openedApps/actions";
 
 const OpenedApplications = props => {
-  const [spinner, toggleSpinner] = useState(true);
-  const [data, setData] = useState();
-  const [error, setError] = useState();
   useEffect(() => {
-    let didCancel = false;
-    getOpenedApplications()
-      .onOk(result => {
-        toggleSpinner(false);
-        if (result && !didCancel) {
-          setData(result);
-        }
-      })
-      .onServerError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("INTERNAL_SERVER_ERROR"),
-            message: t("INTERNAL_SERVER_ERROR_MSG")
-          });
-        }
-      })
-      .onBadRequest(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("BAD_REQUEST"),
-            message: t("BAD_REQUEST_MSG")
-          });
-        }
-      })
-      .unAuthorized(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .notFound(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("NOT_FOUND"),
-            message: t("NOT_FOUND_MSG")
-          });
-        }
-      })
-      .unKnownError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .onRequestError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("ON_REQUEST_ERROR"),
-            message: t("ON_REQUEST_ERROR_MSG")
-          });
-        }
-      })
-      .call();
-    return () => {
-      didCancel = true;
-    };
+    if (props.loadOpenedApps) props.loadOpenedApps();
   }, []);
 
   function handleRejectedSuccess(app) {
-    const newData = data.filter(
+    const newData = props.data.filter(
       item => item.opportunityID !== app.opportunityID
     );
-    setData(newData);
+    // setData(newData);
   }
   function handleViewClicked(app) {
     props.history.push(
@@ -100,25 +32,25 @@ const OpenedApplications = props => {
 
   return (
     <div className="openedApps">
-      {spinner ? (
+      {props.loading ? (
         <div className="page-loading">
           <SquareSpinner />
           <h2>{t("OPEN_APPS_LOADING_TEXT")}</h2>
         </div>
-      ) : error ? (
+      ) : props.error ? (
         <div className="page-list-error animated fadeIn">
           <Wrong />
-          <h2>{error.title}</h2>
-          <span>{error.message}</span>
+          <h2>{props.error && props.error.title}</h2>
+          <span>{props.error && props.error.message}</span>
         </div>
-      ) : !data || data.length === 0 ? (
+      ) : !props.data || props.data.length === 0 ? (
         <div className="page-empty-list animated fadeIn">
           <Empty />
           <h2>{t("OPEN_APPS_EMPTY_LIST_TITLE")}</h2>
           <span>{t("OPEN_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => (
+        props.data.map(app => (
           <Item
             key={app.opportunityID}
             item={app}
@@ -131,12 +63,17 @@ const OpenedApplications = props => {
     </div>
   );
 };
-
 function mapStateToProps(state) {
-  return {};
+  return {
+    loading: state.openedAppsReducer.loading,
+    data: state.openedAppsReducer.data,
+    error: state.openedAppsReducer.error
+  };
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadOpenedApps
+};
 
 export default connect(
   mapStateToProps,
