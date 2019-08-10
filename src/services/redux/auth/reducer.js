@@ -28,7 +28,6 @@ export default function authReducer(state = initialState, action) {
       };
     }
     case SET_AUTHORIZATION: {
-      console.log(0);
       return {
         ...state,
         isAuthenticated: action.value

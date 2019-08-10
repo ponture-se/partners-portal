@@ -1,33 +1,38 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 //
-import { t, currentLangName } from "../../services/languageManager";
+import { t, currentLangName, setAppLang } from "services/languageManager";
 //
 import "./styles.scss";
 import Item from "./item";
-import SquareSpinner from "../../components/SquareSpinner";
-import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
+import SquareSpinner from "components/SquareSpinner";
+import { Empty, Wrong } from "components/Commons/ErrorsComponent";
+import IssueOfferModal from "./../IssueOffer";
 //
-import { loadOpenedApps } from "./../../services/redux/openedApps/actions";
+import {
+  loadOpenedApps,
+  resetStore
+} from "services/redux/application/openedApps/actions";
 
 const OpenedApplications = props => {
+  const [selectedApp, setApp] = useState();
+  const [issueOfferVisibility, toggleIssueOffer] = useState();
+
   useEffect(() => {
     if (props.loadOpenedApps) props.loadOpenedApps();
+    return () => {
+      if (props.resetStore) props.resetStore();
+    };
   }, []);
 
-  function handleRejectedSuccess(app) {
-    const newData = props.data.filter(
-      item => item.opportunityID !== app.opportunityID
-    );
-    // setData(newData);
-  }
   function handleViewClicked(app) {
     props.history.push(
       `/${currentLangName}/viewApplication/${app.opportunityID}`
     );
   }
   function handleOfferClicked(app) {
-    props.history.push(`/${currentLangName}/issueOffer/${app.opportunityID}`);
+    setApp(app);
+    toggleIssueOffer(true);
   }
 
   return (
@@ -56,23 +61,38 @@ const OpenedApplications = props => {
             item={app}
             onViewClicked={handleViewClicked}
             onOfferClicked={handleOfferClicked}
-            onSuccessRejected={handleRejectedSuccess}
           />
         ))
+      )}
+      {issueOfferVisibility && (
+        <IssueOfferModal app={selectedApp} isOpen={issueOfferVisibility} />
       )}
     </div>
   );
 };
 function mapStateToProps(state) {
   return {
-    loading: state.openedAppsReducer.loading,
-    data: state.openedAppsReducer.data,
-    error: state.openedAppsReducer.error
+    loading: state.application
+      ? state.application.openedAppsReducer
+        ? state.application.openedAppsReducer.loading
+        : null
+      : null,
+    data: state.application
+      ? state.application.openedAppsReducer
+        ? state.application.openedAppsReducer.data
+        : null
+      : null,
+    error: state.application
+      ? state.application.openedAppsReducer
+        ? state.application.openedAppsReducer.error
+        : null
+      : null
   };
 }
 
 const mapDispatchToProps = {
-  loadOpenedApps
+  loadOpenedApps,
+  resetStore
 };
 
 export default connect(

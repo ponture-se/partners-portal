@@ -1,20 +1,23 @@
-import { LOADING, LOADED, ERROR } from "./actions";
+import { LOADING, SUCCESS, ERROR } from "./actions";
 
 const initialState = {
-  loading: false,
+  loading: {},
   data: null,
   error: null
 };
 
-export default function newAppsReducer(state = initialState, action) {
-  switch (action.type) {
+export default function rejectAppReducer(state = initialState, action) {
+  const { type, payload } = action;
+  switch (type) {
     case LOADING: {
+      let obj = state.loading;
+      obj[payload] = !obj[payload];
       return {
         ...state,
-        loading: action.payload
+        loading: obj
       };
     }
-    case LOADED: {
+    case SUCCESS: {
       return {
         ...state,
         loading: false,

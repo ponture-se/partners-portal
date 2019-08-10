@@ -7,15 +7,20 @@
   }
   &__content {
     display: flex;
+    flex-direction: column;
+    padding: 0 30px;
+  }
+  &__items {
+    padding-top: 10px;
+    display: flex;
     flex-wrap: wrap;
   }
 }
 .product {
-  margin-right: 20px;
   margin-bottom: 20px;
-  width: calc(50% - 20px);
+  width: calc(50% - 10px);
   min-height: 50px;
-  background: white;
+  background: whitesmoke;
   display: flex;
   align-items: center;
   padding-right: 20px;
@@ -24,8 +29,11 @@
     background: lightgray;
     transition-duration: 0.5s;
   }
+  &:nth-child(odd) {
+    margin-right: 20px;
+  }
   &__index {
-    background: whitesmoke;
+    background: lightgray;
     color: black;
     margin: 0 10px;
     width: 30px;

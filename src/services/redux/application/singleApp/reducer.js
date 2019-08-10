@@ -1,7 +1,7 @@
-import { LOADING, LOADED, ERROR } from "./actions";
+import { LOADING, SUCCESS, ERROR } from "./actions";
 
 const initialState = {
-  loading: false,
+  loading: true,
   data: null,
   error: null
 };
@@ -14,7 +14,7 @@ export default function openedAppsReducer(state = initialState, action) {
         loading: action.payload
       };
     }
-    case LOADED: {
+    case SUCCESS: {
       return {
         ...state,
         loading: false,

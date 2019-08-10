@@ -1,0 +1,24 @@
+.modal-back {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000000 !important;
+  .modal {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 0.3rem;
+    background: white;
+    outline: 0;
+    background-clip: padding-box;
+    position: relative;
+    z-index: 2001;
+    &.lg {
+      width: 800px;
+    }
+  }
+}

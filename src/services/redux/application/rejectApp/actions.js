@@ -1,9 +1,9 @@
 import { t } from "services/languageManager";
-import { getNewApplications } from "api/main-api";
+import { rejectApp } from "api/main-api";
 
-export const LOADING = "main/newApps/LOADING";
-export const LOADED = "main/newApps/LOADED";
-export const ERROR = "main/newApps/ERROR";
+export const LOADING = "main/app/REJECT_LOADING";
+export const SUCCESS = "main/app/REJECT_SUCCESS";
+export const ERROR = "main/app/REJECT_ERROR";
 
 //
 export function toggleLoading(value) {
@@ -12,12 +12,13 @@ export function toggleLoading(value) {
     payload: value
   };
 }
-export function loadedData(data) {
-  return {
-    type: LOADED,
-    payload: data
-  };
-}
+export const deleteAppLocalLy = data => (dispatch, getState) => {
+  console.log(getState);
+  // return {
+  //   type: SUCCESS,
+  //   payload: data
+  // };
+};
 export function setError(error) {
   return {
     type: ERROR,
@@ -25,11 +26,14 @@ export function setError(error) {
   };
 }
 
-export const loadNewApps = () => dispatch => {
-  dispatch(toggleLoading(true));
-  getNewApplications()
+export const rejectApplication = app => dispatch => {
+  dispatch(toggleLoading(app.opportunityID));
+  // dispatch(deleteAppLocalLy({}));
+  return;
+  dispatch(toggleLoading(app.opportunityID));
+  rejectApp()
     .onOk(result => {
-      dispatch(loadedData(result));
+      dispatch(deleteAppLocalLy(result));
     })
     .onServerError(result => {
       dispatch(

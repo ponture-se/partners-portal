@@ -55,6 +55,11 @@
       padding: 0 5px;
       color: greenyellow;
     }
+    &:last-child span:last-child {
+      flex: 2;
+      line-height: 1.5;
+      font-size: 12px;
+    }
   }
   &__footer {
     background: whitesmoke;
@@ -74,5 +79,19 @@
         padding: 0 10px;
       }
     }
+  }
+}
+
+.searchbar {
+  display: flex;
+  margin-bottom: 20px;
+  button {
+    margin-right: 10px;
+  }
+  .formInput {
+    flex: 1;
+  }
+  & .formInput:last-child {
+    margin-left: 10px;
   }
 }

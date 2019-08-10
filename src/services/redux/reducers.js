@@ -1,10 +1,8 @@
 import { combineReducers } from "redux";
 import authReducer from "./auth/reducer";
-import newAppsReducer from "./newApps/reducer";
-import openedAppsReducer from "./openedApps/reducer";
+import application from "./application";
 
 export default combineReducers({
   authReducer,
-  newAppsReducer,
-  openedAppsReducer
+  application
 });

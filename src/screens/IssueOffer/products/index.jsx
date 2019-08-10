@@ -100,11 +100,17 @@ const Products = props => {
           <span>{t("ISSUE_OFFER_PRODUCTS_EMPTY_INFO")}</span>
         </div>
       ) : (
-        <>
-          <span className="products__header">
-            {t("ISSUE_OFFER_PRODUCTS_TITLE")}
-          </span>
-          <div className="products__content">
+        <div className="products__content">
+          <div className="formInput">
+            <div className="formInput__body">
+              <input
+                type="text"
+                className="element"
+                placeholder={t("Search in new products...")}
+              />
+            </div>
+          </div>
+          <div className="products__items">
             {[
               {
                 Id: "a0G5E000004w15VUAQ1",
@@ -151,7 +157,7 @@ const Products = props => {
               />
             ))}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

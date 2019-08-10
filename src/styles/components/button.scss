@@ -11,14 +11,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 15px !important;
+  padding: 0 15px;
   min-height: 40px;
   &[disabled] {
     cursor: no-drop;
-    opacity: .7 !important;
+    opacity: 0.7 !important;
   }
   &.--small {
-    min-height: 35px;
+    height: 35px !important;
     padding: 0 10px !important;
   }
   &.--medium {

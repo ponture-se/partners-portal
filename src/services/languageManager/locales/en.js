@@ -15,6 +15,13 @@ export default {
     ON_REQUEST_ERROR_MSG: "Request Error",
     UN_AUTHORIZED: "Session has expired",
     MONTH: "Month",
+    TRUE: "True",
+    FALSE: "False",
+    CLOSE: "Close",
+    SUBMIT: "Submit",
+    PRODUCTS: "Products",
+    OFFER: "Offer",
+    REQUIRED: "Required",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -85,7 +92,22 @@ export default {
     ISSUE_OFFER_PRODUCTS_LOADING_TEXT: "Loading products...",
     ISSUE_OFFER_PRODUCTS_EMPTY_TITLE: "List Empty!",
     ISSUE_OFFER_PRODUCTS_EMPTY_INFO: "There aren't any products.",
-    ISSUE_OFFER_PRODUCTS_TITLE:"Products List",
+    ISSUE_OFFER_PRODUCTS_TITLE: "Products List",
+    ISSUE_OFFER_BACK_TO_PRODUCTS: "Products",
+    ISSUE_OFFER_AMOUNT: "Amount",
+    ISSUE_OFFER_AMOUNT_PLACEHOLDER: "Enter your amount",
+    ISSUE_OFFER_AMOUNT_REQUIRED: "Required",
+    ISSUE_OFFER_INTEREST_RATE: "Interest Rate",
+    ISSUE_OFFER_INTEREST_RATE_PLACEHOLDER: "Enter your interest rate",
+    ISSUE_OFFER_INTEREST_RATE_REQUIRED: "Required",
+    ISSUE_OFFER_REPAYMENT_PERIOD: "Repayment Period",
+    ISSUE_OFFER_REPAYMENT_PERIOD_PLACEHOLDER: "Enter repayment period",
+    ISSUE_OFFER_MONTHLY_REPAYMENT_AMOUNT: "Monthly Repayment Amount",
+    ISSUE_OFFER_MONTHLY_REPAYMENT_AMOUNT_PLACEHOLDER:
+      "Enter monthly repayment amount",
+    ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT: "Total Repayment amount",
+    ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT_PLACEHOLDER:
+      "Enter total repayment amount",
 
     //
     APP_COMPANY_REGISTERED: "Company registered",

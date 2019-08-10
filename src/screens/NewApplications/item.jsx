@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import { t, currentLangName } from "./../../services/languageManager";
 const Item = props => {
   const { item } = props;
@@ -9,7 +10,7 @@ const Item = props => {
         <span className="application__title">{item.RecordType}</span>
         <div className="application__headerinfo">
           <span>Ericsson AB (330299-1234)</span>
-          <span>{item.createdAt}</span>
+          <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           <span>
             {item.amortizationPeriod} {t("MONTH")}
           </span>
@@ -30,8 +31,8 @@ const Item = props => {
           </span>
         </div>
         <div className="application__bodyRow">
-          <span>{t("APP_NEED_FOR")}</span>
-          <span>Renovation Salary</span>
+          <span>{t("APP_CREDITSAFE_SCRORE")}</span>
+          <span>{item.creditSafeScore}</span>
           <span>
             {item.activeCompany ? (
               <i className="icon-checkmark" />
@@ -42,7 +43,7 @@ const Item = props => {
           </span>
         </div>
         <div className="application__bodyRow">
-          <span>Revenue 2018</span>
+          <span>{t("APP_REVENUE")} 2018</span>
           <span>12 000 000.00 Kr</span>
           <span>
             {item.companyVerified ? (
@@ -54,16 +55,20 @@ const Item = props => {
           </span>
         </div>
         <div className="application__bodyRow">
-          <span>{t("APP_CREDITSAFE_SCRORE")}</span>
-          <span>{item.creditSafeScore}</span>
+          <span>{t("APP_NEED_FOR")}</span>
           <span>
-            {/* <i className="icon-checkmark" />
-            <span>Company verified</span> */}
+            {item.need &&
+              item.need.map((n, index) => {
+                if (index === item.need.length - 1) return n.title;
+                else return n.title + " , ";
+              })}
           </span>
         </div>
       </div>
       <div className="application__footer">
-        <Link to={`/${currentLangName}/viewApplication/${item.opportunityID}`}>
+        <Link
+          to={`/${currentLangName}/viewApplication/${item.opportunityID}`}
+        >
           {t("APP_OPEN_APP_LINK")}
           <i className="icon-arrow-right2" />
         </Link>
@@ -72,3 +77,10 @@ const Item = props => {
   );
 };
 export default Item;
+
+Item.propTypes={
+  item:PropTypes.object.isRequired
+}
+Item.defaultProps={
+  item:{}
+}

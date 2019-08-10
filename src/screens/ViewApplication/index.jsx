@@ -190,7 +190,9 @@ const ViewApplication = props => {
                   {data.opportunityDetails && data.opportunityDetails.Name}
                 </span>
                 <span>
-                  {data.opportunityDetails && data.opportunityDetails.createdAt}
+                  {data.opportunityDetails &&
+                    data.opportunityDetails.createdAt &&
+                    data.opportunityDetails.createdAt.split(" ")[0]}
                 </span>
                 <span>
                   {data.opportunityDetails &&
@@ -224,13 +226,12 @@ const ViewApplication = props => {
               </div>
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>{t("APP_NEED_FOR")}</span>
+                  <span>{t("APP_CREDITSAFE_SCRORE")}</span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
                   <span>
                     {data.opportunityDetails &&
-                      data.opportunityDetails.need &&
-                      data.opportunityDetails.need.join("  , ")}
+                      data.opportunityDetails.creditSafeScore}
                   </span>
                   <span>
                     {data.opportunityDetails &&
@@ -270,12 +271,17 @@ const ViewApplication = props => {
               </div>
               <div className="viewAppItem__bodyRow">
                 <div className="viewAppItem__bodyRow__left">
-                  <span>{t("APP_CREDITSAFE_SCRORE")}</span>
+                  <span>{t("APP_NEED_FOR")}</span>
                 </div>
                 <div className="viewAppItem__bodyRow__right">
                   <span>
                     {data.opportunityDetails &&
-                      data.opportunityDetails.creditSafeScore}
+                      data.opportunityDetails.need &&
+                      data.opportunityDetails.need.map((n, index) => {
+                        if (index === data.opportunityDetails.need.length - 1)
+                          return n.title;
+                        else return n.title + " , ";
+                      })}
                   </span>
                 </div>
               </div>
@@ -355,7 +361,12 @@ const ViewApplication = props => {
                     ) : (
                       <i className="icon-cross" style={{ color: "red" }} />
                     )}
-                    <span>Biger Jarlsgatan 57C 113 56 Stockholm</span>
+                    <span>
+                      {data.accountDetails &&
+                      data.accountDetails.registeredForTax
+                        ? t("TRUE")
+                        : t("FALSE")}
+                    </span>
                   </span>
                 </div>
                 <div className="detail__row__item">
@@ -367,7 +378,12 @@ const ViewApplication = props => {
                     ) : (
                       <i className="icon-cross" style={{ color: "red" }} />
                     )}
-                    <span>ja(from 2019-06-10)</span>
+                    <span>
+                      {data.accountDetails &&
+                      data.accountDetails.registeredAsEmployer
+                        ? t("TRUE")
+                        : t("FALSE")}
+                    </span>
                   </span>
                 </div>
                 <div className="detail__row__item">
@@ -379,7 +395,12 @@ const ViewApplication = props => {
                     ) : (
                       <i className="icon-cross" style={{ color: "red" }} />
                     )}
-                    <span>ja(from 2019-06-10)</span>
+                    <span>
+                      {data.accountDetails &&
+                      data.accountDetails.registeredForVAT
+                        ? t("TRUE")
+                        : t("FALSE")}
+                    </span>
                   </span>
                 </div>
               </div>

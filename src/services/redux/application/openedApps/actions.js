@@ -4,6 +4,7 @@ import { getOpenedApplications } from "api/main-api";
 export const LOADING = "main/openedApps/LOADING";
 export const LOADED = "main/openedApps/LOADED";
 export const ERROR = "main/openedApps/ERROR";
+export const CLEAN_DATA = "main/openedApps/CLEAN_DATA";
 
 //
 export function toggleLoading(value) {
@@ -22,6 +23,12 @@ export function setError(error) {
   return {
     type: ERROR,
     payload: error
+  };
+}
+export function resetStore() {
+  return {
+    type: CLEAN_DATA,
+    payload: null
   };
 }
 
@@ -73,3 +80,6 @@ export const loadOpenedApps = () => dispatch => {
     })
     .call();
 };
+export const eject = ()=>dispatch=>{
+
+}
