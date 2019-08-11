@@ -15,10 +15,16 @@
 }
 .formRow {
   display: flex;
+  .custom_checkbox {
+    margin: 15px 0;
+    label {
+      cursor: pointer;
+    }
+  }
   &__column {
     flex: 1;
   }
-  &__column:first-child {
-    margin-right: 20px;
+  &__column:nth-child(even) {
+    margin-left: 20px;
   }
 }

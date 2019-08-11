@@ -22,6 +22,7 @@ export default {
     PRODUCTS: "Products",
     OFFER: "Offer",
     REQUIRED: "Required",
+    CREDIT_REPORT: "Credit Report",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -108,6 +109,28 @@ export default {
     ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT: "Total Repayment amount",
     ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT_PLACEHOLDER:
       "Enter total repayment amount",
+    ISSUE_OFFER_START_FEE: "Start Fee",
+    ISSUE_OFFER_START_FEE_PLACEHOLDER: "Enter start fee",
+    ISSUE_OFFER_COST: "Cost",
+    ISSUE_OFFER_COST_PLACEHOLDER: "Enter cost",
+    ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS: "Personal Guarantee Details",
+    ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS_PLACEHOLDER: "Enter details",
+    ISSUE_OFFER_OTHER_GUARANTEES_TYPE: "Other Guarantees Type",
+    ISSUE_OFFER_OTHER_GUARANTEE_DETAILS: "Other Guarantee Details",
+    ISSUE_OFFER_OTHER_GUARANTEE_DETAILS_PLACEHOLDER:
+      "Enter other guarantee detail",
+    ISSUE_OFFER_OTHER_GUARANTEES_TYPE_PLACEHOLDER: "Enter other type",
+    ISSUE_OFFER_MORE_DETAILS: "More Details",
+    ISSUE_OFFER_MORE_DETAILS_PLACEHOLDER: "Enter more details",
+    ISSUE_OFFER_OFFER_DESCRIPTION: "Offer Description",
+    ISSUE_OFFER_OFFER_DESCRIPTION_PLACEHOLDER: "Enter offer description",
+    ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION: "Extra Offer Description",
+    ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION_PLACEHOLDER:
+      "Enter extra offer description",
+    ISSUE_OFFER_OFFER_PERSONAL_GUARANTEE_NEEDED: "Personal Guarantee Needed",
+    ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED: "Other Guarantee Needed",
+
+    CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
 
     //
     APP_COMPANY_REGISTERED: "Company registered",

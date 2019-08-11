@@ -11,7 +11,6 @@ const MyOffers = lazy(() => import("./../MyOffers"));
 const AcceptedOffers = lazy(() => import("./../AcceptedOffers"));
 const FundedApplications = lazy(() => import("./../FundedApplications"));
 const LostApplications = lazy(() => import("./../LostApplications"));
-const IssueOffer = lazy(() => import("./../IssueOffer"));
 //
 const MainPage = props => {
   return (
@@ -61,12 +60,6 @@ const MainPage = props => {
               key="lostApplications"
               path="/:lang/lostApplications"
               render={props => <LostApplications {...props} />}
-            />
-            <PrivateRoute
-              exact
-              key="issueOffer"
-              path="/:lang/issueOffer/:appId"
-              render={props => <IssueOffer {...props} />}
             />
           </Switch>
         </Suspense>

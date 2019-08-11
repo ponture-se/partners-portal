@@ -95,7 +95,7 @@ div::-moz-scrollbar-thumb:hover {
   transition-duration: 0.3s;
 }
 
-.customCheckbox {
+.custom_checkbox {
   display: flex;
   position: relative;
   padding: 0 35px;
@@ -108,6 +108,9 @@ div::-moz-scrollbar-thumb:hover {
   @include variable(direction, direction, ltr);
   &__text {
     font-size: 13px;
+  }
+  label {
+    font-size: 14px;
   }
   /* Hide the browser's default checkbox */
   input {
@@ -136,7 +139,7 @@ div::-moz-scrollbar-thumb:hover {
 
   /* When the checkbox is checked, add a blue background */
   input:checked ~ .checkmark {
-    background-color: rgb(66, 204, 173);
+    background-color: rgb(23, 145, 164);
   }
 
   /* Create the checkmark/indicator (hidden when not checked) */
@@ -164,95 +167,116 @@ div::-moz-scrollbar-thumb:hover {
     transform: rotate(45deg);
   }
 }
-.inputSwitch {
-  display: flex;
-  flex-direction: column;
-  & span:nth-child(2) {
-    font-size: 12px;
-    padding-top: 5px;
-  }
-  .inputSwitch-content {
-    padding-top: 15px;
-    button {
-      margin: 0 10px;
-    }
-  }
-}
-.unkownFileType {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.assetFile {
-  .un-icon {
-    font-size: 18px;
-  }
-  .un-text {
-    font-size: 10px;
-    font-weight: 500;
-  }
-}
-.fileUploader {
-  .un-icon {
-    font-size: 25px !important;
-  }
-  .un-text {
-    font-size: 20px;
-    font-weight: 500;
-  }
-}
 
-.ajax-button {
-  display: flex;
-  span {
-    margin: 0 5px;
-  }
-}
+// .custom_checkbox {
+//   margin-top: 20px;
+//   display: flex;
+//   label {
+//     text-align: left;
+//     margin: 0 10px;
+//     cursor: pointer;
+//   }
+//   .left {
+//     padding: 0 0px;
+//     .radio {
+//       display: block;
+//       position: relative;
+//       padding-left: 30px;
+//       margin-bottom: 12px;
+//       cursor: pointer;
+//       font-size: 20px;
+//       -webkit-user-select: none;
+//       -moz-user-select: none;
+//       -ms-user-select: none;
+//       user-select: none;
+//     }
 
-.rosolverError {
-  background: white;
-  width: 500px;
-  height: 300px;
-  margin: auto;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  box-shadow: 0 0 5px lightgray;
-  .icon {
-    font-size: 60px;
-  }
-  .title {
-    font-size: 30px;
-    margin: 10px 0;
-  }
-  .info {
-    margin-bottom: 10px;
-  }
-}
-.emptyContenType {
-  height: 300px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  .icon {
-    font-size: 60px;
-  }
-  .title {
-    font-size: 30px;
-    margin: 10px 0;
-  }
-  .info {
-    margin-bottom: 10px;
-  }
-}
+//     /* Hide the browser's default radio button */
+//     .radio input {
+//       position: absolute;
+//       opacity: 0;
+//       cursor: pointer;
+//     }
+
+//     /* Create a custom radio button */
+//     .checkround {
+//       position: absolute;
+//       top: 6px;
+//       left: 0;
+//       height: 20px;
+//       width: 20px;
+//       background-color: #fff;
+//       border-color: rgb(56, 132, 255);
+//       border-style: solid;
+//       border-width: 2px;
+//       border-radius: 50%;
+//     }
+
+//     /* When the radio button is checked, add a blue background */
+//     .radio input:checked ~ .checkround {
+//       background-color: #fff;
+//     }
+
+//     /* Create the indicator (the dot/circle - hidden when not checked) */
+//     .checkround:after {
+//       content: "";
+//       position: absolute;
+//       display: none;
+//     }
+
+//     /* Show the indicator (dot/circle) when checked */
+//     .radio input:checked ~ .checkround:after {
+//       display: block;
+//     }
+
+//     /* Style the indicator (dot/circle) */
+//     .radio .checkround:after {
+//       left: 2px;
+//       top: 2px;
+//       width: 12px;
+//       height: 12px;
+//       border-radius: 50%;
+//       background: rgb(56, 132, 255);
+//     }
+
+//     /* The check */
+//     .check {
+//       display: block;
+//       position: relative;
+//       padding-left: 25px;
+//       margin-bottom: 12px;
+//       padding-right: 15px;
+//       cursor: pointer;
+//       font-size: 18px;
+//       -webkit-user-select: none;
+//       -moz-user-select: none;
+//       -ms-user-select: none;
+//       user-select: none;
+//     }
+
+//     /* Hide the browser's default checkbox */
+//     .check input {
+//       position: absolute;
+//       opacity: 0;
+//       cursor: pointer;
+//     }
+//   }
+//   .right {
+//     display: flex;
+//     flex-direction: column;
+//     font-size: 12px;
+//     justify-content: center;
+//     & label:first-child {
+//       cursor: pointer;
+//       font-size: 14px;
+//       margin-bottom: 5px;
+//     }
+//     & label {
+//       margin: 0;
+//       margin-top: -5px;
+//     }
+//   }
+// }
 
 .loaderBox {
   position: fixed;

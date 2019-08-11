@@ -1,12 +1,37 @@
 import React from "react";
+import { connect } from "react-redux";
 import { Formik } from "formik";
+import * as Yup from "yup";
 //
 import "./styles.scss";
+import { submitIssueOffer } from "services/redux/offer/issueOffer/actions";
 import { t } from "services/languageManager";
+import { CircleSpinner } from "components";
 //
+const formSchema = Yup.object().shape({
+  amount: Yup.number()
+    .required(t("REQUIRED"))
+    .min(2, "Too Short!")
+    .max(50, "Too Long!"),
+  interestRate: Yup.number().required(t("REQUIRED")),
+  repaymentPeriod: Yup.number().required(t("REQUIRED")),
+  monthlyRepaymentAmount: Yup.number().required(t("REQUIRED")),
+  totalRepaymentAmount: Yup.number().required(t("REQUIRED")),
+  startFee: Yup.number().required(t("REQUIRED")),
+  cost: Yup.number().required(t("REQUIRED")),
+  personalGuaranteeDetails: Yup.string().required(t("REQUIRED")),
+  otherGuaranteeDetails: Yup.string().required(t("REQUIRED")),
+  otherGuaranteesType: Yup.string().required(t("REQUIRED")),
+  moreDetails: Yup.string().required(t("REQUIRED")),
+  offerDescription: Yup.string().required(t("REQUIRED")),
+  extraOfferDescription: Yup.string().required(t("REQUIRED"))
+  // email: Yup.string()
+  //   .email("Invalid email")
+  //   .required("Required")
+});
 const Form = props => {
   function backToProducts() {
-    if (props.backToProducts) props.backToProducts();
+    if (props.onBackClicked) props.onBackClicked();
   }
   return (
     <div className="issueOfferForm animated fadeIn">
@@ -17,40 +42,57 @@ const Form = props => {
             interestRate: "",
             repaymentPeriod: "",
             monthlyRepaymentAmount: "",
-            totalRepaymentAmount: ""
+            totalRepaymentAmount: "",
+            startFee: "",
+            cost: "",
+            personalGuaranteeNeeded: true,
+            otherGuaranteeNeeded: true,
+            personalGuaranteeDetails: "",
+            otherGuaranteeDetails: "",
+            otherGuaranteesType: "",
+            moreDetails: "",
+            offerDescription: "",
+            extraOfferDescription: ""
           }}
-          validate={values => {
-            let errors = {};
-            if (!values.email) {
-              errors.email = "Required";
-            } else if (
-              !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-            ) {
-              errors.email = "Invalid email address";
-            }
+          validationSchema={formSchema}
+          // validate={values => {
+          //   let errors = {};
+          //   if (!values.email) {
+          //     errors.email = "Required";
+          //   } else if (
+          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
+          //   ) {
+          //     errors.email = "Invalid email address";
+          //   }
 
-            if (!values.amount) {
-              errors.amount = t("REQUIRED");
-            }
-            if (!values.interestRate) {
-              errors.interestRate = t("REQUIRED");
-            }
-            if (!values.repaymentPeriod) {
-              errors.repaymentPeriod = t("REQUIRED");
-            }
-            if (!values.monthlyRepaymentAmount) {
-              errors.monthlyRepaymentAmount = t("REQUIRED");
-            }
-            if (!values.totalRepaymentAmount) {
-              errors.totalRepaymentAmount = t("REQUIRED");
-            }
-            return errors;
-          }}
+          //   if (!values.amount) {
+          //     errors.amount = t("REQUIRED");
+          //   }
+          //   if (!values.interestRate) {
+          //     errors.interestRate = t("REQUIRED");
+          //   }
+          //   if (!values.repaymentPeriod) {
+          //     errors.repaymentPeriod = t("REQUIRED");
+          //   }
+          //   if (!values.monthlyRepaymentAmount) {
+          //     errors.monthlyRepaymentAmount = t("REQUIRED");
+          //   }
+          //   if (!values.totalRepaymentAmount) {
+          //     errors.totalRepaymentAmount = t("REQUIRED");
+          //   }
+          //   return errors;
+          // }}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            if (props.submitIssueOffer) {
+              let obj = {
+                ...values,
+                partnerID: "123456789",
+                productName: "Test",
+                productMasterID: "a0G5E000004w15VUAQ",
+                oppID: "0065E00000DlPDaQAN"
+              };
+              props.submitIssueOffer(obj);
+            }
           }}
         >
           {({
@@ -91,6 +133,7 @@ const Form = props => {
                           onChange={handleChange}
                           onBlur={handleBlur}
                           value={values.amount}
+                          autoFocus
                         />
                       </div>
                       <div className="formInput__footer">
@@ -231,7 +274,6 @@ const Form = props => {
                     </div>
                   </div>
                 </div>
-
                 <div className="formRow">
                   <div className="formRow__column">
                     <div
@@ -276,14 +318,393 @@ const Form = props => {
                     </div>
                   </div>
                 </div>
+                <div className="formRow">
+                  <div className="formRow__column">
+                    <div className="custom_checkbox">
+                      <div className="left">
+                        <label className="checkBox">
+                          <input
+                            type="checkbox"
+                            id="personalGuaranteeNeededChk"
+                            name="personalGuaranteeNeeded"
+                            onChange={handleChange}
+                            checked={values.personalGuaranteeNeeded}
+                          />
+                          <span className="checkmark" />
+                        </label>
+                      </div>
+                      <div className="right">
+                        <label htmlFor="personalGuaranteeNeededChk">
+                          {t("ISSUE_OFFER_OFFER_PERSONAL_GUARANTEE_NEEDED")}
+                        </label>
+                        <label>{/* {t("FIELD_INVISIBLE_INFO")} */}</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="formRow__column">
+                    <div className="custom_checkbox">
+                      <div className="left">
+                        <label className="checkBox">
+                          <input
+                            type="checkbox"
+                            id="otherGuaranteeNeededChk"
+                            name="otherGuaranteeNeeded"
+                            onChange={handleChange}
+                            checked={values.otherGuaranteeNeeded}
+                          />
+                          <span className="checkmark" />
+                        </label>
+                      </div>
+                      <div className="right">
+                        <label htmlFor="otherGuaranteeNeededChk">
+                          {t("ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED")}
+                        </label>
+                        <label />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="formRow">
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.startFee && touched.startFee && errors.startFee
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_START_FEE")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="number"
+                          name="startFee"
+                          className="element"
+                          placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.startFee}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.startFee &&
+                              touched.startFee &&
+                              errors.startFee}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.cost && touched.cost && errors.cost
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_COST")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="number"
+                          name="cost"
+                          className="element"
+                          placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.cost}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.cost && touched.cost && errors.cost}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="formRow">
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.personalGuaranteeDetails &&
+                        touched.personalGuaranteeDetails &&
+                        errors.personalGuaranteeDetails
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="personalGuaranteeDetails"
+                          className="element"
+                          placeholder={t(
+                            "ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS_PLACEHOLDER"
+                          )}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.personalGuaranteeDetails}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.personalGuaranteeDetails &&
+                              touched.personalGuaranteeDetails &&
+                              errors.personalGuaranteeDetails}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.otherGuaranteeDetails &&
+                        touched.otherGuaranteeDetails &&
+                        errors.otherGuaranteeDetails
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_OTHER_GUARANTEE_DETAILS")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="otherGuaranteeDetails"
+                          className="element"
+                          placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.otherGuaranteeDetails}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.otherGuaranteeDetails &&
+                              touched.otherGuaranteeDetails &&
+                              errors.otherGuaranteeDetails}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="formRow">
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.otherGuaranteesType &&
+                        touched.otherGuaranteesType &&
+                        errors.otherGuaranteesType
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_OTHER_GUARANTEES_TYPE")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="otherGuaranteesType"
+                          className="element"
+                          placeholder={t(
+                            "ISSUE_OFFER_OTHER_GUARANTEES_TYPE_PLACEHOLDER"
+                          )}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.otherGuaranteesType}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.otherGuaranteesType &&
+                              touched.otherGuaranteesType &&
+                              errors.otherGuaranteesType}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.moreDetails &&
+                        touched.moreDetails &&
+                        errors.moreDetails
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_MORE_DETAILS")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="moreDetails"
+                          className="element"
+                          placeholder={t(
+                            "ISSUE_OFFER_MORE_DETAILS_PLACEHOLDER"
+                          )}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.moreDetails}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.moreDetails &&
+                              touched.moreDetails &&
+                              errors.moreDetails}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="formRow">
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.offerDescription &&
+                        touched.offerDescription &&
+                        errors.offerDescription
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_OFFER_DESCRIPTION")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="offerDescription"
+                          className="element"
+                          placeholder={t(
+                            "ISSUE_OFFER_OFFER_DESCRIPTION_PLACEHOLDER"
+                          )}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.offerDescription}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.offerDescription &&
+                              touched.offerDescription &&
+                              errors.offerDescription}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="formRow__column">
+                    <div
+                      className={
+                        "formInput " +
+                        (errors.extraOfferDescription &&
+                        touched.extraOfferDescription &&
+                        errors.extraOfferDescription
+                          ? "--invalid"
+                          : "")
+                      }
+                    >
+                      <div className="formInput__header">
+                        <div className="formInput__header__left">
+                          <span className="elementTitle">
+                            {t("ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION")}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="formInput__body">
+                        <input
+                          type="text"
+                          name="extraOfferDescription"
+                          className="element"
+                          placeholder={t(
+                            "ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION_PLACEHOLDER"
+                          )}
+                          onChange={handleChange}
+                          onBlur={handleBlur}
+                          value={values.extraOfferDescription}
+                        />
+                      </div>
+                      <div className="formInput__footer">
+                        <div className="formInput__footer__left">
+                          <span className="elementInfo">
+                            {errors.extraOfferDescription &&
+                              touched.extraOfferDescription &&
+                              errors.extraOfferDescription}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
               <div className="issueOfferForm__actions">
                 <button
                   type="submit"
                   className="btn --primary"
-                  disabled={isSubmitting}
+                  // disabled={isSubmitting}
                 >
-                  {t("SUBMIT")}
+                  <CircleSpinner show={props.loading} />
+                  {!props.loading && t("SUBMIT")}
                 </button>
                 <button className="btn --light" onClick={backToProducts}>
                   {t("ISSUE_OFFER_BACK_TO_PRODUCTS")}
@@ -296,7 +717,26 @@ const Form = props => {
     </div>
   );
 };
-export default Form;
+
+function mapStateToProps(state) {
+  return {
+    loading: state.offer
+      ? state.offer.issueOfferReducer
+        ? state.offer.issueOfferReducer.loading
+        : null
+      : null
+  };
+}
+
+const mapDispatchToProps = {
+  submitIssueOffer
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Form);
+
 // {
 // 	"partnerID" : "123456789",
 //     "productName": "Test",

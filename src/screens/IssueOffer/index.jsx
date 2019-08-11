@@ -7,7 +7,7 @@ import ErrorForm from "./forms/errorForm";
 import Modal from "components/Modal";
 
 const IssueOffer = props => {
-  const form = useRef(null);
+  const formRef = useRef(null);
   const [tab, changeTab] = useState(1);
   const [selectedProduct, setProduct] = useState();
   const [FormComponent, setComponent] = useState(null);
@@ -18,9 +18,12 @@ const IssueOffer = props => {
     const id = "";
     switch (id) {
       case "":
-        import("./forms/testProductForm123456789")
-          .then(f => setComponent(f.default()))
-          .catch(err => <ErrorForm />);
+        let O = React.lazy(() => import("./forms/testProductForm123456789"));
+        const B = <O ref={formRef} onBackClicked={handleFormBackClicked} />;
+        setComponent(B);
+        // import("./forms/testProductForm123456789")
+        //   .then(f => setComponent(f.default()))
+        //   .catch(err => <ErrorForm />);
         break;
       default:
         break;
@@ -31,16 +34,22 @@ const IssueOffer = props => {
       props.onClose();
     }
   }
-  function backToProducts() {
+  function handleFormBackClicked() {
     changeTab(1);
   }
   function submit() {}
   return (
-    <Modal size="large">
+    <Modal size="large" onClose={closeModal}>
       <div className="issueOffer">
         <div className="issueOffer__header">
-          <span>{tab === 1 ? t("PRODUCTS") : t("OFFER")}</span>
-          <span>({props.app && props.app.Name})</span>
+          <span className="title">
+            {tab === 1 ? t("PRODUCTS") : t("OFFER")}
+          </span>
+          <span className="appName">({props.app && props.app.Name})</span>
+          <span
+            className="icon-cross issueOffer__closeIcon"
+            onClick={closeModal}
+          />
         </div>
         <div className="issueOffer__body">
           {tab === 1 ? (
@@ -55,7 +64,9 @@ const IssueOffer = props => {
       </div>
       {tab === 1 && (
         <div className="issueOffer__footer">
-          <button className="btn --primary">{t("CLOSE")}</button>
+          <button className="btn --primary" onClick={closeModal}>
+            {t("CLOSE")}
+          </button>
         </div>
       )}
     </Modal>

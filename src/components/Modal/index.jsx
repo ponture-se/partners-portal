@@ -1,7 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import "./styles.scss";
 
 export default function Modal(props) {
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, []);
   return (
     <div className="modal-back animated fadeIn">
       <div

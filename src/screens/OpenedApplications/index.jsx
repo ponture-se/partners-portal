@@ -34,6 +34,10 @@ const OpenedApplications = props => {
     setApp(app);
     toggleIssueOffer(true);
   }
+  function handleCloseIssueOffer() {
+    toggleIssueOffer(false);
+  }
+  
 
   return (
     <div className="openedApps">
@@ -65,7 +69,11 @@ const OpenedApplications = props => {
         ))
       )}
       {issueOfferVisibility && (
-        <IssueOfferModal app={selectedApp} isOpen={issueOfferVisibility} />
+        <IssueOfferModal
+          app={selectedApp}
+          isOpen={issueOfferVisibility}
+          onClose={handleCloseIssueOffer}
+        />
       )}
     </div>
   );

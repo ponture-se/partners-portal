@@ -7,6 +7,8 @@ import { t, currentLangName } from "../../services/languageManager";
 import "./styles.scss";
 import SquareSpinner from "../../components/SquareSpinner";
 import CircleSpinner from "../../components/CircleSpinner";
+import CreditReportModal from "./../CreditReport";
+import IssueOfferModal from "./../IssueOffer";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
 //
 import { getApplicationById, rejectApp } from "./../../api/main-api";
@@ -17,6 +19,9 @@ const ViewApplication = props => {
   const [rejectSpinner, toggleRejectSpinner] = useState();
   const [data, setData] = useState();
   const [error, setError] = useState();
+  const [creditReportVisibility, toggleCreditReport] = useState();
+  const [issueOfferVisibility, toggleIssueOffer] = useState();
+
   useEffect(() => {
     const id = props.match
       ? props.match.params
@@ -156,14 +161,16 @@ const ViewApplication = props => {
     }
   }
   function handleViewCredit() {
-    props.history.push(`/${currentLangName}/issueOffer/${data}`);
+    toggleCreditReport(true);
   }
   function handleOffer() {
-    props.history.push(
-      `/${currentLangName}/issueOffer/${
-        data.opportunityDetails ? data.opportunityDetails.opportunityID : ""
-      }`
-    );
+    toggleIssueOffer(true);
+  }
+  function handleCloseCreditReport() {
+    toggleCreditReport(false);
+  }
+  function handleCloseIssueOffer() {
+    toggleIssueOffer(false);
   }
   return (
     <div className="viewApp">
@@ -585,6 +592,18 @@ const ViewApplication = props => {
           </div>
         </>
       ) : null}
+      {creditReportVisibility && (
+        <CreditReportModal
+          app={data ? data.opportunityDetails : null}
+          onClose={handleCloseCreditReport}
+        />
+      )}
+      {issueOfferVisibility && (
+        <IssueOfferModal
+          app={data ? data.opportunityDetails : null}
+          onClose={handleCloseIssueOffer}
+        />
+      )}
     </div>
   );
 };

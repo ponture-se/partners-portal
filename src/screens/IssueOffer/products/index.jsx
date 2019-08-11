@@ -111,43 +111,7 @@ const Products = props => {
             </div>
           </div>
           <div className="products__items">
-            {[
-              {
-                Id: "a0G5E000004w15VUAQ1",
-                Name: "Test Product Master",
-                active: true,
-                customObjectName: "Qred Loans",
-                productFamily: "Business Acquisition Loan"
-              },
-              {
-                Id: "a0G5E000004w15VUA2",
-                Name: "Test Product Master",
-                active: true,
-                customObjectName: "Qred Loans",
-                productFamily: "Business Acquisition Loan"
-              },
-              {
-                Id: "a0G5E000004w15VUA3",
-                Name: "Test Product Master",
-                active: true,
-                customObjectName: "Qred Loans",
-                productFamily: "Business Acquisition Loan"
-              },
-              {
-                Id: "a0G5E000004w15VU",
-                Name: "Test Product Master",
-                active: true,
-                customObjectName: "Qred Loans",
-                productFamily: "Business Acquisition Loan"
-              },
-              {
-                Id: "a0G5E000004wAQ",
-                Name: "Test Product Master",
-                active: true,
-                customObjectName: "Qred Loans",
-                productFamily: "Business Acquisition Loan"
-              }
-            ].map((p, index) => (
+            {data.map((p, index) => (
               <Item
                 key={p.Id}
                 item={p}
@@ -160,7 +124,8 @@ const Products = props => {
         </div>
       )}
     </div>
-  );
+ 
+ );
 };
 
 export default Products;
