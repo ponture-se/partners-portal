@@ -4,6 +4,7 @@ import { getMyOffers } from "api/main-api";
 export const LOADING = "main/myOffers/LOADING";
 export const LOADED = "main/myOffers/LOADED";
 export const ERROR = "main/myOffers/ERROR";
+export const CLEAN_DATA = "main/myOffers/CLEAN_DATA";
 
 //
 export function toggleLoading(value) {
@@ -24,9 +25,14 @@ export function setError(error) {
     payload: error
   };
 }
+export function resetOffersState() {
+  return {
+    type: CLEAN_DATA,
+    payload: null
+  };
+}
 
-export const loadOpenedApps = () => dispatch => {
-  dispatch(toggleLoading(true));
+export const loadMyOffers = () => dispatch => {
   getMyOffers()
     .onOk(result => {
       dispatch(loadedData(result));

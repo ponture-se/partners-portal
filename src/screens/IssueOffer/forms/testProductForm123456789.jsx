@@ -9,10 +9,9 @@ import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
 //
 const formSchema = Yup.object().shape({
-  amount: Yup.number()
-    .required(t("REQUIRED"))
-    .min(2, "Too Short!")
-    .max(50, "Too Long!"),
+  amount: Yup.number().required(t("REQUIRED")),
+  // .min(2, "Too Short!")
+  // .max(50, "Too Long!"),
   interestRate: Yup.number().required(t("REQUIRED")),
   repaymentPeriod: Yup.number().required(t("REQUIRED")),
   monthlyRepaymentAmount: Yup.number().required(t("REQUIRED")),
@@ -29,71 +28,47 @@ const formSchema = Yup.object().shape({
   //   .email("Invalid email")
   //   .required("Required")
 });
+const initVals = {
+  amount: "",
+  interestRate: "",
+  repaymentPeriod: "",
+  monthlyRepaymentAmount: "",
+  totalRepaymentAmount: "",
+  startFee: "",
+  cost: "",
+  personalGuaranteeNeeded: true,
+  otherGuaranteeNeeded: true,
+  personalGuaranteeDetails: "",
+  otherGuaranteeDetails: "",
+  otherGuaranteesType: "",
+  moreDetails: "",
+  offerDescription: "",
+  extraOfferDescription: ""
+};
 const Form = props => {
   function backToProducts() {
     if (props.onBackClicked) props.onBackClicked();
   }
+  function handleSubmitOffer(values, { setSubmitting }) {
+    if (props.submitIssueOffer) {
+      let obj = {
+        ...values,
+        partnerID: props.userInfo ? props.userInfo.customerId : null,
+        productName: props.product ? props.product.Name : null,
+        productMasterID: props.product ? props.product.Id : null,
+        oppID: props.app ? props.app.opportunityID : null
+      };
+      props.submitIssueOffer(obj);
+    }
+  }
+
   return (
     <div className="issueOfferForm animated fadeIn">
       <div className="issueOfferForm__body">
         <Formik
-          initialValues={{
-            amount: "",
-            interestRate: "",
-            repaymentPeriod: "",
-            monthlyRepaymentAmount: "",
-            totalRepaymentAmount: "",
-            startFee: "",
-            cost: "",
-            personalGuaranteeNeeded: true,
-            otherGuaranteeNeeded: true,
-            personalGuaranteeDetails: "",
-            otherGuaranteeDetails: "",
-            otherGuaranteesType: "",
-            moreDetails: "",
-            offerDescription: "",
-            extraOfferDescription: ""
-          }}
+          initialValues={initVals}
           validationSchema={formSchema}
-          // validate={values => {
-          //   let errors = {};
-          //   if (!values.email) {
-          //     errors.email = "Required";
-          //   } else if (
-          //     !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
-          //   ) {
-          //     errors.email = "Invalid email address";
-          //   }
-
-          //   if (!values.amount) {
-          //     errors.amount = t("REQUIRED");
-          //   }
-          //   if (!values.interestRate) {
-          //     errors.interestRate = t("REQUIRED");
-          //   }
-          //   if (!values.repaymentPeriod) {
-          //     errors.repaymentPeriod = t("REQUIRED");
-          //   }
-          //   if (!values.monthlyRepaymentAmount) {
-          //     errors.monthlyRepaymentAmount = t("REQUIRED");
-          //   }
-          //   if (!values.totalRepaymentAmount) {
-          //     errors.totalRepaymentAmount = t("REQUIRED");
-          //   }
-          //   return errors;
-          // }}
-          onSubmit={(values, { setSubmitting }) => {
-            if (props.submitIssueOffer) {
-              let obj = {
-                ...values,
-                partnerID: "123456789",
-                productName: "Test",
-                productMasterID: "a0G5E000004w15VUAQ",
-                oppID: "0065E00000DlPDaQAN"
-              };
-              props.submitIssueOffer(obj);
-            }
-          }}
+          onSubmit={handleSubmitOffer}
         >
           {({
             values,
@@ -720,6 +695,7 @@ const Form = props => {
 
 function mapStateToProps(state) {
   return {
+    userInfo: state.authReducer ? state.authReducer.userInfo : {},
     loading: state.offer
       ? state.offer.issueOfferReducer
         ? state.offer.issueOfferReducer.loading
@@ -738,7 +714,7 @@ export default connect(
 )(Form);
 
 // {
-// 	"partnerID" : "123456789",
+// 	   "partnerID" : "123456789",
 //     "productName": "Test",
 //     "amount": 1, number input
 //     "interestRate": 2, number input
@@ -757,4 +733,25 @@ export default connect(
 //     "extraOfferDescription": "12",
 //     "productMasterID": "a0G5E000004w15VUAQ",
 //     "oppID": "0065E00000DlPDaQAN"
+// }
+
+// function getValidationSchema(values) {
+//   return Yup.object().shape({
+//     email: Yup.string()
+//       .email("E-mail is not valid!")
+//       .required("E-mail is required!"),
+//     password: Yup.string()
+//       .min(6, "Password has to be longer than 6 characters!")
+//       .required("Password is required!"),
+//     passwordConfirmation: Yup.string()
+//       .oneOf([values.password], "Passwords are not the same!")
+//       .required("Password confirmation is required!"),
+//     consent: Yup.bool()
+//       .test(
+//         "consent",
+//         "You have to agree with our Terms and Conditions!",
+//         value => value === true
+//       )
+//       .required("You have to agree with our Terms and Conditions!")
+//   });
 // }

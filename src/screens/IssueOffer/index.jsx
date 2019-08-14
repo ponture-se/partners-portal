@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, lazy } from "react";
 //
 import { t } from "services/languageManager";
 import "./styles.scss";
@@ -18,8 +18,15 @@ const IssueOffer = props => {
     const id = "";
     switch (id) {
       case "":
-        let O = React.lazy(() => import("./forms/testProductForm123456789"));
-        const B = <O ref={formRef} onBackClicked={handleFormBackClicked} />;
+        let O = lazy(() => import("./forms/testProductForm123456789"));
+        const B = (
+          <O
+            ref={formRef}
+            product={p}
+            app={props.app}
+            onBackClicked={handleFormBackClicked}
+          />
+        );
         setComponent(B);
         // import("./forms/testProductForm123456789")
         //   .then(f => setComponent(f.default()))
@@ -39,7 +46,7 @@ const IssueOffer = props => {
   }
   function submit() {}
   return (
-    <Modal size="large" onClose={closeModal}>
+    <Modal size="lg" onClose={closeModal}>
       <div className="issueOffer">
         <div className="issueOffer__header">
           <span className="title">

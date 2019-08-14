@@ -8,7 +8,7 @@ import store from "./services/redux/store";
 import { setAppLang } from "./services/languageManager";
 import Storage from "./services/storageManager";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
-import { setAuthorization } from "./services/redux/auth/actions";
+import { setAuthorization, setUser } from "./services/redux/auth/actions";
 
 // app language
 const pathName = window.location.pathname;
@@ -16,9 +16,18 @@ const lang = pathName.split("/")[1];
 setAppLang(lang);
 // check localStorage to grab token
 const token = Storage.get("p_token");
+const userInfo = Storage.get("@ponture-partners/userInfo");
 if (token) {
   setAuthorizationToken(token);
   store.dispatch(setAuthorization(true));
+}
+if (userInfo) {
+  try {
+    const u = JSON.parse(userInfo);
+    store.dispatch(setUser(u));
+  } catch (error) {
+    console.log();
+  }
 }
 //
 

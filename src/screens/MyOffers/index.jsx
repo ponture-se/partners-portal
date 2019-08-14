@@ -1,122 +1,93 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 //
-import { t, currentLangName } from "../../services/languageManager";
+import { t } from "../../services/languageManager";
 //
 import "./styles.scss";
 import Item from "./item";
-import SquareSpinner from "../../components/SquareSpinner";
-import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
+import SquareSpinner from "components/SquareSpinner";
+import { Empty, Wrong } from "components/Commons/ErrorsComponent";
+import OfferDetail from "./Detail";
 //
-import { getMyOffers } from "../../api/main-api";
+import {
+  loadMyOffers,
+  resetOffersState
+} from "services/redux/offer/myOffers/actions";
 
-const NewApplications = props => {
-  const [spinner, toggleSpinner] = useState(true);
-  const [data, setData] = useState();
-  const [error, setError] = useState();
+const MyOffers = props => {
+  const [tab, changeTab] = useState(1);
+  const [selectedOffer, setOffer] = useState();
 
   useEffect(() => {
-    let didCancel = false;
-    getMyOffers()
-      .onOk(result => {
-        toggleSpinner(false);
-        if (result && !didCancel) {
-          setData(result);
-        }
-      })
-      .onServerError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("INTERNAL_SERVER_ERROR"),
-            message: t("INTERNAL_SERVER_ERROR_MSG")
-          });
-        }
-      })
-      .onBadRequest(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("BAD_REQUEST"),
-            message: t("BAD_REQUEST_MSG")
-          });
-        }
-      })
-      .unAuthorized(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .notFound(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("NOT_FOUND"),
-            message: t("NOT_FOUND_MSG")
-          });
-        }
-      })
-      .unKnownError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .onRequestError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("ON_REQUEST_ERROR"),
-            message: t("ON_REQUEST_ERROR_MSG")
-          });
-        }
-      })
-      .call();
-
+    if (props.loadMyOffers) props.loadMyOffers();
     return () => {
-      didCancel = true;
+      if (props.resetOffersState) props.resetOffersState();
     };
   }, []);
+
+  function handleViewOffer(offer) {
+    changeTab(2);
+    setOffer(offer);
+  }
+  function handleBack() {
+    changeTab(1);
+  }
   return (
     <div className="myOffers">
-      {spinner ? (
+      {props.loading ? (
         <div className="page-loading">
           <SquareSpinner />
           <h2>{t("NEW_APPS_LOADING_TEXT")}</h2>
         </div>
-      ) : error ? (
+      ) : props.error ? (
         <div className="page-list-error animated fadeIn">
           <Wrong />
-          <h2>{error.title}</h2>
-          <span>{error.message}</span>
+          <h2>{props.error && props.error.title}</h2>
+          <span>{props.error && props.error.message}</span>
         </div>
-      ) : !data || data.length === 0 ? (
+      ) : !props.data || props.data.length === 0 ? (
         <div className="page-empty-list animated fadeIn">
           <Empty />
           <h2>{t("NEW_APPS_EMPTY_LIST_TITLE")}</h2>
           <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
-      ) : (
-        data.map(app => <Item item={app} />)
-      )}
+      ) : tab === 1 ? (
+        props.data.map(app => (
+          <Item item={app} onViewDetailClicked={handleViewOffer} />
+        ))
+      ) : tab === 2 ? (
+        selectedOffer && <OfferDetail onBackClicked={handleBack} />
+      ) : null}
     </div>
   );
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    loading: state.offer
+      ? state.offer.myOffersReducer
+        ? state.offer.myOffersReducer.loading
+        : null
+      : null,
+    data: state.offer
+      ? state.offer.myOffersReducer
+        ? state.offer.myOffersReducer.data
+        : null
+      : null,
+    error: state.offer
+      ? state.offer.myOffersReducer
+        ? state.offer.myOffersReducer.error
+        : null
+      : null
+  };
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  loadMyOffers,
+  resetOffersState
+};
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewApplications);
+)(MyOffers);

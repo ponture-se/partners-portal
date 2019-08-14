@@ -22,6 +22,7 @@ export function setAuthorization(value) {
   };
 }
 export function setUser(user) {
+  Storage.set("@ponture-partners/userInfo", user);
   return {
     type: SET_USER,
     user
@@ -52,15 +53,12 @@ export const logoutUser = () => dispatch => {
   dispatch(logout());
 };
 
-export const setUserInfo = user => dispatch => {
-  dispatch(setUser(user));
-};
-
 export const login = (userName, password, router) => dispatch => {
   dispatch({ type: LOADING });
   getToken()
     .onOk(result => {
       dispatch({ type: SUCCESS_TOKEN });
+      dispatch(setUser({ customerId: userName }));
       if (result) {
         dispatch(loginUser(result.access_token));
         navigateHome(router);

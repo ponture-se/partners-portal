@@ -1,7 +1,7 @@
-import { LOADING, LOADED, ERROR } from "./actions";
+import { LOADING, LOADED, ERROR ,CLEAN_DATA } from "./actions";
 
 const initialState = {
-  loading: false,
+  loading: true,
   data: null,
   error: null
 };
@@ -18,6 +18,13 @@ export default function myOffersReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        data: action.payload
+      };
+    }
+    case CLEAN_DATA: {
+      return {
+        ...state,
+        loading: true,
         data: action.payload
       };
     }

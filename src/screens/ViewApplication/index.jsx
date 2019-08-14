@@ -432,7 +432,7 @@ const ViewApplication = props => {
                     <tbody>
                       {data.accountDetails &&
                         data.accountDetails.BoardMember.map(item => (
-                          <tr>
+                          <tr key={item.personalNum}>
                             <td>{item.firstName}</td>
                             <td>{item.personalNum}</td>
                             <td>{item.role}</td>
@@ -595,6 +595,7 @@ const ViewApplication = props => {
       {creditReportVisibility && (
         <CreditReportModal
           app={data ? data.opportunityDetails : null}
+          accountDetails={data ? data.accountDetails : null}
           onClose={handleCloseCreditReport}
         />
       )}

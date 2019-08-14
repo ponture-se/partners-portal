@@ -23,6 +23,9 @@ export default {
     OFFER: "Offer",
     REQUIRED: "Required",
     CREDIT_REPORT: "Credit Report",
+    VIEW_OFFER: "View Offer",
+    CANCEL: "Cancel",
+    EDIT: "Edit",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -131,6 +134,33 @@ export default {
     ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED: "Other Guarantee Needed",
 
     CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
+    CREDIT_REPORT_TODAYS_DATE: "Todays date",
+    CREDIT_REPORT_COMPANY_NAME: "Company name",
+    CREDIT_REPORT_LEGAL_FORM: "Legal form",
+    CREDIT_REPORT_COMPANY_NUMBER: "Company number",
+    CREDIT_REPORT_SHARE_CAPITAL: "Share capital",
+    CREDIT_REPORT_SAFE_NUMBER: "Safe number",
+    CREDIT_REPORT_REGISTRATION_DATE: "Registration date",
+    CREDIT_REPORT_VAT_NUMBER: "VAT number",
+    CREDIT_REPORT_EMAIL_ADDRESS: "Email address",
+    CREDIT_REPORT_ADDRESS: "Address",
+    CREDIT_REPORT_WEB_ADDRESS: "Web address",
+    CREDIT_REPORT_CITY: "City",
+    CREDIT_REPORT_TURN_OVER: "Turnover",
+    CREDIT_REPORT_REGISTERED_COUNTRY: "Registration country",
+    CREDIT_REPORT_NUMBER_OF_EMPLOYEES: "Number of employees",
+    CREDIT_REPORT_REGISTERED_MUNICIPAL: "Registered municipal",
+    CREDIT_REPORT_NUMBER_OF_GROUP_CMP: "Number of group companies",
+    CREDIT_REPORT_PHONE: "Phone",
+    CREDIT_REPORT_UNITS: "Units",
+    CREDIT_REPORT_FAX: "Fax",
+    CREDIT_REPORT_STATUS: "Status",
+    CREDIT_REPORT_COMMERCIAL_BLOCK: "Commercial block",
+
+    OFFER_ISSUE_DATE: "Issue Date",
+    OFFER_AMOUNT: "Amount",
+    OFFER_AMORTIZATION_PERIOD: "Amortization Period",
+    OFFER_DETAIL_BACK: "Back to My Offers",
 
     //
     APP_COMPANY_REGISTERED: "Company registered",

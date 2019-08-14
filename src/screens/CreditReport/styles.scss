@@ -1,17 +1,34 @@
+.creditReportModalSize {
+  width: 1000px;
+}
 .creditReport {
   &__header {
     height: 80px;
     display: flex;
-    border-bottom: 0.5px solid lightgray;
     align-items: center;
     padding: 0 20px;
-    .title {
-      font-size: 22px;
-      font-weight: bold;
+    .left {
+      flex: 1;
+      img {
+        width: 130px;
+      }
     }
-    .appName {
-      padding-left: 10px;
-      font-size: 13px;
+    .center {
+      flex: 1.5;
+      display: flex;
+      flex-direction: column;
+    }
+    .headerRow {
+      span:first-child {
+        font-size: 13px;
+        font-family: "OpenSanceBold";
+      }
+      span:last-child {
+        font-size: 13px;
+        padding: 0 20px;
+      }
+    }
+    .right {
       flex: 1;
     }
   }
@@ -20,14 +37,78 @@
     color: gray;
     cursor: pointer;
     transition-duration: 0.3s;
+    position: absolute;
+    top: 10px;
+    right: 20px;
     &:hover {
       color: black;
       transition-duration: 0.3s;
     }
   }
   &__body {
-    padding: 20px 0;
-    min-height: 300px;
+    padding: 20px;
+  }
+  &__box {
+    &.firstBox {
+      background: rgb(238, 243, 249);
+      border-radius: 10px;
+      border: 1px solid gray;
+      padding: 10px;
+      .row {
+        display: flex;
+        padding: 3px 0;
+        &__left {
+          display: flex;
+          flex: 1;
+        }
+        &__right {
+          display: flex;
+          flex: 1;
+        }
+        .key {
+          flex: 1;
+          font-size: 13px;
+          font-family: OpenSanceBold;
+        }
+        .value {
+          flex: 1;
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  &__box1 {
+    margin: 20px 0;
+    &__header {
+      background: whitesmoke;
+      font-family: OpenSanceBold;
+      font-size: 14px;
+      padding: 3px 10px;
+      border-bottom: 1px solid gray;
+    }
+    &__body {
+      background: rgb(238, 243, 249);
+      min-height: 50px;
+      table {
+        width: 100%;
+        thead {
+          th {
+            border-bottom: 1px solid gray;
+            padding: 3px 10px;
+            background: whitesmoke;
+            font-family: OpenSanceBold;
+            font-size: 14px;
+            text-align: left;
+          }
+        }
+        tbody {
+          td {
+            padding: 5px 10px!important;
+            font-size: 13px;
+          }
+        }
+      }
+    }
   }
   &__footer {
     padding: 20px;
