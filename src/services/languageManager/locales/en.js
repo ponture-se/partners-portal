@@ -26,6 +26,7 @@ export default {
     VIEW_OFFER: "View Offer",
     CANCEL: "Cancel",
     EDIT: "Edit",
+    INPUT_NEGATIVE_VALUE: "It should be above 0",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:

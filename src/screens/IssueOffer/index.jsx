@@ -5,6 +5,7 @@ import "./styles.scss";
 import Products from "./products";
 import ErrorForm from "./forms/errorForm";
 import Modal from "components/Modal";
+import CircleSpinner from "components/CircleSpinner";
 
 const IssueOffer = props => {
   const formRef = useRef(null);
@@ -28,9 +29,6 @@ const IssueOffer = props => {
           />
         );
         setComponent(B);
-        // import("./forms/testProductForm123456789")
-        //   .then(f => setComponent(f.default()))
-        //   .catch(err => <ErrorForm />);
         break;
       default:
         break;
@@ -65,7 +63,9 @@ const IssueOffer = props => {
               selectedProduct={selectedProduct}
             />
           ) : tab === 2 ? (
-            <Suspense fallback={<div />}>{FormComponent}</Suspense>
+            <Suspense fallback={<FullBackComponent />}>
+              {FormComponent}
+            </Suspense>
           ) : null}
         </div>
       </div>
@@ -81,3 +81,12 @@ const IssueOffer = props => {
 };
 
 export default IssueOffer;
+
+function FullBackComponent(props) {
+  return (
+    <div className="fallback">
+      <CircleSpinner show={true} bgColor="rgb(23, 145, 164)" />
+      <h6>Loading form</h6>
+    </div>
+  );
+}

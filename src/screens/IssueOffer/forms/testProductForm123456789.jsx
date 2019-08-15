@@ -9,24 +9,31 @@ import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
 //
 const formSchema = Yup.object().shape({
-  amount: Yup.number().required(t("REQUIRED")),
-  // .min(2, "Too Short!")
-  // .max(50, "Too Long!"),
-  interestRate: Yup.number().required(t("REQUIRED")),
-  repaymentPeriod: Yup.number().required(t("REQUIRED")),
-  monthlyRepaymentAmount: Yup.number().required(t("REQUIRED")),
-  totalRepaymentAmount: Yup.number().required(t("REQUIRED")),
+  amount: Yup.number()
+    .required(t("REQUIRED"))
+    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  interestRate: Yup.number()
+    .required(t("REQUIRED"))
+    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  repaymentPeriod: Yup.number()
+    .required(t("REQUIRED"))
+    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  monthlyRepaymentAmount: Yup.number()
+    .required(t("REQUIRED"))
+    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  totalRepaymentAmount: Yup.number()
+    .required(t("REQUIRED"))
+    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  personalGuaranteeNeeded: Yup.bool(),
+  otherGuaranteeNeeded: Yup.bool(),
   startFee: Yup.number().required(t("REQUIRED")),
   cost: Yup.number().required(t("REQUIRED")),
-  personalGuaranteeDetails: Yup.string().required(t("REQUIRED")),
-  otherGuaranteeDetails: Yup.string().required(t("REQUIRED")),
-  otherGuaranteesType: Yup.string().required(t("REQUIRED")),
-  moreDetails: Yup.string().required(t("REQUIRED")),
-  offerDescription: Yup.string().required(t("REQUIRED")),
-  extraOfferDescription: Yup.string().required(t("REQUIRED"))
-  // email: Yup.string()
-  //   .email("Invalid email")
-  //   .required("Required")
+  personalGuaranteeDetails: Yup.string(),
+  otherGuaranteeDetails: Yup.string(),
+  otherGuaranteesType: Yup.string(),
+  moreDetails: Yup.string(),
+  offerDescription: Yup.string(),
+  extraOfferDescription: Yup.string()
 });
 const initVals = {
   amount: "",
@@ -102,6 +109,7 @@ const Form = props => {
                       <div className="formInput__body">
                         <input
                           type="number"
+                          min="0"
                           name="amount"
                           className="element"
                           placeholder={t("ISSUE_OFFER_AMOUNT_PLACEHOLDER")}
@@ -141,6 +149,7 @@ const Form = props => {
                       <div className="formInput__body">
                         <input
                           type="number"
+                          min="0"
                           name="interestRate"
                           className="element"
                           placeholder={t(
@@ -185,6 +194,7 @@ const Form = props => {
                       <div className="formInput__body">
                         <input
                           type="number"
+                          min="0"
                           name="repaymentPeriod"
                           className="element"
                           placeholder={t(
@@ -227,6 +237,7 @@ const Form = props => {
                       <div className="formInput__body">
                         <input
                           type="number"
+                          min="0"
                           name="monthlyRepaymentAmount"
                           className="element"
                           placeholder={t(
@@ -271,6 +282,7 @@ const Form = props => {
                       <div className="formInput__body">
                         <input
                           type="number"
+                          min="0"
                           name="totalRepaymentAmount"
                           className="element"
                           placeholder={t(
