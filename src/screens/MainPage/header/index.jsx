@@ -18,7 +18,10 @@ const Header = props => {
         </div>
         <div className="mainHeader__userInfo">
           {props.userInfo &&
-            props.userInfo.firstName + " " + props.userInfo.lastName}
+            (props.userInfo.firstName && props.userInfo.firstName) +
+              " " +
+              props.userInfo.lastName &&
+            props.userInfo.lastName}
         </div>
         <div className="mainHeader__signout" onClick={handleSignout}>
           <span>{t("SIGN_OUT")}</span>

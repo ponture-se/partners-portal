@@ -9,7 +9,7 @@ const Item = props => {
       <div className="application__header">
         <span className="application__title">{item.RecordType}</span>
         <div className="application__headerinfo">
-          <span>Ericsson AB (330299-1234)</span>
+          <span>----------------</span>
           <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           <span>
             {item.amortizationPeriod} {t("MONTH")}
@@ -43,8 +43,8 @@ const Item = props => {
           </span>
         </div>
         <div className="application__bodyRow">
-          <span>{t("APP_REVENUE")} 2018</span>
-          <span>12 000 000.00 Kr</span>
+          <span>{t("APP_REVENUE")} ----</span>
+          <span>--Not-Available-- Kr</span>
           <span>
             {item.companyVerified ? (
               <i className="icon-checkmark" />

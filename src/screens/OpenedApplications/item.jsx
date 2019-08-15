@@ -83,10 +83,10 @@ const Item = props => {
         </div>
         <div className="openedApp__bodyRow">
           <div className="openedApp__bodyRow__left">
-            <span>{t("APP_REVENUE")} 2018</span>
+            <span>{t("APP_REVENUE")} -----</span>
           </div>
           <div className="openedApp__bodyRow__right">
-            <span>12 000 000.00 Kr</span>
+            <span>--Not-available-- Kr</span>
             <span>
               {item.companyVerified ? (
                 <i className="icon-checkmark" />
