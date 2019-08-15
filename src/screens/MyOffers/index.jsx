@@ -52,8 +52,8 @@ const MyOffers = props => {
           <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : tab === 1 ? (
-        props.data.map(app => (
-          <Item item={app} onViewDetailClicked={handleViewOffer} />
+        props.data.map(offer => (
+          <Item item={offer} onViewDetailClicked={handleViewOffer} />
         ))
       ) : tab === 2 ? (
         selectedOffer && <OfferDetail onBackClicked={handleBack} />

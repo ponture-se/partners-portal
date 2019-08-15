@@ -10,8 +10,10 @@ export default function Modal(props) {
     };
   }, []);
   return (
-    <div className="modal-back animated fadeIn">
-      <div className={"modal " + (size ? size : "md")}>{props.children}</div>
+    <div className="modal-back">
+      <div className={"modal animated fadeIn " + (size ? size : "md")}>
+        {props.children}
+      </div>
     </div>
   );
 }

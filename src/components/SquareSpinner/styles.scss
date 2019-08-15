@@ -16,9 +16,9 @@
 }
 
 .square-a {
-  -webkit-animation: fadeIn 2s infinite;
-  -moz-animation: fadeIn 2s infinite;
-  animation: fadeIn 2s infinite;
+  -webkit-animation: fadeInS 2s infinite;
+  -moz-animation: fadeInS 2s infinite;
+  animation: fadeInS 2s infinite;
 }
 
 .state1a {
@@ -51,7 +51,7 @@
 }
 
 /*Square a blink blink*/
-@-webkit-keyframes fadeIn {
+@-webkit-keyframes fadeInS {
   0% {
     opacity: 0.2;
   }
@@ -59,7 +59,7 @@
     opacity: 1;
   }
 }
-@-moz-keyframes fadeIn {
+@-moz-keyframes fadeInS {
   0% {
     opacity: 0.2;
   }
@@ -67,7 +67,7 @@
     opacity: 1;
   }
 }
-@keyframes fadeIn {
+@keyframes fadeInS {
   0% {
     opacity: 0.2;
   }

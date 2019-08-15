@@ -1,4 +1,4 @@
-import React, { useState, useRef, lazy } from "react";
+import React, { useState, useRef, Suspense, lazy } from "react";
 //
 import { t } from "services/languageManager";
 import "./styles.scss";
@@ -65,7 +65,7 @@ const IssueOffer = props => {
               selectedProduct={selectedProduct}
             />
           ) : tab === 2 ? (
-            <div>{FormComponent}</div>
+            <Suspense fallback={<div />}>{FormComponent}</Suspense>
           ) : null}
         </div>
       </div>
