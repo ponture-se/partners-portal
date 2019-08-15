@@ -14,7 +14,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Redirect
           to={{
             pathname: `/${currentLangName}/login`,
-            state: { from: props.location }
+            state: !rest.isLogOut ? { from: props.location } : undefined
           }}
         />
       )}
@@ -23,7 +23,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 };
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.authReducer.isAuthenticated
+  isAuthenticated: state.authReducer ? state.authReducer.isAuthenticated : null,
+  isLogOut: state.authReducer ? state.authReducer.isLogOut : null
 });
 
 export default connect(

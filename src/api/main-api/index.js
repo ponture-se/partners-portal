@@ -2,7 +2,7 @@ import Storage from "services/storageManager";
 import setAuthorizationToken from "utils/setAuthorizationToken";
 import { toast } from "react-toastify";
 import { t } from "services/languageManager";
-import { LOGOUT } from "services/redux/auth/actions";
+import { types } from "services/redux/auth/actions";
 import store from "services/redux/store";
 
 const axios = require("axios");
@@ -47,7 +47,7 @@ axios.interceptors.response.use(
 );
 function unAuthorized() {
   store.dispatch({
-    type: LOGOUT
+    type: types.UN_AUTHORIZED
   });
   toast.error(t("UN_AUTHORIZED"));
   Storage.remove("p_token");

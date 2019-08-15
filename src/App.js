@@ -27,12 +27,18 @@ function App() {
             path="/:lang/login"
             render={props => <Login {...props} />}
           />
+
+          <Redirect
+            from="/:lang"
+            to={`/${currentLangName}/newApplications`}
+            exact
+          />
+          <Redirect from="/" to={`/${currentLangName}/newApplications`} exact />
           <PrivateRoute
             key="mainPage"
             path="/:lang"
             render={props => <Main {...props} />}
           />
-          <Redirect from="/" to={`/${currentLangName}/newApplications`} exact />
         </Switch>
       </BrowserRouter>
       <ToastContainer />
