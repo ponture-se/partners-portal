@@ -35,7 +35,6 @@ export function resetOffersState() {
 export const loadMyOffers = () => dispatch => {
   getMyOffers()
     .onOk(result => {
-      console.log(result);
       dispatch(loadedData(result));
     })
     .onServerError(result => {

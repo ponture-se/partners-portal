@@ -65,7 +65,7 @@ const Form = props => {
         productMasterID: props.product ? props.product.Id : null,
         oppID: props.app ? props.app.opportunityID : null
       };
-      props.submitIssueOffer(obj);
+      props.submitIssueOffer(obj, props.onSuccess);
     }
   }
 

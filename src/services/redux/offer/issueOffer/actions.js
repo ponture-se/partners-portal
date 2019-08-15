@@ -25,11 +25,14 @@ export function failed(error) {
   };
 }
 
-export const submitIssueOffer = offer => dispatch => {
+export const submitIssueOffer = (offer, onSuccess) => dispatch => {
   dispatch(toggleLoading(true));
   submitOffer()
     .onOk(result => {
       dispatch(successSubmit());
+      if (onSuccess) {
+        onSuccess();
+      }
     })
     .onServerError(result => {
       dispatch(failed(result));

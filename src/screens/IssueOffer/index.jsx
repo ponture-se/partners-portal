@@ -26,6 +26,7 @@ const IssueOffer = props => {
             product={p}
             app={props.app}
             onBackClicked={handleFormBackClicked}
+            onSuccess={closeModal}
           />
         );
         setComponent(B);
