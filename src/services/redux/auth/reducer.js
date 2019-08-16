@@ -30,6 +30,12 @@ export default function authReducer(state = initialState, action) {
         loading: false
       };
     }
+    case FAILED_TOKEN: {
+      return {
+        ...state,
+        loading: false
+      };
+    }
     case SET_AUTHORIZATION: {
       return {
         ...state,

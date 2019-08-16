@@ -2,6 +2,8 @@
   &__content {
     padding: 0 30px;
     min-height: 200px;
+    display: flex;
+    flex-direction: column;
   }
   &__actions {
     padding: 20px 20px 0 20px;
@@ -14,6 +16,8 @@
   }
 }
 .formRow {
+  flex: 1;
+  width: 100%;
   display: flex;
   .custom_checkbox {
     margin: 15px 0;
