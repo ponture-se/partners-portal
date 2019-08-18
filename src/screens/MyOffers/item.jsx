@@ -3,9 +3,15 @@ import { Link } from "react-router-dom";
 import { t, currentLangName } from "../../services/languageManager";
 const Item = props => {
   const { item } = props;
+
   function handleViewOfferClicked() {
     if (props.onViewDetailClicked) {
       props.onViewDetailClicked(item);
+    }
+  }
+  function handleEditClicked() {
+    if (props.onEditClicked) {
+      props.onEditClicked(item);
     }
   }
 
@@ -34,11 +40,11 @@ const Item = props => {
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMOUNT")}</span>
-          <span>----2-props---- Kr</span>
+          <span>{item.amount} Kr</span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
-          <span>-----Not-available-2-date---</span>
+          <span>{item.last_modified_date}</span>
         </div>
       </div>
       <div className="myOfferItem__footer">
@@ -52,7 +58,7 @@ const Item = props => {
             <span className="icon-cross" />
             {t("CANCEL")}
           </button>
-          <button className="btn --light" onClick={handleViewOfferClicked}>
+          <button className="btn --light" onClick={handleEditClicked}>
             <span className="icon-pencil" />
             {t("EDIT")}
           </button>

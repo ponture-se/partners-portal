@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -7,52 +7,106 @@ import "./styles.scss";
 import { submitIssueOffer } from "services/redux/offer/issueOffer/actions";
 import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
-//
+// import DynamicForm from "./DynamicForm";
+// import initValidations from "./validation";
+
 const formSchema = Yup.object().shape({
   amount: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-  interestRate: Yup.number()
+  interest_rate: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-  repaymentPeriod: Yup.number()
+  repayment_period: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-  monthlyRepaymentAmount: Yup.number()
+  monthly_repayment_amount: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-  totalRepaymentAmount: Yup.number()
+  total_repayment_amount: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-  personalGuaranteeNeeded: Yup.bool(),
-  otherGuaranteeNeeded: Yup.bool(),
-  startFee: Yup.number().required(t("REQUIRED")),
+  start_fee: Yup.number().required(t("REQUIRED")),
   cost: Yup.number().required(t("REQUIRED")),
-  personalGuaranteeDetails: Yup.string(),
-  otherGuaranteeDetails: Yup.string(),
-  otherGuaranteesType: Yup.string(),
-  moreDetails: Yup.string(),
-  offerDescription: Yup.string(),
-  extraOfferDescription: Yup.string()
+  personal_guarantee_needed: Yup.bool(),
+  other_guarantees_needed: Yup.bool(),
+  personal_guarantee_details: Yup.string(),
+  number_of_personal_guarantees: Yup.number().min(0, t("INPUT_NEGATIVE_VALUE")),
+  other_guarantees_details: Yup.string(),
+  other_guarantees_type: Yup.string(),
+  more_details: Yup.string(),
+  offer_description: Yup.string(),
+  extra_offer_description: Yup.string()
 });
-const initVals = {
-  amount: "",
-  interestRate: "",
-  repaymentPeriod: "",
-  monthlyRepaymentAmount: "",
-  totalRepaymentAmount: "",
-  startFee: "",
-  cost: "",
-  personalGuaranteeNeeded: true,
-  otherGuaranteeNeeded: true,
-  personalGuaranteeDetails: "",
-  otherGuaranteeDetails: "",
-  otherGuaranteesType: "",
-  moreDetails: "",
-  offerDescription: "",
-  extraOfferDescription: ""
-};
 const Form = props => {
+  let v;
+  const { offer } = props;
+  const initVals = {
+    amount: offer ? (offer.amount ? offer.amount : "") : "",
+    interest_rate: offer
+      ? offer.interest_rate
+        ? offer.interest_rate
+        : ""
+      : "",
+    repayment_period: offer
+      ? offer.repayment_period
+        ? offer.repayment_period
+        : ""
+      : "",
+    monthly_repayment_amount: offer
+      ? offer.monthly_repayment_amount
+        ? offer.monthly_repayment_amount
+        : ""
+      : "",
+    total_repayment_amount: offer
+      ? offer.total_repayment_amount
+        ? offer.total_repayment_amount
+        : ""
+      : "",
+    start_fee: offer ? (offer.start_fee ? offer.start_fee : "") : "",
+    cost: offer ? (offer.cost ? offer.cost : "") : "",
+    personal_guarantee_needed: offer
+      ? offer.personal_guarantee_needed
+        ? offer.personal_guarantee_needed
+        : true
+      : true,
+    other_guarantees_needed: offer
+      ? offer.other_guarantees_needed
+        ? offer.other_guarantees_needed
+        : true
+      : true,
+    personal_guarantee_details: offer
+      ? offer.personal_guarantee_details
+        ? offer.personal_guarantee_details
+        : ""
+      : "",
+    number_of_personal_guarantees: offer
+      ? offer.number_of_personal_guarantees
+        ? offer.number_of_personal_guarantees
+        : ""
+      : "",
+    other_guarantees_details: offer
+      ? offer.other_guarantees_details
+        ? offer.other_guarantees_details
+        : ""
+      : "",
+    other_guarantees_type: offer
+      ? offer.other_guarantees_type
+        ? offer.other_guarantees_type
+        : ""
+      : "",
+    more_details: offer ? (offer.more_details ? offer.more_details : "") : "",
+    offer_description: offer
+      ? offer.offer_description
+        ? offer.offer_description
+        : ""
+      : "",
+    extra_offer_description: offer
+      ? offer.extra_offer_description
+        ? offer.extra_offer_description
+        : ""
+      : ""
+  };
   function backToProducts() {
     if (props.onBackClicked) props.onBackClicked();
   }
@@ -60,16 +114,21 @@ const Form = props => {
     if (props.submitIssueOffer) {
       let obj = {
         ...values,
-        partnerID: props.userInfo ? props.userInfo.customerId : null,
-        productName: props.product ? props.product.Name : null,
-        productMasterID: props.product ? props.product.Id : null,
-        oppID: props.app ? props.app.opportunityID : null
+        partner_id: props.userInfo ? props.userInfo.customerId : null,
+        product_name: props.product ? props.product.Name : null,
+        product_master: props.product ? props.product.Id : null,
+        opportunityID: props.app ? props.app.opportunityID : null
       };
       props.submitIssueOffer(obj, props.onSuccess);
     }
   }
 
   return (
+    // <div className="issueOfferForm animated fadeIn">
+    //   <div className="issueOfferForm__body">
+    //     <DynamicForm fields={fields} validation={v} />
+    //   </div>
+    // </div>
     <div className="issueOfferForm animated fadeIn">
       <div className="issueOfferForm__body">
         <Formik
@@ -131,9 +190,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.interestRate &&
-                      touched.interestRate &&
-                      errors.interestRate
+                      (errors.interest_rate &&
+                      touched.interest_rate &&
+                      errors.interest_rate
                         ? "--invalid"
                         : "")
                     }
@@ -149,20 +208,20 @@ const Form = props => {
                       <input
                         type="number"
                         min="0"
-                        name="interestRate"
+                        name="interest_rate"
                         className="element"
                         placeholder={t("ISSUE_OFFER_INTEREST_RATE_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.interestRate}
+                        value={values.interest_rate}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.interestRate &&
-                            touched.interestRate &&
-                            errors.interestRate}
+                          {errors.interest_rate &&
+                            touched.interest_rate &&
+                            errors.interest_rate}
                         </span>
                       </div>
                     </div>
@@ -172,9 +231,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.repaymentPeriod &&
-                      touched.repaymentPeriod &&
-                      errors.repaymentPeriod
+                      (errors.repayment_period &&
+                      touched.repayment_period &&
+                      errors.repayment_period
                         ? "--invalid"
                         : "")
                     }
@@ -190,22 +249,22 @@ const Form = props => {
                       <input
                         type="number"
                         min="0"
-                        name="repaymentPeriod"
+                        name="repayment_period"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_REPAYMENT_PERIOD_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.repaymentPeriod}
+                        value={values.repayment_period}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.repaymentPeriod &&
-                            touched.repaymentPeriod &&
-                            errors.repaymentPeriod}
+                          {errors.repayment_period &&
+                            touched.repayment_period &&
+                            errors.repayment_period}
                         </span>
                       </div>
                     </div>
@@ -215,9 +274,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.monthlyRepaymentAmount &&
-                      touched.monthlyRepaymentAmount &&
-                      errors.monthlyRepaymentAmount
+                      (errors.monthly_repayment_amount &&
+                      touched.monthly_repayment_amount &&
+                      errors.monthly_repayment_amount
                         ? "--invalid"
                         : "")
                     }
@@ -233,22 +292,22 @@ const Form = props => {
                       <input
                         type="number"
                         min="0"
-                        name="monthlyRepaymentAmount"
+                        name="monthly_repayment_amount"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_MONTHLY_REPAYMENT_AMOUNT_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.monthlyRepaymentAmount}
+                        value={values.monthly_repayment_amount}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.monthlyRepaymentAmount &&
-                            touched.monthlyRepaymentAmount &&
-                            errors.monthlyRepaymentAmount}
+                          {errors.monthly_repayment_amount &&
+                            touched.monthly_repayment_amount &&
+                            errors.monthly_repayment_amount}
                         </span>
                       </div>
                     </div>
@@ -258,9 +317,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.totalRepaymentAmount &&
-                      touched.totalRepaymentAmount &&
-                      errors.totalRepaymentAmount
+                      (errors.total_repayment_amount &&
+                      touched.total_repayment_amount &&
+                      errors.total_repayment_amount
                         ? "--invalid"
                         : "")
                     }
@@ -276,22 +335,22 @@ const Form = props => {
                       <input
                         type="number"
                         min="0"
-                        name="totalRepaymentAmount"
+                        name="total_repayment_amount"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.totalRepaymentAmount}
+                        value={values.total_repayment_amount}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.totalRepaymentAmount &&
-                            touched.totalRepaymentAmount &&
-                            errors.totalRepaymentAmount}
+                          {errors.total_repayment_amount &&
+                            touched.total_repayment_amount &&
+                            errors.total_repayment_amount}
                         </span>
                       </div>
                     </div>
@@ -304,9 +363,9 @@ const Form = props => {
                         <input
                           type="checkbox"
                           id="personalGuaranteeNeededChk"
-                          name="personalGuaranteeNeeded"
+                          name="personal_guarantee_needed"
                           onChange={handleChange}
-                          checked={values.personalGuaranteeNeeded}
+                          checked={values.personal_guarantee_needed}
                         />
                         <span className="checkmark" />
                       </label>
@@ -325,28 +384,27 @@ const Form = props => {
                       <label className="checkBox">
                         <input
                           type="checkbox"
-                          id="otherGuaranteeNeededChk"
-                          name="otherGuaranteeNeeded"
+                          id="other_guarantees_neededChk"
+                          name="other_guarantees_needed"
                           onChange={handleChange}
-                          checked={values.otherGuaranteeNeeded}
+                          checked={values.other_guarantees_needed}
                         />
                         <span className="checkmark" />
                       </label>
                     </div>
                     <div className="right">
-                      <label htmlFor="otherGuaranteeNeededChk">
+                      <label htmlFor="other_guarantees_neededChk">
                         {t("ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED")}
                       </label>
                       <label />
                     </div>
                   </div>
                 </div>
-
                 <div className="formRow">
                   <div
                     className={
                       "formInput " +
-                      (errors.startFee && touched.startFee && errors.startFee
+                      (errors.start_fee && touched.start_fee && errors.start_fee
                         ? "--invalid"
                         : "")
                     }
@@ -361,20 +419,20 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="number"
-                        name="startFee"
+                        name="start_fee"
                         className="element"
                         placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.startFee}
+                        value={values.start_fee}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.startFee &&
-                            touched.startFee &&
-                            errors.startFee}
+                          {errors.start_fee &&
+                            touched.start_fee &&
+                            errors.start_fee}
                         </span>
                       </div>
                     </div>
@@ -420,9 +478,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.personalGuaranteeDetails &&
-                      touched.personalGuaranteeDetails &&
-                      errors.personalGuaranteeDetails
+                      (errors.personal_guarantee_details &&
+                      touched.personal_guarantee_details &&
+                      errors.personal_guarantee_details
                         ? "--invalid"
                         : "")
                     }
@@ -437,22 +495,22 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="personalGuaranteeDetails"
+                        name="personal_guarantee_details"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.personalGuaranteeDetails}
+                        value={values.personal_guarantee_details}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.personalGuaranteeDetails &&
-                            touched.personalGuaranteeDetails &&
-                            errors.personalGuaranteeDetails}
+                          {errors.personal_guarantee_details &&
+                            touched.personal_guarantee_details &&
+                            errors.personal_guarantee_details}
                         </span>
                       </div>
                     </div>
@@ -462,9 +520,52 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.otherGuaranteeDetails &&
-                      touched.otherGuaranteeDetails &&
-                      errors.otherGuaranteeDetails
+                      (errors.number_of_personal_guarantees &&
+                      touched.number_of_personal_guarantees &&
+                      errors.number_of_personal_guarantees
+                        ? "--invalid"
+                        : "")
+                    }
+                  >
+                    <div className="formInput__header">
+                      <div className="formInput__header__left">
+                        <span className="elementTitle">
+                          {t("ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES")}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="formInput__body">
+                      <input
+                        type="number"
+                        name="number_of_personal_guarantees"
+                        className="element"
+                        placeholder={t(
+                          "ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES_PLACEHOLDER"
+                        )}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        value={values.number_of_personal_guarantees}
+                      />
+                    </div>
+                    <div className="formInput__footer">
+                      <div className="formInput__footer__left">
+                        <span className="elementInfo">
+                          {errors.number_of_personal_guarantees &&
+                            touched.number_of_personal_guarantees &&
+                            errors.number_of_personal_guarantees}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="formRow">
+                  <div
+                    className={
+                      "formInput " +
+                      (errors.other_guarantees_details &&
+                      touched.other_guarantees_details &&
+                      errors.other_guarantees_details
                         ? "--invalid"
                         : "")
                     }
@@ -479,20 +580,20 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="otherGuaranteeDetails"
+                        name="other_guarantees_details"
                         className="element"
                         placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.otherGuaranteeDetails}
+                        value={values.other_guarantees_details}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.otherGuaranteeDetails &&
-                            touched.otherGuaranteeDetails &&
-                            errors.otherGuaranteeDetails}
+                          {errors.other_guarantees_details &&
+                            touched.other_guarantees_details &&
+                            errors.other_guarantees_details}
                         </span>
                       </div>
                     </div>
@@ -502,9 +603,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.otherGuaranteesType &&
-                      touched.otherGuaranteesType &&
-                      errors.otherGuaranteesType
+                      (errors.other_guarantees_type &&
+                      touched.other_guarantees_type &&
+                      errors.other_guarantees_type
                         ? "--invalid"
                         : "")
                     }
@@ -519,22 +620,22 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="otherGuaranteesType"
+                        name="other_guarantees_type"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_OTHER_GUARANTEES_TYPE_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.otherGuaranteesType}
+                        value={values.other_guarantees_type}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.otherGuaranteesType &&
-                            touched.otherGuaranteesType &&
-                            errors.otherGuaranteesType}
+                          {errors.other_guarantees_type &&
+                            touched.other_guarantees_type &&
+                            errors.other_guarantees_type}
                         </span>
                       </div>
                     </div>
@@ -544,9 +645,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.moreDetails &&
-                      touched.moreDetails &&
-                      errors.moreDetails
+                      (errors.more_details &&
+                      touched.more_details &&
+                      errors.more_details
                         ? "--invalid"
                         : "")
                     }
@@ -561,20 +662,20 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="moreDetails"
+                        name="more_details"
                         className="element"
                         placeholder={t("ISSUE_OFFER_MORE_DETAILS_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.moreDetails}
+                        value={values.more_details}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.moreDetails &&
-                            touched.moreDetails &&
-                            errors.moreDetails}
+                          {errors.more_details &&
+                            touched.more_details &&
+                            errors.more_details}
                         </span>
                       </div>
                     </div>
@@ -584,9 +685,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.offerDescription &&
-                      touched.offerDescription &&
-                      errors.offerDescription
+                      (errors.offer_description &&
+                      touched.offer_description &&
+                      errors.offer_description
                         ? "--invalid"
                         : "")
                     }
@@ -601,22 +702,22 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="offerDescription"
+                        name="offer_description"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_OFFER_DESCRIPTION_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.offerDescription}
+                        value={values.offer_description}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.offerDescription &&
-                            touched.offerDescription &&
-                            errors.offerDescription}
+                          {errors.offer_description &&
+                            touched.offer_description &&
+                            errors.offer_description}
                         </span>
                       </div>
                     </div>
@@ -626,9 +727,9 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.extraOfferDescription &&
-                      touched.extraOfferDescription &&
-                      errors.extraOfferDescription
+                      (errors.extra_offer_description &&
+                      touched.extra_offer_description &&
+                      errors.extra_offer_description
                         ? "--invalid"
                         : "")
                     }
@@ -643,22 +744,22 @@ const Form = props => {
                     <div className="formInput__body">
                       <input
                         type="text"
-                        name="extraOfferDescription"
+                        name="extra_offer_description"
                         className="element"
                         placeholder={t(
                           "ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION_PLACEHOLDER"
                         )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.extraOfferDescription}
+                        value={values.extra_offer_description}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.extraOfferDescription &&
-                            touched.extraOfferDescription &&
-                            errors.extraOfferDescription}
+                          {errors.extra_offer_description &&
+                            touched.extra_offer_description &&
+                            errors.extra_offer_description}
                         </span>
                       </div>
                     </div>
@@ -706,28 +807,6 @@ export default connect(
   mapDispatchToProps
 )(Form);
 
-// {
-// 	   "partnerID" : "123456789",
-//     "productName": "Test",
-//     "amount": 1, number input
-//     "interestRate": 2, number input
-//     "repaymentPeriod": 3,
-//     "monthlyRepaymentAmount": 4,
-//     "totalRepaymentAmount": 5,
-//     "startFee": 6,
-//     "cost": 7,
-//     "personalGuaranteeNeeded": true, checkbox
-//     "otherGuaranteeNeeded": true,
-//     "personalGuaranteeDetails": "8",
-//     "otherGuaranteeDetails": "9",
-//     "otherGuaranteesType": "company car",
-//     "moreDetails": "10",
-//     "offerDescription": "11",
-//     "extraOfferDescription": "12",
-//     "productMasterID": "a0G5E000004w15VUAQ",
-//     "oppID": "0065E00000DlPDaQAN"
-// }
-
 // function getValidationSchema(values) {
 //   return Yup.object().shape({
 //     email: Yup.string()
@@ -748,3 +827,125 @@ export default connect(
 //       .required("You have to agree with our Terms and Conditions!")
 //   });
 // }
+
+// const fields = [
+//   {
+//     name: "amount",
+//     type: "number",
+//     title: {
+//       en: "Amount"
+//     },
+//     isFocus: true,
+//     isRequired: true
+//   },
+//   {
+//     name: "interestRate",
+//     type: "number",
+//     title: {
+//       en: "Interest Rate"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "repaymentPeriod",
+//     type: "number",
+//     title: {
+//       en: "Repayment Period"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "monthlyRepaymentAmount",
+//     type: "number",
+//     title: {
+//       en: "Monthly Repayment Amount"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "totalRepaymentAmount",
+//     type: "number",
+//     title: {
+//       en: "Total Repayment Amount"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "startFee",
+//     type: "number",
+//     title: {
+//       en: "Start Fee"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "cost",
+//     type: "number",
+//     title: {
+//       en: "Cost"
+//     },
+//     isRequired: true
+//   },
+//   {
+//     name: "personalGuaranteeNeeded",
+//     type: "boolean",
+//     title: {
+//       en: "Personal Guarantee Needed"
+//     },
+//     defaultValue: true
+//   },
+//   {
+//     name: "other_guarantee_needed",
+//     type: "boolean",
+//     title: {
+//       en: "Other Guarantee Needed"
+//     },
+//     defaultValue: true
+//   },
+//   {
+//     name: "personal_guarantee_details",
+//     type: "string",
+//     title: {
+//       en: "Personal Guarantee Details"
+//     }
+//   },
+//   {
+//     name: "other_guarantees_details",
+//     type: "string",
+//     title: {
+//       en: "Other Guarantee Details"
+//     }
+//   },
+//   {
+//     name: "other_guarantees_type",
+//     type: "string",
+//     title: {
+//       en: "Other Guarantees Type"
+//     }
+//   },
+//   {
+//     name: "more_details",
+//     type: "string",
+//     title: {
+//       en: "More Details"
+//     }
+//   },
+//   {
+//     name: "offer_description",
+//     type: "string",
+//     title: {
+//       en: "Offer Description"
+//     }
+//   },
+//   {
+//     name: "extra_offer_description",
+//     type: "string",
+//     title: {
+//       en: "Extra Offer Description"
+//     }
+//   }
+// ];
+
+// useMemo(() => {
+//   v = initValidations(fields);
+// }, []);

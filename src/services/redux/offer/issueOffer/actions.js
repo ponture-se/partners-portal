@@ -29,6 +29,7 @@ export const submitIssueOffer = (offer, onSuccess) => dispatch => {
   dispatch(toggleLoading(true));
   submitOffer()
     .onOk(result => {
+      toast.success(t("ISSUE_OFFER_SUCCESS_MSG"));
       dispatch(successSubmit());
       if (onSuccess) {
         onSuccess();

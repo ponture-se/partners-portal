@@ -1,4 +1,11 @@
-import React, { useState, useRef, Suspense, lazy } from "react";
+import React, {
+  useState,
+  useMemo,
+  useEffect,
+  useRef,
+  Suspense,
+  lazy
+} from "react";
 //
 import { t } from "services/languageManager";
 import "./styles.scss";
@@ -9,22 +16,32 @@ import CircleSpinner from "components/CircleSpinner";
 
 const IssueOffer = props => {
   const formRef = useRef(null);
-  const [tab, changeTab] = useState(1);
+  const [tab, changeTab] = useState();
   const [selectedProduct, setProduct] = useState();
   const [FormComponent, setComponent] = useState(null);
 
+  useEffect(() => {
+    if (props.updateMode) {
+      changeTab(2);
+      importForm();
+    } else changeTab(1);
+  }, []);
   function handleSelectedProduct(p) {
     setProduct(p);
     changeTab(2);
+    importForm(p);
+  }
+  function importForm(product) {
     const id = "";
     switch (id) {
       case "":
         let O = lazy(() => import("./forms/testProductForm123456789"));
         const B = (
           <O
-            ref={formRef}
-            product={p}
+            product={product}
             app={props.app}
+            offer={props.offer}
+            updateMode={props.updateMode}
             onBackClicked={handleFormBackClicked}
             onSuccess={closeModal}
           />
@@ -43,15 +60,28 @@ const IssueOffer = props => {
   function handleFormBackClicked() {
     changeTab(1);
   }
-  function submit() {}
   return (
     <Modal size="lg" onClose={closeModal}>
       <div className="issueOffer">
         <div className="issueOffer__header">
           <span className="title">
-            {tab === 1 ? t("PRODUCTS") : t("OFFER")}
+            {tab === 1
+              ? t("PRODUCTS")
+              : !props.updateMode
+              ? t("ISSUE_OFFER_HEADER_NEW_TITLE")
+              : t("ISSUE_OFFER_HEADER_EDIT_TITLE")}
           </span>
-          <span className="appName">({props.app && props.app.Name})</span>
+          <span className="appName">
+            (
+            {props.app
+              ? props.app.Name
+              : props.offer
+              ? props.offer.opportunityData
+                ? props.offer.opportunityData.Name
+                : ""
+              : ""}
+            )
+          </span>
           <span
             className="icon-cross issueOffer__closeIcon"
             onClick={closeModal}

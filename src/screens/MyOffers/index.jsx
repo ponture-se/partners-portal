@@ -7,6 +7,7 @@ import "./styles.scss";
 import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
+import IssueOfferModal from "./../IssueOffer";
 import OfferDetail from "./Detail";
 //
 import {
@@ -17,6 +18,7 @@ import {
 const MyOffers = props => {
   const [tab, changeTab] = useState(1);
   const [selectedOffer, setOffer] = useState();
+  const [issueOfferVisibility, toggleIssueOffer] = useState();
 
   useEffect(() => {
     if (props.loadMyOffers) props.loadMyOffers();
@@ -31,6 +33,14 @@ const MyOffers = props => {
   }
   function handleBack() {
     changeTab(1);
+  }
+
+  function handleEditOffer(offer) {
+    toggleIssueOffer(true);
+    setOffer(offer);
+  }
+  function handleCloseIssueOffer() {
+    toggleIssueOffer(false);
   }
   return (
     <div className="myOffers">
@@ -53,11 +63,23 @@ const MyOffers = props => {
         </div>
       ) : tab === 1 ? (
         props.data.map(offer => (
-          <Item item={offer} onViewDetailClicked={handleViewOffer} />
+          <Item
+            item={offer}
+            onViewDetailClicked={handleViewOffer}
+            onEditClicked={handleEditOffer}
+          />
         ))
       ) : tab === 2 ? (
         selectedOffer && <OfferDetail onBackClicked={handleBack} />
       ) : null}
+      {issueOfferVisibility && (
+        <IssueOfferModal
+          updateMode={true}
+          offer={selectedOffer}
+          isOpen={issueOfferVisibility}
+          onClose={handleCloseIssueOffer}
+        />
+      )}
     </div>
   );
 };

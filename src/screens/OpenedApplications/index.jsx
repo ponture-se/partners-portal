@@ -78,6 +78,7 @@ const OpenedApplications = props => {
     </div>
   );
 };
+
 function mapStateToProps(state) {
   return {
     loading: state.application
