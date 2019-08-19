@@ -78,6 +78,9 @@
     @include variable(input-outline-color, outline-color, rgb(23, 145, 164));
     @include variable(input-outline-color, box-shadow, rgb(23, 145, 164));
   }
+  &[readOnly]{
+    background: whitesmoke;
+  }
   &.--large {
     height: 45px !important;
     font-size: 16px;

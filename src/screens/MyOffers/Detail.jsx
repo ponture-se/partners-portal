@@ -2,12 +2,17 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { t, currentLangName } from "../../services/languageManager";
 const Item = props => {
-  const { selectedOffer } = props;
+  const { item } = props;
   function handleViewOfferClicked() {}
-  
+
   function handleBackClicked() {
     if (props.onBackClicked) {
       props.onBackClicked();
+    }
+  }
+  function handleEditClicked() {
+    if (props.onEditClicked) {
+      props.onEditClicked(item);
     }
   }
 
@@ -19,28 +24,35 @@ const Item = props => {
       </div>
       <div className="myOfferItem animated fadeIn">
         <div className="myOfferItem__header">
-          <span className="myOfferItem__title">{"Business Loan"}</span>
-          <span>Offer 330299</span>
+          <span className="myOfferItem__title">
+            {item.opportunityData && item.opportunityData.RecordType}
+          </span>
+          <span>{"<value>"}</span>
         </div>
         <div className="myOfferItem__body">
           <div className="myOfferItem__body__header">
-            <span>Ericsson AB (330299-1234)</span>
-            <Link to={`/${currentLangName}/viewApplication/12`}>
+            <span>{item.opportunityData && item.opportunityData.Name}</span>
+            <Link
+              to={`/${currentLangName}/viewApplication/${item.opportunityData &&
+                item.opportunityData.opportunityID}`}
+            >
               <span>{t("APP_OPEN_APP_LINK")}</span>
               <i className="icon-arrow-right2" />
             </Link>
           </div>
           <div className="myOfferItem__bodyRow">
             <span>{t("OFFER_ISSUE_DATE")}</span>
-            <span>2019,08,30</span>
+            <span>{"<value>"}</span>
           </div>
           <div className="myOfferItem__bodyRow">
             <span>{t("OFFER_AMOUNT")}</span>
-            <span>1 500 000.00 Kr</span>
+            <span>{item.amount} Kr</span>
           </div>
           <div className="myOfferItem__bodyRow">
             <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
-            <span>{"2019,08,30 - 2030-08-30"}</span>
+            <span>
+              {"<value>"}&nbsp;{"<value>"}
+            </span>
           </div>
           <div className="myOfferItem__bodyRow">
             <span>{t("Title")}</span>
@@ -62,11 +74,11 @@ const Item = props => {
         <div className="myOfferItem__footer">
           <div className="myOfferItem__footer__left" />
           <div className="myOfferItem__footer__right">
-            <button className="btn --light" onClick={handleViewOfferClicked}>
+            <button className="btn --light">
               <span className="icon-cross" />
               {t("CANCEL")}
             </button>
-            <button className="btn --light" onClick={handleViewOfferClicked}>
+            <button className="btn --light" onClick={handleEditClicked}>
               <span className="icon-pencil" />
               {t("EDIT")}
             </button>

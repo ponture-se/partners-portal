@@ -99,6 +99,7 @@ export default {
     ISSUE_OFFER_PRODUCTS_EMPTY_INFO: "There aren't any products.",
     ISSUE_OFFER_HEADER_NEW_TITLE: "Issue Offer",
     ISSUE_OFFER_HEADER_EDIT_TITLE: "Edit Offer",
+    ISSUE_OFFER_HEADER_VIEW_TITLE: "View Offer",
     ISSUE_OFFER_SUCCESS_MSG: "Offer was issued successfully",
     ISSUE_OFFER_PRODUCTS_TITLE: "Products List",
     ISSUE_OFFER_BACK_TO_PRODUCTS: "Products",

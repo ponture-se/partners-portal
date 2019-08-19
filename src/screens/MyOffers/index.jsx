@@ -19,6 +19,7 @@ const MyOffers = props => {
   const [tab, changeTab] = useState(1);
   const [selectedOffer, setOffer] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
+  const [issueOfferModalMode, setIssueOfferModalMode] = useState();
 
   useEffect(() => {
     if (props.loadMyOffers) props.loadMyOffers();
@@ -28,7 +29,10 @@ const MyOffers = props => {
   }, []);
 
   function handleViewOffer(offer) {
-    changeTab(2);
+    // changeTab(2);
+    // setOffer(offer);
+    setIssueOfferModalMode("view");
+    toggleIssueOffer(true);
     setOffer(offer);
   }
   function handleBack() {
@@ -36,6 +40,7 @@ const MyOffers = props => {
   }
 
   function handleEditOffer(offer) {
+    setIssueOfferModalMode("update");
     toggleIssueOffer(true);
     setOffer(offer);
   }
@@ -70,11 +75,18 @@ const MyOffers = props => {
           />
         ))
       ) : tab === 2 ? (
-        selectedOffer && <OfferDetail onBackClicked={handleBack} />
+        selectedOffer && (
+          <OfferDetail
+            item={selectedOffer}
+            onBackClicked={handleBack}
+            onEditClicked={handleEditOffer}
+          />
+        )
       ) : null}
       {issueOfferVisibility && (
         <IssueOfferModal
-          updateMode={true}
+          updateMode={issueOfferModalMode === "update" ? true : false}
+          viewMode={issueOfferModalMode === "view" ? true : false}
           offer={selectedOffer}
           isOpen={issueOfferVisibility}
           onClose={handleCloseIssueOffer}

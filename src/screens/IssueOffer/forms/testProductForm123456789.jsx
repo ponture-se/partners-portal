@@ -122,7 +122,11 @@ const Form = props => {
       props.submitIssueOffer(obj, props.onSuccess);
     }
   }
-
+  function closeModal() {
+    if (props.onCloseModal) {
+      props.onCloseModal();
+    }
+  }
   return (
     // <div className="issueOfferForm animated fadeIn">
     //   <div className="issueOfferForm__body">
@@ -175,6 +179,7 @@ const Form = props => {
                         onBlur={handleBlur}
                         value={values.amount}
                         autoFocus
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -214,6 +219,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.interest_rate}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -257,6 +263,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.repayment_period}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -300,6 +307,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.monthly_repayment_amount}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -343,6 +351,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.total_repayment_amount}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -366,6 +375,7 @@ const Form = props => {
                           name="personal_guarantee_needed"
                           onChange={handleChange}
                           checked={values.personal_guarantee_needed}
+                          readOnly={props.viewMode}
                         />
                         <span className="checkmark" />
                       </label>
@@ -388,6 +398,7 @@ const Form = props => {
                           name="other_guarantees_needed"
                           onChange={handleChange}
                           checked={values.other_guarantees_needed}
+                          readOnly={props.viewMode}
                         />
                         <span className="checkmark" />
                       </label>
@@ -425,6 +436,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.start_fee}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -463,6 +475,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.cost}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -503,6 +516,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.personal_guarantee_details}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -545,6 +559,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.number_of_personal_guarantees}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -586,6 +601,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.other_guarantees_details}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -628,6 +644,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.other_guarantees_type}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -668,6 +685,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.more_details}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -710,6 +728,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.offer_description}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -752,6 +771,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.extra_offer_description}
+                        readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
@@ -767,17 +787,22 @@ const Form = props => {
                 </div>
               </div>
               <div className="issueOfferForm__actions">
-                <button
-                  type="submit"
-                  className="btn --primary"
-                  // disabled={isSubmitting}
-                >
-                  <CircleSpinner show={props.loading} />
-                  {!props.loading && t("SUBMIT")}
-                </button>
-                <button className="btn --light" onClick={backToProducts}>
-                  {t("ISSUE_OFFER_BACK_TO_PRODUCTS")}
-                </button>
+                {!props.viewMode && (
+                  <button type="submit" className="btn --primary">
+                    <CircleSpinner show={props.loading} />
+                    {!props.loading && t("SUBMIT")}
+                  </button>
+                )}
+                {!props.viewMode && !props.updateMode && (
+                  <button className="btn --light" onClick={backToProducts}>
+                    {t("ISSUE_OFFER_BACK_TO_PRODUCTS")}
+                  </button>
+                )}
+                {props.viewMode && (
+                  <button className="btn --warning" onClick={closeModal}>
+                    {t("CLOSE")}
+                  </button>
+                )}
               </div>
             </form>
           )}

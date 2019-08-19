@@ -21,7 +21,7 @@ const IssueOffer = props => {
   const [FormComponent, setComponent] = useState(null);
 
   useEffect(() => {
-    if (props.updateMode) {
+    if (props.updateMode || props.viewMode) {
       changeTab(2);
       importForm();
     } else changeTab(1);
@@ -42,8 +42,10 @@ const IssueOffer = props => {
             app={props.app}
             offer={props.offer}
             updateMode={props.updateMode}
+            viewMode={props.viewMode}
             onBackClicked={handleFormBackClicked}
             onSuccess={closeModal}
+            onCloseModal={closeModal}
           />
         );
         setComponent(B);
@@ -67,9 +69,11 @@ const IssueOffer = props => {
           <span className="title">
             {tab === 1
               ? t("PRODUCTS")
-              : !props.updateMode
-              ? t("ISSUE_OFFER_HEADER_NEW_TITLE")
-              : t("ISSUE_OFFER_HEADER_EDIT_TITLE")}
+              : props.updateMode
+              ? t("ISSUE_OFFER_HEADER_EDIT_TITLE")
+              : props.viewMode
+              ? t("ISSUE_OFFER_HEADER_VIEW_TITLE")
+              : t("ISSUE_OFFER_HEADER_NEW_TITLE")}
           </span>
           <span className="appName">
             (

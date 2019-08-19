@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { t, currentLangName } from "../../services/languageManager";
+import { t, currentLangName } from "services/languageManager";
 const Item = props => {
   const { item } = props;
 
@@ -21,7 +21,7 @@ const Item = props => {
         <span className="myOfferItem__title">
           {item.opportunityData && item.opportunityData.RecordType}
         </span>
-        <span>Offer 330299</span>
+        <span>{"<value>"}</span>
       </div>
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
@@ -30,13 +30,13 @@ const Item = props => {
             to={`/${currentLangName}/viewApplication/${item.opportunityData &&
               item.opportunityData.opportunityID}`}
           >
-            <span>{t("APP_OPEN_APP_LINK")}</span>
+            <span>{t("VIEW_APPLICATION")}</span>
             <i className="icon-arrow-right2" />
           </Link>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>
-          <span>------Not-Available---</span>
+          <span>{"<value>"}</span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMOUNT")}</span>
@@ -44,7 +44,9 @@ const Item = props => {
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
-          <span>{item.last_modified_date}</span>
+          <span>
+            {"<value>"}&nbsp;{"<value>"}
+          </span>
         </div>
       </div>
       <div className="myOfferItem__footer">
@@ -54,7 +56,7 @@ const Item = props => {
           </button>
         </div>
         <div className="myOfferItem__footer__right">
-          <button className="btn --light" onClick={handleViewOfferClicked}>
+          <button className="btn --light">
             <span className="icon-cross" />
             {t("CANCEL")}
           </button>

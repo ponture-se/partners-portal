@@ -76,3 +76,95 @@
     }
   }
 }
+.myOfferItem {
+  min-height: 350px;
+  background: white;
+  box-shadow: 0 0 2px lightgray;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  &__header {
+    margin: 20px 40px 0 40px;
+    padding-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid lightgray;
+    span:last-child {
+      font-size: 14px;
+      font-family: OpenSanceBold;
+    }
+  }
+  &__title {
+    font-size: 20px;
+    font-family: OpenSanceBold;
+    margin-bottom: 10px;
+  }
+
+  &__body {
+    flex: 1;
+    padding: 20px 40px 0 40px;
+    display: flex;
+    flex-direction: column;
+    &__header {
+      font-family: OpenSanceBold;
+      font-size: 14px;
+      display: flex;
+      margin-bottom: 30px;
+      span {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+      }
+      a {
+        display: flex;
+        align-items: center;
+        font-family: OpenSanceBold;
+        text-decoration: none;
+        @include variable(app-item-footer-link-color, color, blue);
+        span {
+          text-decoration: underline;
+        }
+        i {
+          margin-top: 3px;
+        }
+      }
+    }
+  }
+  &__bodyRow {
+    flex: 1;
+    display: flex;
+    font-size: 13px;
+    flex-grow: 0;
+    padding: 7px 0;
+    span:first-child {
+      width: 230px;
+      font-family: OpenSanceBold;
+    }
+    span:last-child {
+      flex: 1;
+    }
+  }
+  &__footer {
+    background: whitesmoke;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    &__left {
+      flex: 1;
+    }
+    &__right {
+      display: flex;
+      align-items: center;
+      button {
+        margin-left: 10px;
+        width: 100px;
+        span {
+          color: rgba(0, 0, 0, 0.6);
+          font-size: 12px;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+}

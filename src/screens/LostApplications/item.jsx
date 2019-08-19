@@ -1,72 +1,60 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { t, currentLangName } from "../../services/languageManager";
+import { t, currentLangName } from "services/languageManager";
 const Item = props => {
   const { item } = props;
+
+  function handleViewOfferClicked() {
+    if (props.onViewDetailClicked) {
+      props.onViewDetailClicked(item);
+    }
+  }
+  function handleEditClicked() {
+    if (props.onEditClicked) {
+      props.onEditClicked(item);
+    }
+  }
+
   return (
-    <div className="lostAppsItem animated fadeIn">
-      <div className="lostAppsItem__header">
-        <span className="lostAppsItem__title">{item.RecordType}</span>
-        <div className="lostAppsItem__headerinfo">
-          <span>Ericsson AB (330299-1234)</span>
-          <span>{item.createdAt}</span>
-          <span>
-            {item.amortizationPeriod} {t("MONTH")}
-          </span>
+    <div className="myOfferItem animated fadeIn">
+      <div className="myOfferItem__header">
+        <span className="myOfferItem__title">
+          {item.opportunityData && item.opportunityData.RecordType}
+        </span>
+        <span>{"<value>"}</span>
+      </div>
+      <div className="myOfferItem__body">
+        <div className="myOfferItem__body__header">
+          <span>{item.opportunityData && item.opportunityData.Name}</span>
+          <Link
+            to={`/${currentLangName}/viewApplication/${item.opportunityData &&
+              item.opportunityData.opportunityID}`}
+          >
+            <span>{t("APP_OPEN_APP_LINK")}</span>
+            <i className="icon-arrow-right2" />
+          </Link>
+        </div>
+        <div className="myOfferItem__bodyRow">
+          <span>{t("OFFER_ISSUE_DATE")}</span>
+          <span>{"<value>"}</span>
+        </div>
+        <div className="myOfferItem__bodyRow">
+          <span>{t("OFFER_AMOUNT")}</span>
           <span>{item.amount} Kr</span>
         </div>
-      </div>
-      <div className="lostAppsItem__body">
-        <div className="lostAppsItem__bodyRow">
-          <span>{t("APP_COMPANY_REGISTERED")}</span>
-          <span>{item.CompanyRegistrationDate}</span>
+        <div className="myOfferItem__bodyRow">
+          <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
           <span>
-            {item.bankVerified ? (
-              <i className="icon-checkmark" />
-            ) : (
-              <i className="icon-cross" style={{ color: "red" }} />
-            )}
-            <span>{t("APP_BANKID_VERIFIED")}</span>
-          </span>
-        </div>
-        <div className="lostAppsItem__bodyRow">
-          <span>{t("APP_NEED_FOR")}</span>
-          <span>Renovation Salary</span>
-          <span>
-            {item.activeCompany ? (
-              <i className="icon-checkmark" />
-            ) : (
-              <i className="icon-cross" style={{ color: "red" }} />
-            )}
-            <span>{t("APP_ACTIVE_COMPANY")}</span>
-          </span>
-        </div>
-        <div className="lostAppsItem__bodyRow">
-          <span>Revenue 2018</span>
-          <span>12 000 000.00 Kr</span>
-          <span>
-            {item.companyVerified ? (
-              <i className="icon-checkmark" />
-            ) : (
-              <i className="icon-cross" style={{ color: "red" }} />
-            )}
-            <span>{t("APP_COMPANY_VERIFIED")}</span>
-          </span>
-        </div>
-        <div className="lostAppsItem__bodyRow">
-          <span>{t("APP_CREDITSAFE_SCRORE")}</span>
-          <span>{item.creditSafeScore}</span>
-          <span>
-            {/* <i className="icon-checkmark" />
-            <span>Company verified</span> */}
+            {"<value>"}&nbsp;{"<value>"}
           </span>
         </div>
       </div>
-      <div className="lostAppsItem__footer">
-        <Link to={`/${currentLangName}/viewApplication/12`}>
-          {t("APP_OPEN_APP_LINK")}
-          <i className="icon-arrow-right2" />
-        </Link>
+      <div className="myOfferItem__footer">
+        <div className="myOfferItem__footer__left">
+          <button className="btn --primary" onClick={handleViewOfferClicked}>
+            {t("VIEW_OFFER")}
+          </button>
+        </div>
       </div>
     </div>
   );
