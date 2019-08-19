@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { t, currentLangName } from "services/languageManager";
+
 const Item = props => {
   const { item } = props;
 
@@ -21,7 +22,9 @@ const Item = props => {
         <span className="myOfferItem__title">
           {item.opportunityData && item.opportunityData.RecordType}
         </span>
-        <span>{"<value>"}</span>
+        <span>
+          {t("OFFER")}&nbsp;{item.offer_number}
+        </span>
       </div>
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
@@ -36,7 +39,7 @@ const Item = props => {
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>
-          <span>{"<value>"}</span>
+          <span>{item.issue_date && item.issue_date.split(" ")[0]}</span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMOUNT")}</span>

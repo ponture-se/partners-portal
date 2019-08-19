@@ -64,7 +64,7 @@ const MyOffers = props => {
         <div className="page-empty-list animated fadeIn">
           <Empty />
           <h2>{t("NEW_APPS_EMPTY_LIST_TITLE")}</h2>
-          <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
+          <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : tab === 1 ? (
         props.data.map(offer => (

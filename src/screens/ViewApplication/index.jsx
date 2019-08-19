@@ -296,16 +296,20 @@ const ViewApplication = props => {
           </div>
           <div className="detail animated fadeIn">
             <div className="detail__header">
-              <button className="btn --warning" onClick={handleRejectApp}>
-                <CircleSpinner show={rejectSpinner} />
-                {!rejectSpinner && t("REJECT")}
-              </button>
+              {data.spoStage !== "Offer Issued" && (
+                <button className="btn --warning" onClick={handleRejectApp}>
+                  <CircleSpinner show={rejectSpinner} />
+                  {!rejectSpinner && t("REJECT")}
+                </button>
+              )}
               <button className="btn --primary" onClick={handleViewCredit}>
                 {t("VIEW_CREDIT_REPORT")}
               </button>
-              <button className="btn --primary" onClick={handleOffer}>
-                {t("ISSUE_OFFER")}
-              </button>
+              {data.spoStage !== "Offer Issued" && (
+                <button className="btn --primary" onClick={handleOffer}>
+                  {t("ISSUE_OFFER")}
+                </button>
+              )}
             </div>
             <div className="detail__body">
               <div className="detail__icon">

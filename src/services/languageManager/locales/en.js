@@ -27,6 +27,7 @@ export default {
     CANCEL: "Cancel",
     EDIT: "Edit",
     INPUT_NEGATIVE_VALUE: "It should be above 0",
+    OFFER: "Offer",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -49,6 +50,7 @@ export default {
     NEW_APPS_LOADING_TEXT: "Loading new applications...",
     NEW_APPS_EMPTY_LIST_TITLE: "Empty List!",
     NEW_APPS_EMPTY_LIST_MSG: "There aren't any new applications",
+    OFFERS_EMPTY_LIST_MSG: "There aren't any new offers",
     OPEN_APPS_LOADING_TEXT: "Loading opened applications...",
     OPEN_APPS_EMPTY_LIST_TITLE: "Empty List!",
     OPEN_APPS_EMPTY_LIST_MSG: "There aren't any opened applications",

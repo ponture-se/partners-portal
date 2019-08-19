@@ -101,7 +101,7 @@ const AcceptedOffers = props => {
         <div className="page-empty-list animated fadeIn">
           <Empty />
           <h2>{t("NEW_APPS_EMPTY_LIST_TITLE")}</h2>
-          <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
+          <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
         data.map(app => <Item item={app} />)

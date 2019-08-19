@@ -86,7 +86,7 @@ const Item = props => {
             <span>{t("APP_REVENUE")} -----</span>
           </div>
           <div className="openedApp__bodyRow__right">
-            <span>--Not-available-- Kr</span>
+            <span>{item.lastAvailableRevenue} Kr</span>
             <span>
               {item.companyVerified ? (
                 <i className="icon-checkmark" />
