@@ -1,12 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 //
-import { t } from "../../services/languageManager";
+import { t } from "services/languageManager";
 //
 import "./styles.scss";
 import Item from "./item";
-import SquareSpinner from "../../components/SquareSpinner";
-import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
+import SquareSpinner from "components/SquareSpinner";
+import { Empty, Wrong } from "components/Commons/ErrorsComponent";
+import ViewApplicationModal from "./../ViewApplication";
 //
 import {
   loadNewApps,
@@ -14,12 +15,22 @@ import {
 } from "services/redux/application/newApps/actions";
 //
 const NewApplications = props => {
+  const [viewAppModalVisibility, toggleViewApp] = useState();
+  const [selectedApp, setApp] = useState();
+
   useEffect(() => {
     if (props.loadNewApps) props.loadNewApps();
     return () => {
       if (props.resetStore) props.resetStore();
     };
   }, []);
+  function handleViewApplication(app) {
+    setApp(app);
+    toggleViewApp(true);
+  }
+  function handleCloseViewAppModal() {
+    toggleViewApp(false);
+  }
   return (
     <div className="newApps">
       {props.loading ? (
@@ -65,9 +76,20 @@ const NewApplications = props => {
             </div>
           </div> */}
           {props.data.map(app => (
-            <Item key={app.opportunityID} item={app} />
+            <Item
+              key={app.opportunityID}
+              item={app}
+              onViewAppClicked={handleViewApplication}
+            />
           ))}
         </>
+      )}
+      {viewAppModalVisibility && (
+        <ViewApplicationModal
+          isOpen={viewAppModalVisibility}
+          onClose={handleCloseViewAppModal}
+          oppId={selectedApp && selectedApp.opportunityID}
+        />
       )}
     </div>
   );

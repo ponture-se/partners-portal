@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 //
-import { t, currentLangName, setAppLang } from "services/languageManager";
+import { t } from "services/languageManager";
 //
 import "./styles.scss";
 import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
+import ViewApplicationModal from "./../ViewApplication";
 //
 import {
   loadOpenedApps,
@@ -17,6 +18,7 @@ import {
 const OpenedApplications = props => {
   const [selectedApp, setApp] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
+  const [viewAppModalVisibility, toggleViewApp] = useState();
 
   useEffect(() => {
     if (props.loadOpenedApps) props.loadOpenedApps();
@@ -26,9 +28,11 @@ const OpenedApplications = props => {
   }, []);
 
   function handleViewClicked(app) {
-    props.history.push(
-      `/${currentLangName}/viewApplication/${app.opportunityID}`
-    );
+    setApp(app);
+    toggleViewApp(true);
+  }
+  function handleCloseViewAppModal() {
+    toggleViewApp(false);
   }
   function handleOfferClicked(app) {
     setApp(app);
@@ -76,6 +80,13 @@ const OpenedApplications = props => {
           app={selectedApp}
           isOpen={issueOfferVisibility}
           onClose={handleCloseIssueOffer}
+        />
+      )}
+      {viewAppModalVisibility && (
+        <ViewApplicationModal
+          isOpen={viewAppModalVisibility}
+          onClose={handleCloseViewAppModal}
+          oppId={selectedApp && selectedApp.opportunityID}
         />
       )}
     </div>

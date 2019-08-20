@@ -6,6 +6,9 @@ import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {
   const { item } = props;
+  function viewApplication() {
+    if (props.onViewAppClicked) props.onViewAppClicked(item);
+  }
   return (
     <div className="application animated fadeIn">
       <div className="application__header">
@@ -68,10 +71,10 @@ const Item = props => {
         </div>
       </div>
       <div className="application__footer">
-        <Link to={`/${currentLangName}/viewApplication/${item.opportunityID}`}>
+        <span onClick={viewApplication}>
           {t("APP_OPEN_APP_LINK")}
           <i className="icon-arrow-right2" />
-        </Link>
+        </span>
       </div>
     </div>
   );
