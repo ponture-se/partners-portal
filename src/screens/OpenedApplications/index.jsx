@@ -37,8 +37,11 @@ const OpenedApplications = props => {
   function handleCloseIssueOffer() {
     toggleIssueOffer(false);
   }
-  
 
+  useEffect(() => {
+    if (props.submittedIssueOffer)
+      if (props.loadOpenedApps) props.loadOpenedApps();
+  }, [props.submittedIssueOffer]);
   return (
     <div className="openedApps">
       {props.loading ? (
@@ -94,6 +97,11 @@ function mapStateToProps(state) {
     error: state.application
       ? state.application.openedAppsReducer
         ? state.application.openedAppsReducer.error
+        : null
+      : null,
+    submittedIssueOffer: state.offer
+      ? state.offer.issueOfferReducer
+        ? state.offer.issueOfferReducer.success
         : null
       : null
   };

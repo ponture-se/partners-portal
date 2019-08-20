@@ -41,7 +41,7 @@ const NewApplications = props => {
         </div>
       ) : (
         <>
-          <div className="searchbar">
+          {/* <div className="searchbar">
             <button className="btn --primary --small">{t("Filter 1")}</button>
             <button className="btn --light --small">{t("Filter 2")}</button>
             <button className="btn --light --small">{t("Filter 3")}</button>
@@ -63,7 +63,7 @@ const NewApplications = props => {
                 />
               </div>
             </div>
-          </div>
+          </div> */}
           {props.data.map(app => (
             <Item key={app.opportunityID} item={app} />
           ))}

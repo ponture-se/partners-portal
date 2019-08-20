@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Modali, { useModali } from "modali";
 //
 import { t } from "../../services/languageManager";
 //
@@ -8,11 +9,12 @@ import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
-import OfferDetail from "./Detail";
+// import OfferDetail from "./Detail";
 //
 import {
   loadMyOffers,
-  resetOffersState
+  resetOffersState,
+  _cancelOffer
 } from "services/redux/offer/myOffers/actions";
 
 const MyOffers = props => {
@@ -21,12 +23,45 @@ const MyOffers = props => {
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [issueOfferModalMode, setIssueOfferModalMode] = useState();
 
+  const [completeExample, toggleCompleteModal] = useModali({
+    animated: true,
+    title: t("ARE_YOU_SURE"),
+    message: t("OFFER_CANCEL_ALERT_MSG"),
+    buttons: [
+      <Modali.Button
+        label={t("CANCEL")}
+        isStyleCancel
+        onClick={() => toggleCompleteModal()}
+      />,
+      <Modali.Button
+        label={t("DELETE")}
+        isStyleDestructive
+        onClick={() => {
+          props._cancelOffer(
+            selectedOffer,
+            () => {
+              toggleCompleteModal();
+            },
+            () => {
+              toggleCompleteModal();
+            }
+          );
+        }}
+      />
+    ]
+  });
+
   useEffect(() => {
     if (props.loadMyOffers) props.loadMyOffers();
     return () => {
       if (props.resetOffersState) props.resetOffersState();
     };
   }, []);
+  useEffect(() => {
+    if (props.submittedIssueOffer || props.cancelOfferSuccess) {
+      if (props.loadMyOffers) props.loadMyOffers();
+    }
+  }, [props.submittedIssueOffer, props.cancelOfferSuccess]);
 
   function handleViewOffer(offer) {
     // changeTab(2);
@@ -47,8 +82,15 @@ const MyOffers = props => {
   function handleCloseIssueOffer() {
     toggleIssueOffer(false);
   }
+  function handleCancelOffer(offer) {
+    if (props._cancelOffer) {
+      setOffer(offer);
+      toggleCompleteModal();
+    }
+  }
   return (
     <div className="myOffers">
+      <Modali.Modal {...completeExample} />
       {props.loading ? (
         <div className="page-loading">
           <SquareSpinner />
@@ -72,16 +114,9 @@ const MyOffers = props => {
             item={offer}
             onViewDetailClicked={handleViewOffer}
             onEditClicked={handleEditOffer}
+            onCancelClicked={handleCancelOffer}
           />
         ))
-      ) : tab === 2 ? (
-        selectedOffer && (
-          <OfferDetail
-            item={selectedOffer}
-            onBackClicked={handleBack}
-            onEditClicked={handleEditOffer}
-          />
-        )
       ) : null}
       {issueOfferVisibility && (
         <IssueOfferModal
@@ -112,13 +147,24 @@ function mapStateToProps(state) {
       ? state.offer.myOffersReducer
         ? state.offer.myOffersReducer.error
         : null
+      : null,
+    submittedIssueOffer: state.offer
+      ? state.offer.issueOfferReducer
+        ? state.offer.issueOfferReducer.success
+        : null
+      : null,
+    cancelOfferSuccess: state.offer
+      ? state.offer.myOffersReducer
+        ? state.offer.myOffersReducer.cancel_success
+        : null
       : null
   };
 }
 
 const mapDispatchToProps = {
   loadMyOffers,
-  resetOffersState
+  resetOffersState,
+  _cancelOffer
 };
 
 export default connect(

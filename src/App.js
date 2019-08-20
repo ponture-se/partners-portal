@@ -16,6 +16,7 @@ import MainPage from "./screens/MainPage";
 const Main = withResolver(MainPage);
 
 function App() {
+
   useTheme("theme1");
   return (
     <>
@@ -27,7 +28,6 @@ function App() {
             path="/:lang/login"
             render={props => <Login {...props} />}
           />
-
           <Redirect
             from="/:lang"
             to={`/${currentLangName}/newApplications`}

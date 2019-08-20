@@ -15,6 +15,11 @@ const Item = props => {
       props.onEditClicked(item);
     }
   }
+  function handleCancelClicked() {
+    if (props.onCancelClicked) {
+      props.onCancelClicked(item);
+    }
+  }
 
   return (
     <div className="myOfferItem animated fadeIn">
@@ -58,16 +63,19 @@ const Item = props => {
             {t("VIEW_OFFER")}
           </button>
         </div>
-        <div className="myOfferItem__footer__right">
-          <button className="btn --light">
-            <span className="icon-cross" />
-            {t("CANCEL")}
-          </button>
-          <button className="btn --light" onClick={handleEditClicked}>
-            <span className="icon-pencil" />
-            {t("EDIT")}
-          </button>
-        </div>
+        {item.supplierPartnerStage.toLowerCase() !== "offer won" &&
+          item.supplierPartnerStage.toLowerCase() !== "offer lost" && (
+            <div className="myOfferItem__footer__right">
+              <button className="btn --light" onClick={handleCancelClicked}>
+                <span className="icon-cross" />
+                {t("CANCEL")}
+              </button>
+              <button className="btn --light" onClick={handleEditClicked}>
+                <span className="icon-pencil" />
+                {t("EDIT")}
+              </button>
+            </div>
+          )}
       </div>
     </div>
   );

@@ -4,7 +4,10 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 //
 import "./styles.scss";
-import { submitIssueOffer } from "services/redux/offer/issueOffer/actions";
+import {
+  submitIssueOffer,
+  updateIssueOffer
+} from "services/redux/offer/issueOffer/actions";
 import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
 // import DynamicForm from "./DynamicForm";
@@ -113,13 +116,18 @@ const Form = props => {
   function handleSubmitOffer(values, { setSubmitting }) {
     if (props.submitIssueOffer) {
       let obj = {
-        ...values,
-        partner_id: props.userInfo ? props.userInfo.customerId : null,
-        product_name: props.product ? props.product.Name : null,
-        product_master: props.product ? props.product.Id : null,
-        opportunityID: props.app ? props.app.opportunityID : null
+        ...values
       };
-      props.submitIssueOffer(obj, props.onSuccess);
+      if (props.updateMode) {
+        obj["offer_id"] = offer.offer_id;
+        props.updateIssueOffer(obj, props.onSuccess);
+      } else {
+        obj["product_name"] = props.product ? props.product.Name : null;
+        obj["partner_id"] = props.userInfo ? props.userInfo.customerId : null;
+        obj["opportunityID"] = props.app ? props.app.opportunityID : null;
+        obj["product_master"] = props.product ? props.product.Id : null;
+        props.submitIssueOffer(obj, props.onSuccess);
+      }
     }
   }
   function closeModal() {
@@ -824,7 +832,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  submitIssueOffer
+  submitIssueOffer,
+  updateIssueOffer
 };
 
 export default connect(

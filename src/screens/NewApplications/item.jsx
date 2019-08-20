@@ -9,7 +9,7 @@ const Item = props => {
       <div className="application__header">
         <span className="application__title">{item.RecordType}</span>
         <div className="application__headerinfo">
-          <span>----------------</span>
+          <span>{item.opportunityNumber}</span>
           <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           <span>
             {item.amortizationPeriod} {t("MONTH")}

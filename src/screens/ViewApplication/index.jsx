@@ -195,6 +195,9 @@ const ViewApplication = props => {
               <div className="viewAppItem__headerinfo">
                 <span>
                   {data.opportunityDetails && data.opportunityDetails.Name}
+                  &nbsp;-{" "}
+                  {data.opportunityDetails &&
+                    data.opportunityDetails.opportunityNumber}
                 </span>
                 <span>
                   {data.opportunityDetails &&

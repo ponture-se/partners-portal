@@ -9,11 +9,6 @@ const Item = props => {
       props.onViewDetailClicked(item);
     }
   }
-  function handleEditClicked() {
-    if (props.onEditClicked) {
-      props.onEditClicked(item);
-    }
-  }
 
   return (
     <div className="myOfferItem animated fadeIn">
@@ -21,7 +16,7 @@ const Item = props => {
         <span className="myOfferItem__title">
           {item.opportunityData && item.opportunityData.RecordType}
         </span>
-        <span>{"<value>"}</span>
+        {t("OFFER")}&nbsp;{item.offer_number}
       </div>
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
@@ -30,13 +25,13 @@ const Item = props => {
             to={`/${currentLangName}/viewApplication/${item.opportunityData &&
               item.opportunityData.opportunityID}`}
           >
-            <span>{t("APP_OPEN_APP_LINK")}</span>
+            <span>{t("VIEW_APPLICATION")}</span>
             <i className="icon-arrow-right2" />
           </Link>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>
-          <span>{"<value>"}</span>
+          <span>{item.issue_date && item.issue_date.split(" ")[0]}</span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMOUNT")}</span>

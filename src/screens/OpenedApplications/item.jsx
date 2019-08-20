@@ -40,7 +40,9 @@ const Item = props => {
       <div className="openedApp__header">
         <span className="openedApp__title">{item.RecordType}</span>
         <div className="openedApp__headerinfo">
-          <span>{item.Name}</span>
+          <span>
+            {item.Name}&nbsp;- {item.opportunityNumber}
+          </span>
           <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           <span>
             {item.amortizationPeriod} {t("MONTH")}
@@ -136,6 +138,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(Item);

@@ -2,7 +2,8 @@ import { LOADING, SUCCESS, FAILED } from "./actions";
 
 const initialState = {
   loading: false,
-  error: null
+  error: null,
+  success: false
 };
 
 export default function issueOfferReducer(state = initialState, action) {
@@ -10,13 +11,15 @@ export default function issueOfferReducer(state = initialState, action) {
     case LOADING: {
       return {
         ...state,
-        loading: action.payload
+        loading: action.payload,
+        success: false
       };
     }
     case SUCCESS: {
       return {
         ...state,
-        loading: false
+        loading: false,
+        success: true
       };
     }
     case FAILED: {

@@ -28,6 +28,8 @@ export default {
     EDIT: "Edit",
     INPUT_NEGATIVE_VALUE: "It should be above 0",
     OFFER: "Offer",
+    ARE_YOU_SURE: "Are you sure?",
+    DELETE: "Delete",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -103,6 +105,8 @@ export default {
     ISSUE_OFFER_HEADER_EDIT_TITLE: "Edit Offer",
     ISSUE_OFFER_HEADER_VIEW_TITLE: "View Offer",
     ISSUE_OFFER_SUCCESS_MSG: "Offer was issued successfully",
+    ISSUE_OFFER_UPDATE_SUCCESS_MSG: "Offer was updated successfully",
+    ISSUE_OFFER_CANCEL_SUCCESS_MSG: "Offer was canceled successfully",
     ISSUE_OFFER_PRODUCTS_TITLE: "Products List",
     ISSUE_OFFER_BACK_TO_PRODUCTS: "Products",
     ISSUE_OFFER_AMOUNT: "Amount",
@@ -142,6 +146,7 @@ export default {
       "Enter extra offer description",
     ISSUE_OFFER_OFFER_PERSONAL_GUARANTEE_NEEDED: "Personal Guarantee Needed",
     ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED: "Other Guarantee Needed",
+    OFFER_CANCEL_ALERT_MSG: "Canceling this selected offer.",
 
     CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
     CREDIT_REPORT_TODAYS_DATE: "Todays date",
