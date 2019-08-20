@@ -17,11 +17,7 @@ const Header = props => {
           <img src={require("./../../../assets/logo-c.png")} alt="logo" />
         </div>
         <div className="mainHeader__userInfo">
-          {props.userInfo &&
-            (props.userInfo.firstName && props.userInfo.firstName) +
-              " " +
-              props.userInfo.lastName &&
-            props.userInfo.lastName}
+          {props.userInfo && props.userInfo.name}
         </div>
         <div className="mainHeader__signout" onClick={handleSignout}>
           <span>{t("SIGN_OUT")}</span>

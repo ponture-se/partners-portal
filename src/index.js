@@ -15,7 +15,7 @@ const pathName = window.location.pathname;
 const lang = pathName.split("/")[1];
 setAppLang(lang);
 // check localStorage to grab token
-const token = Storage.get("p_token");
+const token = Storage.get("@ponture-partners/token");
 const userInfo = Storage.get("@ponture-partners/userInfo");
 if (token) {
   setAuthorizationToken(token);

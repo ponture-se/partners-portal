@@ -1,7 +1,8 @@
+import { batch } from "react-redux";
 import { toast } from "react-toastify";
-import { getToken } from "../../../api/account-api";
+import { getToken } from "api/account-api";
 import Storage from "../../storageManager";
-import setAuthorizationToken from "../../../utils/setAuthorizationToken";
+import setAuthorizationToken from "utils/setAuthorizationToken";
 import { currentLangName, t } from "../../languageManager";
 
 export const types = {
@@ -37,7 +38,7 @@ export function logout() {
 }
 
 export const loginUser = token => dispatch => {
-  Storage.set("p_token", token);
+  Storage.set("@ponture-partners/token", token);
   setAuthorizationToken(token); // set axios token
   dispatch(setAuthorization(true));
 };
@@ -50,7 +51,7 @@ export const navigateHome = router => {
 };
 
 export const logoutUser = () => dispatch => {
-  Storage.remove("p_token");
+  Storage.remove("@ponture-partners/token");
   setAuthorizationToken(false); // remove axios token
   dispatch(logout());
 };
@@ -59,8 +60,9 @@ export const login = (userName, password, router) => dispatch => {
   dispatch({ type: types.LOADING });
   getToken()
     .onOk(result => {
+      const { userInfo } = result;
       dispatch({ type: types.SUCCESS_TOKEN });
-      dispatch(setUser({ customerId: userName }));
+      dispatch(setUser(userInfo));
       if (result) {
         dispatch(loginUser(result.access_token));
         navigateHome(router);

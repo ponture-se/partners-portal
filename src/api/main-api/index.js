@@ -1287,7 +1287,7 @@ export function creditReport() {
     }
   }
 
-  const _call = async customerId => {
+  const _call = customerId => {
     const url = creditReportUrl + "?customerId=" + customerId;
     axios
       .get(url, {
