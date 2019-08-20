@@ -10,6 +10,7 @@ import CircleSpinner from "../../components/CircleSpinner";
 import CreditReportModal from "./../CreditReport";
 import IssueOfferModal from "./../IssueOffer";
 import { Empty, Wrong } from "../../components/Commons/ErrorsComponent";
+import separateNumberByChar from "utils/separateNumberByChar";
 //
 import { getApplicationById, rejectApp } from "./../../api/main-api";
 
@@ -265,7 +266,10 @@ const ViewApplication = props => {
                   <span>
                     {data.accountDetails &&
                       data.accountDetails.revenue &&
-                      data.accountDetails.revenue.totalRevenue}{" "}
+                      separateNumberByChar(
+                        data.accountDetails.revenue.totalRevenue,
+                        " "
+                      )}{" "}
                     Kr
                   </span>
                   <span>
@@ -470,7 +474,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.revenue &&
-                            data.accountDetails.revenue.totalRevenue}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.revenue.totalRevenue,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -486,8 +493,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts
-                              .shareCapital}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.annualAccounts.shareCapital,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -496,8 +505,11 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts
-                              .cashAndBankBalance}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.annualAccounts
+                                .cashAndBankBalance,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -506,7 +518,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts.totalAssets}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.annualAccounts.totalAssets,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -515,7 +530,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.annualAccounts &&
-                            data.accountDetails.annualAccounts.totalEquity}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.annualAccounts.totalEquity,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -533,7 +551,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.profitLoss &&
-                            data.accountDetails.profitLoss.netProfitLoss}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.profitLoss.netProfitLoss,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -542,8 +563,11 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.profitLoss &&
-                            data.accountDetails.profitLoss
-                              .operatingProfitLoss}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.profitLoss
+                                .operatingProfitLoss,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -552,8 +576,11 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.profitLoss &&
-                            data.accountDetails.profitLoss
-                              .profitAfterFinancial}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.profitLoss
+                                .profitAfterFinancial,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -569,7 +596,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.keyRatio &&
-                            data.accountDetails.keyRatio.netMargin}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.keyRatio.netMargin,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -578,7 +608,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.keyRatio &&
-                            data.accountDetails.keyRatio.cashFlow}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.keyRatio.cashFlow,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>
@@ -587,7 +620,10 @@ const ViewApplication = props => {
                         <span>
                           {data.accountDetails &&
                             data.accountDetails.keyRatio &&
-                            data.accountDetails.keyRatio.solidity}{" "}
+                            separateNumberByChar(
+                              data.accountDetails.keyRatio.solidity,
+                              " "
+                            )}{" "}
                           Kr
                         </span>
                       </div>

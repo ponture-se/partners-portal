@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { t, currentLangName } from "./../../services/languageManager";
+import separateNumberByChar from "utils/separateNumberByChar";
+//
 const Item = props => {
   const { item } = props;
   return (
@@ -44,7 +46,7 @@ const Item = props => {
         </div>
         <div className="application__bodyRow">
           <span>{t("APP_REVENUE")} ----</span>
-          <span>{item.lastAvailableRevenue} Kr</span>
+          <span>{separateNumberByChar(item.lastAvailableRevenue, " ")} Kr</span>
           <span>
             {item.companyVerified ? (
               <i className="icon-checkmark" />
@@ -66,9 +68,7 @@ const Item = props => {
         </div>
       </div>
       <div className="application__footer">
-        <Link
-          to={`/${currentLangName}/viewApplication/${item.opportunityID}`}
-        >
+        <Link to={`/${currentLangName}/viewApplication/${item.opportunityID}`}>
           {t("APP_OPEN_APP_LINK")}
           <i className="icon-arrow-right2" />
         </Link>
@@ -78,9 +78,9 @@ const Item = props => {
 };
 export default Item;
 
-Item.propTypes={
-  item:PropTypes.object.isRequired
-}
-Item.defaultProps={
-  item:{}
-}
+Item.propTypes = {
+  item: PropTypes.object.isRequired
+};
+Item.defaultProps = {
+  item: {}
+};

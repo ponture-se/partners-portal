@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
 import { t } from "services/languageManager";
 import CircleSpinner from "components/CircleSpinner";
+import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {
   const { item } = props;
@@ -88,7 +89,9 @@ const Item = props => {
             <span>{t("APP_REVENUE")} -----</span>
           </div>
           <div className="openedApp__bodyRow__right">
-            <span>{item.lastAvailableRevenue} Kr</span>
+            <span>
+              {separateNumberByChar(item.lastAvailableRevenue, " ")} Kr
+            </span>
             <span>
               {item.companyVerified ? (
                 <i className="icon-checkmark" />

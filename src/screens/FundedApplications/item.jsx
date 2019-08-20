@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { t, currentLangName } from "services/languageManager";
+import separateNumberByChar from "utils/separateNumberByChar";
+//
 const Item = props => {
   const { item } = props;
 
@@ -35,7 +37,7 @@ const Item = props => {
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMOUNT")}</span>
-          <span>{item.amount} Kr</span>
+          <span>{separateNumberByChar(item.amount, " ")} Kr</span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
