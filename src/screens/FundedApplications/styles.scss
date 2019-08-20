@@ -108,7 +108,7 @@
     flex-direction: column;
     &__header {
       font-family: OpenSanceBold;
-      font-size: 14px;
+      font-size: 15px;
       display: flex;
       margin-bottom: 30px;
       span {
@@ -116,7 +116,8 @@
         display: flex;
         align-items: center;
       }
-      a {
+      div {
+        cursor: pointer;
         display: flex;
         align-items: center;
         font-family: OpenSanceBold;
@@ -124,6 +125,7 @@
         @include variable(app-item-footer-link-color, color, blue);
         span {
           text-decoration: underline;
+          font-size: 13px;
         }
         i {
           margin-top: 3px;

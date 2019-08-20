@@ -120,8 +120,9 @@ const MyOffers = props => {
       ) : tab === 1 ? (
         props.data.map(offer => (
           <Item
+            key={offer.offer_id}
             item={offer}
-            onViewDetailClicked={handleViewOffer}
+            onViewOfferClicked={handleViewOffer}
             onEditClicked={handleEditOffer}
             onCancelClicked={handleCancelOffer}
             onViewAppClicked={handleViewApplication}

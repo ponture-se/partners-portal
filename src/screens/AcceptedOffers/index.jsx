@@ -10,6 +10,7 @@ import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 //
 import { getAcceptedOffers } from "api/main-api";
 import IssueOfferModal from "./../IssueOffer";
+import ViewApplicationModal from "./../ViewApplication";
 
 const AcceptedOffers = props => {
   const [spinner, toggleSpinner] = useState(true);
@@ -17,6 +18,7 @@ const AcceptedOffers = props => {
   const [error, setError] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [selectedOffer, setOffer] = useState();
+  const [viewAppModalVisibility, toggleViewApp] = useState();
 
   useEffect(() => {
     let didCancel = false;
@@ -94,6 +96,13 @@ const AcceptedOffers = props => {
   function handleCloseIssueOffer() {
     toggleIssueOffer(false);
   }
+  function handleViewApplication(offer) {
+    setOffer(offer);
+    toggleViewApp(true);
+  }
+  function handleCloseViewAppModal() {
+    toggleViewApp(false);
+  }
   return (
     <div className="acceptedOffers">
       {spinner ? (
@@ -114,8 +123,13 @@ const AcceptedOffers = props => {
           <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => (
-          <Item item={app} onViewDetailClicked={handleViewOffer} />
+        data.map(offer => (
+          <Item
+            key={offer.offer_id}
+            item={offer}
+            onViewOfferClicked={handleViewOffer}
+            onViewAppClicked={handleViewApplication}
+          />
         ))
       )}
       {issueOfferVisibility && (
@@ -124,6 +138,13 @@ const AcceptedOffers = props => {
           offer={selectedOffer}
           isOpen={issueOfferVisibility}
           onClose={handleCloseIssueOffer}
+        />
+      )}
+      {viewAppModalVisibility && (
+        <ViewApplicationModal
+          isOpen={viewAppModalVisibility}
+          onClose={handleCloseViewAppModal}
+          oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
         />
       )}
     </div>

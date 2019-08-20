@@ -1,35 +1,35 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { t, currentLangName } from "services/languageManager";
+import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {
   const { item } = props;
 
   function handleViewOfferClicked() {
-    if (props.onViewDetailClicked) {
-      props.onViewDetailClicked(item);
+    if (props.onViewOfferClicked) {
+      props.onViewOfferClicked(item);
     }
   }
-
+  function viewApplication() {
+    if (props.onViewAppClicked) props.onViewAppClicked(item);
+  }
   return (
     <div className="myOfferItem animated fadeIn">
       <div className="myOfferItem__header">
         <span className="myOfferItem__title">
           {item.opportunityData && item.opportunityData.RecordType}
         </span>
-        {t("OFFER")}&nbsp;{item.offer_number}
+        <span>
+          {t("OFFER")}&nbsp;{item.offer_number}
+        </span>
       </div>
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
           <span>{item.opportunityData && item.opportunityData.Name}</span>
-          <Link
-            to={`/${currentLangName}/viewApplication/${item.opportunityData &&
-              item.opportunityData.opportunityID}`}
-          >
+          <div onClick={viewApplication}>
             <span>{t("VIEW_APPLICATION")}</span>
             <i className="icon-arrow-right2" />
-          </Link>
+          </div>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>

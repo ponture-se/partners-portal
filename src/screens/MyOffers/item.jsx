@@ -7,8 +7,8 @@ const Item = props => {
   const { item } = props;
 
   function handleViewOfferClicked() {
-    if (props.onViewDetailClicked) {
-      props.onViewDetailClicked(item);
+    if (props.onViewOfferClicked) {
+      props.onViewOfferClicked(item);
     }
   }
   function handleEditClicked() {
@@ -40,10 +40,10 @@ const Item = props => {
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
           <span>{item.opportunityData && item.opportunityData.Name}</span>
-          <span onClick={viewApplication}>
+          <div onClick={viewApplication}>
             <span>{t("VIEW_APPLICATION")}</span>
             <i className="icon-arrow-right2" />
-          </span>
+          </div>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>

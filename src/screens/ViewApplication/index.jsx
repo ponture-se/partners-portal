@@ -218,7 +218,7 @@ const ViewApplication = props => {
                       data.opportunityDetails.amortizationPeriod}
                   </span>
                   <span>
-                    {data.opportunityDetails && data.opportunityDetails.amount}{" "}
+                    {separateNumberByChar(data.opportunityDetails.amount, " ")}{" "}
                     Kr
                   </span>
                 </div>

@@ -8,6 +8,7 @@ import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import { getLostApps } from "api/main-api";
 import IssueOfferModal from "./../IssueOffer";
+import ViewApplicationModal from "./../ViewApplication";
 
 const LostApplications = props => {
   const [spinner, toggleSpinner] = useState(true);
@@ -15,6 +16,7 @@ const LostApplications = props => {
   const [error, setError] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [selectedOffer, setOffer] = useState();
+  const [viewAppModalVisibility, toggleViewApp] = useState();
 
   useEffect(() => {
     let didCancel = false;
@@ -92,6 +94,13 @@ const LostApplications = props => {
   function handleCloseIssueOffer() {
     toggleIssueOffer(false);
   }
+  function handleViewApplication(offer) {
+    setOffer(offer);
+    toggleViewApp(true);
+  }
+  function handleCloseViewAppModal() {
+    toggleViewApp(false);
+  }
   return (
     <div className="lostApps">
       {spinner ? (
@@ -112,11 +121,12 @@ const LostApplications = props => {
           <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(app => (
+        data.map(offer => (
           <Item
-            app={app.offer_id}
-            item={app}
-            onViewDetailClicked={handleViewOffer}
+            app={offer.offer_id}
+            item={offer}
+            onViewOfferClicked={handleViewOffer}
+            onViewAppClicked={handleViewApplication}
           />
         ))
       )}
@@ -126,6 +136,13 @@ const LostApplications = props => {
           offer={selectedOffer}
           isOpen={issueOfferVisibility}
           onClose={handleCloseIssueOffer}
+        />
+      )}
+      {viewAppModalVisibility && (
+        <ViewApplicationModal
+          isOpen={viewAppModalVisibility}
+          onClose={handleCloseViewAppModal}
+          oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
         />
       )}
     </div>
