@@ -9,8 +9,14 @@ export default function Modal(props) {
       document.body.style.overflow = "auto";
     };
   }, []);
+
+  function closeModal() {
+    if (props.onClose) {
+      // props.onClose();
+    }
+  }
   return (
-    <div className="modal-back">
+    <div className="modal-back" onClick={closeModal}>
       <div className={"modal animated fadeIn " + (size ? size : "md")}>
         {props.children}
       </div>

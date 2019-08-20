@@ -21,6 +21,11 @@ const Item = props => {
       props.onCancelClicked(item);
     }
   }
+  // to={`/${currentLangName}/viewApplication/${item.opportunityData &&
+  //item.opportunityData.opportunityID}`}
+  function viewApplication() {
+    if (props.onViewAppClicked) props.onViewAppClicked(item);
+  }
 
   return (
     <div className="myOfferItem animated fadeIn">
@@ -35,13 +40,10 @@ const Item = props => {
       <div className="myOfferItem__body">
         <div className="myOfferItem__body__header">
           <span>{item.opportunityData && item.opportunityData.Name}</span>
-          <Link
-            to={`/${currentLangName}/viewApplication/${item.opportunityData &&
-              item.opportunityData.opportunityID}`}
-          >
+          <span onClick={viewApplication}>
             <span>{t("VIEW_APPLICATION")}</span>
             <i className="icon-arrow-right2" />
-          </Link>
+          </span>
         </div>
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_ISSUE_DATE")}</span>

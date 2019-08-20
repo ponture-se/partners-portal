@@ -9,6 +9,7 @@ import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
+import ViewApplicationModal from "./../ViewApplication";
 // import OfferDetail from "./Detail";
 //
 import {
@@ -22,6 +23,7 @@ const MyOffers = props => {
   const [selectedOffer, setOffer] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [issueOfferModalMode, setIssueOfferModalMode] = useState();
+  const [viewAppModalVisibility, toggleViewApp] = useState();
 
   const [completeExample, toggleCompleteModal] = useModali({
     animated: true,
@@ -88,6 +90,13 @@ const MyOffers = props => {
       toggleCompleteModal();
     }
   }
+  function handleViewApplication(offer) {
+    setOffer(offer);
+    toggleViewApp(true);
+  }
+  function handleCloseViewAppModal() {
+    toggleViewApp(false);
+  }
   return (
     <div className="myOffers">
       <Modali.Modal {...completeExample} />
@@ -115,6 +124,7 @@ const MyOffers = props => {
             onViewDetailClicked={handleViewOffer}
             onEditClicked={handleEditOffer}
             onCancelClicked={handleCancelOffer}
+            onViewAppClicked={handleViewApplication}
           />
         ))
       ) : null}
@@ -125,6 +135,13 @@ const MyOffers = props => {
           offer={selectedOffer}
           isOpen={issueOfferVisibility}
           onClose={handleCloseIssueOffer}
+        />
+      )}
+      {viewAppModalVisibility && (
+        <ViewApplicationModal
+          isOpen={viewAppModalVisibility}
+          onClose={handleCloseViewAppModal}
+          oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
         />
       )}
     </div>
