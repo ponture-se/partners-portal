@@ -31,12 +31,12 @@ const MyOffers = props => {
     message: t("OFFER_CANCEL_ALERT_MSG"),
     buttons: [
       <Modali.Button
-        label={t("CANCEL")}
+        label={t("NO")}
         isStyleCancel
         onClick={() => toggleCompleteModal()}
       />,
       <Modali.Button
-        label={t("DELETE")}
+        label={t("YES")}
         isStyleDestructive
         onClick={() => {
           props._cancelOffer(

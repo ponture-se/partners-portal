@@ -30,6 +30,8 @@ export default {
     OFFER: "Offer",
     ARE_YOU_SURE: "Are you sure?",
     DELETE: "Delete",
+    YES: "Yes",
+    NO: "No",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
