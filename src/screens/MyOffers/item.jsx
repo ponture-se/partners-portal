@@ -1,6 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { t, currentLangName } from "services/languageManager";
+import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {

@@ -133,11 +133,11 @@ const ViewApplication = props => {
   function handleCloseCreditReport() {
     toggleCreditReport(false);
   }
-  function handleCloseIssueOffer(taskName) {
+  function handleCloseIssueOffer(isSubmitted) {
     toggleIssueOffer(false);
-    // if (taskName === "issueAdded") {
-    //   closeModal();
-    // }
+    if (isSubmitted === true) {
+      closeModal();
+    }
   }
   function closeModal() {
     if (props.onClose) {

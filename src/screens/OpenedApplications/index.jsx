@@ -39,8 +39,9 @@ const OpenedApplications = props => {
     setApp(app);
     toggleIssueOffer(true);
   }
-  function handleCloseIssueOffer() {
+  function handleCloseIssueOffer(isSubmitted) {
     toggleIssueOffer(false);
+    if (isSubmitted === true) if (props.loadOpenedApps) props.loadOpenedApps();
   }
 
   useEffect(() => {

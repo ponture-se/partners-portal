@@ -174,19 +174,13 @@ const Form = props => {
       };
       if (props.updateMode) {
         obj["offer_id"] = offer.offer_id;
-        props.updateIssueOffer(
-          obj,
-          () => props.onSuccess && props.onSuccess("issueUpdated")
-        );
+        props.updateIssueOffer(obj, props.onSuccess);
       } else {
         obj["product_name"] = props.product ? props.product.Name : null;
         obj["partner_id"] = props.userInfo ? props.userInfo.partnerId : null;
         obj["opportunityID"] = props.app ? props.app.opportunityID : null;
         obj["product_master"] = props.product ? props.product.Id : null;
-        props.submitIssueOffer(
-          obj,
-          () => props.onSuccess && props.onSuccess("issueAdded")
-        );
+        props.submitIssueOffer(obj, props.onSuccess);
       }
     }
   }

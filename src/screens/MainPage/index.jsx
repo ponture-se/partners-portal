@@ -1,12 +1,11 @@
 import React, { Suspense, lazy } from "react";
 import { Switch } from "react-router-dom";
-import PrivateRoute from "./../../HOCs/PrivateRoute";
+import PrivateRoute from "HOCs/PrivateRoute";
 //
 import "./styles.scss";
 import Header from "./header";
 const NewApplications = lazy(() => import("./../NewApplications"));
 const OpenedApplications = lazy(() => import("./../OpenedApplications"));
-const ViewApplication = lazy(() => import("./../ViewApplication"));
 const MyOffers = lazy(() => import("./../MyOffers"));
 const AcceptedOffers = lazy(() => import("./../AcceptedOffers"));
 const FundedApplications = lazy(() => import("./../FundedApplications"));
@@ -30,12 +29,6 @@ const MainPage = props => {
               key="openedApplications"
               path="/:lang/openedApplications"
               render={props => <OpenedApplications {...props} />}
-            />
-            <PrivateRoute
-              exact
-              key="viewApplications"
-              path="/:lang/viewApplication/:id"
-              render={props => <ViewApplication {...props} />}
             />
             <PrivateRoute
               exact

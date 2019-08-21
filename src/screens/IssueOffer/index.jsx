@@ -44,7 +44,7 @@ const IssueOffer = props => {
             updateMode={props.updateMode}
             viewMode={props.viewMode}
             onBackClicked={handleFormBackClicked}
-            onSuccess={type => closeModal(type)}
+            onSuccess={() => closeModal(true)}
             onCloseModal={closeModal}
           />
         );
