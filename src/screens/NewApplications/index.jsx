@@ -30,6 +30,7 @@ const NewApplications = props => {
   }
   function handleCloseViewAppModal() {
     toggleViewApp(false);
+    if (props.loadNewApps) props.loadNewApps();
   }
   return (
     <div className="newApps">

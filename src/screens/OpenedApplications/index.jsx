@@ -33,6 +33,7 @@ const OpenedApplications = props => {
   }
   function handleCloseViewAppModal() {
     toggleViewApp(false);
+    if (props.loadOpenedApps) props.loadOpenedApps();
   }
   function handleOfferClicked(app) {
     setApp(app);

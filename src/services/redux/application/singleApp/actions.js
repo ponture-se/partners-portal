@@ -1,7 +1,6 @@
 import { t } from "services/languageManager";
 import { toast } from "react-toastify";
 import { rejectApp } from "api/main-api";
-import { loadedData } from "./../openedApps/actions";
 
 export const LOADING = "main/app/REJECT_LOADING";
 export const SUCCESS = "main/app/REJECT_SUCCESS";
@@ -21,21 +20,21 @@ export function setError(error) {
   };
 }
 
-export function rejectApplication(app, onSuccess, onError) {
+export function rejectApplication(appId, onSuccess, onError) {
   return function(dispatch, getState) {
     rejectApp()
       .onOk(result => {
         toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
-        const { application } = getState();
-        const data = application.openedAppsReducer
-          ? application.openedAppsReducer.data
-          : null;
-        if (data) {
-          const newData = data.filter(
-            item => item.opportunityID !== app.opportunityID
-          );
-          dispatch(loadedData(newData));
-        }
+        // const { application } = getState();
+        // const data = application.openedAppsReducer
+        //   ? application.openedAppsReducer.data
+        //   : null;
+        // if (data) {
+        //   const newData = data.filter(
+        //     item => item.opportunityID !== app.opportunityID
+        //   );
+        //   dispatch(loadedData(newData));
+        // }
         if (onSuccess) onSuccess();
       })
       .onServerError(result => {
@@ -58,6 +57,6 @@ export function rejectApplication(app, onSuccess, onError) {
         if (onError) onError();
         toast.error(t("ON_REQUEST_ERROR"));
       })
-      .call(app.opportunityID);
+      .call(appId);
   };
 }

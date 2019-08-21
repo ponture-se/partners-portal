@@ -2,6 +2,7 @@ import React, { useMemo } from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import mapValues from "lodash/mapValues";
 //
 import "./styles.scss";
 import {
@@ -13,37 +14,90 @@ import { CircleSpinner } from "components";
 // import DynamicForm from "./DynamicForm";
 // import initValidations from "./validation";
 
-const formSchema = Yup.object().shape({
-  amount: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
-  interest_rate: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
-  repayment_period: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
-  monthly_repayment_amount: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
-  total_repayment_amount: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
-  start_fee: Yup.number().required(t("REQUIRED")),
-  cost: Yup.number().required(t("REQUIRED")),
-  personal_guarantee_needed: Yup.bool(),
-  other_guarantees_needed: Yup.bool(),
-  personal_guarantee_details: Yup.string(),
-  number_of_personal_guarantees: Yup.number().min(0, t("INPUT_NEGATIVE_VALUE")),
-  other_guarantees_details: Yup.string(),
-  other_guarantees_type: Yup.string(),
-  more_details: Yup.string(),
-  offer_description: Yup.string(),
-  extra_offer_description: Yup.string()
-});
 const Form = props => {
   let v;
+  const maximum_loan_amount = props.userInfo
+    ? props.userInfo.rules
+      ? props.userInfo.rules.maximum_loan_amount
+      : undefined
+    : undefined;
+  const maximum_loan_period = props.userInfo
+    ? props.userInfo.rules
+      ? props.userInfo.rules.maximum_loan_period
+      : undefined
+    : undefined;
+  const minimum_loan_amount = props.userInfo
+    ? props.userInfo.rules
+      ? props.userInfo.rules.minimum_loan_amount
+      : 1
+    : 1;
+  const minimum_loan_period = props.userInfo
+    ? props.userInfo.rules
+      ? props.userInfo.rules.minimum_loan_period
+      : 1
+    : 1;
   const { offer } = props;
+  function getCondition(prop) {
+    let y = Yup;
+    if (prop === "amount") {
+      y = y.number().required(t("REQUIRED"));
+      if (minimum_loan_amount) {
+        y = y.min(
+          minimum_loan_amount,
+          t(`Value can not be less than ${minimum_loan_amount}`)
+        );
+      }
+      if (maximum_loan_amount) {
+        y = y.max(
+          maximum_loan_amount,
+          t(`Value can not be more than ${maximum_loan_amount}`)
+        );
+      }
+    }
+    if (prop === "repayment_period") {
+      y = y.number().required(t("REQUIRED"));
+      if (minimum_loan_period) {
+        y = y.min(
+          minimum_loan_period,
+          t(`Value can not be less than ${minimum_loan_period}`)
+        );
+      }
+      if (maximum_loan_period) {
+        y = y.max(
+          maximum_loan_period,
+          t(`Value can not be more than ${maximum_loan_period}`)
+        );
+      }
+    }
+    return y;
+  }
+  const formSchema = Yup.object().shape({
+    amount: getCondition("amount"),
+    interest_rate: Yup.number()
+      .required(t("REQUIRED"))
+      .min(0, t("INPUT_NEGATIVE_VALUE")),
+    repayment_period: getCondition("repayment_period"),
+    monthly_repayment_amount: Yup.number()
+      .required(t("REQUIRED"))
+      .min(0, t("INPUT_NEGATIVE_VALUE")),
+    total_repayment_amount: Yup.number()
+      .required(t("REQUIRED"))
+      .min(0, t("INPUT_NEGATIVE_VALUE")),
+    start_fee: Yup.number().required(t("REQUIRED")),
+    cost: Yup.number().required(t("REQUIRED")),
+    personal_guarantee_needed: Yup.bool(),
+    other_guarantees_needed: Yup.bool(),
+    personal_guarantee_details: Yup.string(),
+    number_of_personal_guarantees: Yup.number().min(
+      0,
+      t("INPUT_NEGATIVE_VALUE")
+    ),
+    other_guarantees_details: Yup.string(),
+    other_guarantees_type: Yup.string(),
+    more_details: Yup.string(),
+    offer_description: Yup.string(),
+    extra_offer_description: Yup.string()
+  });
   const initVals = {
     amount: offer ? (offer.amount ? offer.amount : "") : "",
     interest_rate: offer
@@ -120,15 +174,19 @@ const Form = props => {
       };
       if (props.updateMode) {
         obj["offer_id"] = offer.offer_id;
-        props.updateIssueOffer(obj, props.onSuccess);
+        props.updateIssueOffer(
+          obj,
+          () => props.onSuccess && props.onSuccess("issueUpdated")
+        );
       } else {
         obj["product_name"] = props.product ? props.product.Name : null;
-        obj["partner_id"] = props.userInfo
-          ? props.userInfo.partnerId
-          : null;
+        obj["partner_id"] = props.userInfo ? props.userInfo.partnerId : null;
         obj["opportunityID"] = props.app ? props.app.opportunityID : null;
         obj["product_master"] = props.product ? props.product.Id : null;
-        props.submitIssueOffer(obj, props.onSuccess);
+        props.submitIssueOffer(
+          obj,
+          () => props.onSuccess && props.onSuccess("issueAdded")
+        );
       }
     }
   }
@@ -147,7 +205,7 @@ const Form = props => {
       <div className="issueOfferForm__body">
         <Formik
           initialValues={initVals}
-          validationSchema={formSchema}
+          validationSchema={!props.viewMode && formSchema}
           onSubmit={handleSubmitOffer}
         >
           {({

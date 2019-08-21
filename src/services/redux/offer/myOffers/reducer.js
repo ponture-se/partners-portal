@@ -65,7 +65,7 @@ export default function myOffersReducer(state = initialState, action) {
       return {
         ...state,
         cancel_loading: false,
-        error: true
+        cancel_error: true
       };
     }
     default: {

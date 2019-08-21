@@ -11,7 +11,8 @@ import CreditReportModal from "./../CreditReport";
 import IssueOfferModal from "./../IssueOffer";
 import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
-import { getApplicationById, rejectApp } from "api/main-api";
+import { getApplicationById } from "api/main-api";
+import { rejectApplication } from "services/redux/application/singleApp/actions";
 
 const ViewApplication = props => {
   let didCancel = false;
@@ -107,53 +108,20 @@ const ViewApplication = props => {
   }, []);
 
   function handleRejectApp() {
-    if (!rejectSpinner) {
-      toggleRejectSpinner(true);
-      rejectApp()
-        .onOk(result => {
-          if (!didCancel) {
+    if (props.rejectApplication) {
+      if (!rejectSpinner) {
+        toggleRejectSpinner(true);
+        props.rejectApplication(
+          props.oppId,
+          () => {
             toggleRejectSpinner(false);
-            toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
-            props.history.goBack();
-          }
-        })
-        .onServerError(result => {
-          if (!didCancel) {
+            if (props.onClose) props.onClose();
+          },
+          () => {
             toggleRejectSpinner(false);
-            toast.error(t("INTERNAL_SERVER_ERROR"));
           }
-        })
-        .onBadRequest(result => {
-          if (!didCancel) {
-            toggleRejectSpinner(false);
-            toast.error(t("BAD_REQUEST"));
-          }
-        })
-        .unAuthorized(result => {
-          if (!didCancel) {
-            toggleRejectSpinner(false);
-            toast.error(t("UNKNOWN_ERROR"));
-          }
-        })
-        .notFound(result => {
-          if (!didCancel) {
-            toggleRejectSpinner(false);
-            toast.error(t("NOT_FOUND"));
-          }
-        })
-        .unKnownError(result => {
-          if (!didCancel) {
-            toggleRejectSpinner(false);
-            toast.error(t("UNKNOWN_ERROR"));
-          }
-        })
-        .onRequestError(result => {
-          if (!didCancel) {
-            toggleRejectSpinner(false);
-            toast.error(t("ON_REQUEST_ERROR"));
-          }
-        })
-        .call(props.match.params.id);
+        );
+      }
     }
   }
   function handleViewCredit() {
@@ -165,8 +133,11 @@ const ViewApplication = props => {
   function handleCloseCreditReport() {
     toggleCreditReport(false);
   }
-  function handleCloseIssueOffer() {
+  function handleCloseIssueOffer(taskName) {
     toggleIssueOffer(false);
+    // if (taskName === "issueAdded") {
+    //   closeModal();
+    // }
   }
   function closeModal() {
     if (props.onClose) {
@@ -671,7 +642,9 @@ function mapStateToProps(state) {
   return {};
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  rejectApplication
+};
 
 export default connect(
   mapStateToProps,

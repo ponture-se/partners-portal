@@ -6,14 +6,12 @@
 .viewApp {
   display: flex;
   flex-direction: column;
-  padding: 10px;
   @include variable(body-bg, background, lightgray);
 }
 .viewAppItem {
   min-height: 300px;
   background: white;
-  box-shadow: 0 0 5px lightgray;
-  margin-bottom: 20px;
+  // margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   &__header {
@@ -32,10 +30,10 @@
       cursor: pointer;
       color: gray;
       font-size: 13px;
-        transition-duration: .2s;
-      &:hover{
+      transition-duration: 0.2s;
+      &:hover {
         color: black;
-        transition-duration: .2s;
+        transition-duration: 0.2s;
       }
     }
   }
@@ -107,8 +105,6 @@
 .detail {
   min-height: 300px;
   background: white;
-  box-shadow: 0 0 2px lightgray;
-  margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   &__header {

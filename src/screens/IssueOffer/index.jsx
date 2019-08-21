@@ -44,7 +44,7 @@ const IssueOffer = props => {
             updateMode={props.updateMode}
             viewMode={props.viewMode}
             onBackClicked={handleFormBackClicked}
-            onSuccess={closeModal}
+            onSuccess={type => closeModal(type)}
             onCloseModal={closeModal}
           />
         );
@@ -54,9 +54,9 @@ const IssueOffer = props => {
         break;
     }
   }
-  function closeModal() {
+  function closeModal(issueType) {
     if (props.onClose) {
-      props.onClose();
+      props.onClose(issueType);
     }
   }
   function handleFormBackClicked() {
@@ -76,7 +76,6 @@ const IssueOffer = props => {
               : t("ISSUE_OFFER_HEADER_NEW_TITLE")}
           </span>
           <span className="appName">
-            (
             {props.app
               ? props.app.Name
               : props.offer
@@ -84,7 +83,6 @@ const IssueOffer = props => {
                 ? props.offer.opportunityData.Name
                 : ""
               : ""}
-            )
           </span>
           <span
             className="icon-cross issueOffer__closeIcon"

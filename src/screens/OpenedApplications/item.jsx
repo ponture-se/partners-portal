@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
+import { loadOpenedApps } from "services/redux/application/openedApps/actions";
 import { t } from "services/languageManager";
 import CircleSpinner from "components/CircleSpinner";
 import separateNumberByChar from "utils/separateNumberByChar";
@@ -20,9 +21,10 @@ const Item = props => {
       if (props.rejectApplication) {
         toggleSpinner(true);
         props.rejectApplication(
-          item,
+          item.opportunityID,
           () => {
             toggleSpinner(false);
+            if (props.loadOpenedApps) props.loadOpenedApps();
           },
           () => {
             toggleSpinner(false);
@@ -137,7 +139,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  rejectApplication
+  rejectApplication,
+  loadOpenedApps
 };
 
 export default connect(
