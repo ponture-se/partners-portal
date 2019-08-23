@@ -13,8 +13,14 @@ import Products from "./products";
 import ErrorForm from "./forms/errorForm";
 import Modal from "components/Modal";
 import CircleSpinner from "components/CircleSpinner";
+import separateNumberByChar from "utils/separateNumberByChar";
 
 const IssueOffer = props => {
+  const app = props.app
+    ? props.app
+    : props.offer
+    ? props.offer.opportunityData
+    : null;
   const formRef = useRef(null);
   const [tab, changeTab] = useState();
   const [selectedProduct, setProduct] = useState();
@@ -90,6 +96,33 @@ const IssueOffer = props => {
           />
         </div>
         <div className="issueOffer__body">
+          <div className="appInfo">
+            <div className="appInfo__header">
+              <span className="title">{t("ISSUE_FORM_APP_INFO_TITLE")}</span>
+              <span className="appName">
+                {app && app.Name} {app && `(${app.orgNumber})`}
+              </span>
+            </div>
+            <div className="appInfo__body">
+              <div className="row">
+                <span>{t("OFFER_AMOUNT")}</span>
+                <span>{separateNumberByChar(app.amount, " ")} kr</span>
+              </div>
+              <div className="row">
+                <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
+                <span>
+                  {app.amortizationPeriod}{" "}
+                  {app.amortizationPeriod && app.amortizationPeriod > 1
+                    ? t("MONTHS")
+                    : t("MONTH")}
+                </span>
+              </div>
+              <div className="row">
+                <span>{t("APPLICATION_DATE")}</span>
+                <span>{app.createdAt && app.createdAt.split(" ")[0]}</span>
+              </div>
+            </div>
+          </div>
           {tab === 1 ? (
             <Products
               onSelectProduct={handleSelectedProduct}
@@ -119,7 +152,7 @@ function FullBackComponent(props) {
   return (
     <div className="fallback">
       <CircleSpinner show={true} bgColor="rgb(23, 145, 164)" />
-      <h6>Loading form</h6>
+      <h6>{t("LOADING_FORM")}</h6>
     </div>
   );
 }

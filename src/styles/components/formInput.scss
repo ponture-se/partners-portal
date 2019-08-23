@@ -78,7 +78,7 @@
     @include variable(input-outline-color, outline-color, rgb(23, 145, 164));
     @include variable(input-outline-color, box-shadow, rgb(23, 145, 164));
   }
-  &[readOnly]{
+  &[readOnly] {
     background: whitesmoke;
   }
   &.--large {
@@ -96,5 +96,6 @@
   &.textArea {
     min-height: 80px;
     max-height: 100px;
+    resize: none;
   }
 }

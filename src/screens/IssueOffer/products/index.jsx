@@ -101,7 +101,7 @@ const Products = props => {
         </div>
       ) : (
         <div className="products__content">
-          <div className="formInput">
+          {/* <div className="formInput">
             <div className="formInput__body">
               <input
                 type="text"
@@ -109,7 +109,7 @@ const Products = props => {
                 placeholder={t("Search in new products...")}
               />
             </div>
-          </div>
+          </div> */}
           <div className="products__items">
             {data.map((p, index) => (
               <Item

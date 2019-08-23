@@ -13,7 +13,7 @@ export default {
     NOT_FOUND_MSG: "Not Found",
     ON_REQUEST_ERROR: "Request Error",
     ON_REQUEST_ERROR_MSG: "Request Error",
-    UN_AUTHORIZED: "Session has expired",
+    UN_AUTHORIZED: "User authentication failed. Try again",
     MONTH: "Month",
     TRUE: "True",
     FALSE: "False",
@@ -32,6 +32,11 @@ export default {
     DELETE: "Delete",
     YES: "Yes",
     NO: "No",
+    MONTHS: "months",
+    TEXT: "text",
+    MULTI_LINE_TEXT: "multi-line text",
+    NUMBER: "number",
+    LOADING_FORM: "Loading Form",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -110,7 +115,7 @@ export default {
     ISSUE_OFFER_UPDATE_SUCCESS_MSG: "Offer was updated successfully",
     ISSUE_OFFER_CANCEL_SUCCESS_MSG: "Offer was canceled successfully",
     ISSUE_OFFER_PRODUCTS_TITLE: "Products List",
-    ISSUE_OFFER_BACK_TO_PRODUCTS: "Products",
+    ISSUE_OFFER_BACK_TO_PRODUCTS: "Choose another product",
     ISSUE_OFFER_AMOUNT: "Amount",
     ISSUE_OFFER_AMOUNT_PLACEHOLDER: "Enter your amount",
     ISSUE_OFFER_AMOUNT_REQUIRED: "Required",
@@ -148,6 +153,7 @@ export default {
       "Enter extra offer description",
     ISSUE_OFFER_OFFER_PERSONAL_GUARANTEE_NEEDED: "Personal Guarantee Needed",
     ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED: "Other Guarantee Needed",
+    ISSUE_FORM_APP_INFO_TITLE: "Business Loan Application overview",
     OFFER_CANCEL_ALERT_MSG: "Canceling this selected offer.",
 
     CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
@@ -178,6 +184,7 @@ export default {
     OFFER_AMOUNT: "Amount",
     OFFER_AMORTIZATION_PERIOD: "Amortization Period",
     OFFER_DETAIL_BACK: "Back to My Offers",
+    APPLICATION_DATE: "Application date",
 
     //
     APP_COMPANY_REGISTERED: "Company registered",

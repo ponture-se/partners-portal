@@ -1,8 +1,7 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
-import * as Yup from "yup";
-import mapValues from "lodash/mapValues";
+import Cleave from "cleave.js";
 //
 import "./styles.scss";
 import {
@@ -11,10 +10,22 @@ import {
 } from "services/redux/offer/issueOffer/actions";
 import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
+import formSchema from "./formSchema";
 // import DynamicForm from "./DynamicForm";
 // import initValidations from "./validation";
 
+//
 const Form = props => {
+  const percentageRef = useRef(null);
+  // useEffect(() => {
+  //   if (percentageRef.current) {
+  //     var cleave = new Cleave(percentageRef.current, {
+  //       delimiters: ["."],
+  //       blocks: [10,2],
+  //       numeral: true
+  //     });
+  //   }
+  // }, []);
   let v;
   const maximum_loan_amount = props.userInfo
     ? props.userInfo.rules
@@ -37,67 +48,41 @@ const Form = props => {
       : 1
     : 1;
   const { offer } = props;
-  function getCondition(prop) {
-    let y = Yup;
-    if (prop === "amount") {
-      y = y.number().required(t("REQUIRED"));
-      if (minimum_loan_amount) {
-        y = y.min(
-          minimum_loan_amount,
-          t(`Value can not be less than ${minimum_loan_amount}`)
-        );
-      }
-      if (maximum_loan_amount) {
-        y = y.max(
-          maximum_loan_amount,
-          t(`Value can not be more than ${maximum_loan_amount}`)
-        );
-      }
-    }
-    if (prop === "repayment_period") {
-      y = y.number().required(t("REQUIRED"));
-      if (minimum_loan_period) {
-        y = y.min(
-          minimum_loan_period,
-          t(`Value can not be less than ${minimum_loan_period}`)
-        );
-      }
-      if (maximum_loan_period) {
-        y = y.max(
-          maximum_loan_period,
-          t(`Value can not be more than ${maximum_loan_period}`)
-        );
-      }
-    }
-    return y;
-  }
-  const formSchema = Yup.object().shape({
-    amount: getCondition("amount"),
-    interest_rate: Yup.number()
-      .required(t("REQUIRED"))
-      .min(0, t("INPUT_NEGATIVE_VALUE")),
-    repayment_period: getCondition("repayment_period"),
-    monthly_repayment_amount: Yup.number()
-      .required(t("REQUIRED"))
-      .min(0, t("INPUT_NEGATIVE_VALUE")),
-    total_repayment_amount: Yup.number()
-      .required(t("REQUIRED"))
-      .min(0, t("INPUT_NEGATIVE_VALUE")),
-    start_fee: Yup.number().required(t("REQUIRED")),
-    cost: Yup.number().required(t("REQUIRED")),
-    personal_guarantee_needed: Yup.bool(),
-    other_guarantees_needed: Yup.bool(),
-    personal_guarantee_details: Yup.string(),
-    number_of_personal_guarantees: Yup.number().min(
-      0,
-      t("INPUT_NEGATIVE_VALUE")
-    ),
-    other_guarantees_details: Yup.string(),
-    other_guarantees_type: Yup.string(),
-    more_details: Yup.string(),
-    offer_description: Yup.string(),
-    extra_offer_description: Yup.string()
-  });
+  // function getCondition(prop) {
+  //   let y = Yup;
+  //   if (prop === "amount") {
+  //     y = y.number().required(t("REQUIRED"));
+  //     if (minimum_loan_amount) {
+  //       y = y.min(
+  //         minimum_loan_amount,
+  //         t(`Value can not be less than ${minimum_loan_amount}`)
+  //       );
+  //     }
+  //     if (maximum_loan_amount) {
+  //       y = y.max(
+  //         maximum_loan_amount,
+  //         t(`Value can not be more than ${maximum_loan_amount}`)
+  //       );
+  //     }
+  //   }
+  //   if (prop === "repayment_period") {
+  //     y = y.number().required(t("REQUIRED"));
+  //     if (minimum_loan_period) {
+  //       y = y.min(
+  //         minimum_loan_period,
+  //         t(`Value can not be less than ${minimum_loan_period}`)
+  //       );
+  //     }
+  //     if (maximum_loan_period) {
+  //       y = y.max(
+  //         maximum_loan_period,
+  //         t(`Value can not be more than ${maximum_loan_period}`)
+  //       );
+  //     }
+  //   }
+  //   return y;
+  // }
+
   const initVals = {
     amount: offer ? (offer.amount ? offer.amount : "") : "",
     interest_rate: offer
@@ -226,13 +211,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_AMOUNT")}
+                          {t("ISSUE_OFFER_AMOUNT")} (kr)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         min="0"
                         name="amount"
                         className="element"
@@ -267,13 +253,15 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_INTEREST_RATE")}
+                          {t("ISSUE_OFFER_INTEREST_RATE")} (%)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
+                        ref={percentageRef}
                         type="number"
+                        step="0.1"
                         min="0"
                         name="interest_rate"
                         className="element"
@@ -309,13 +297,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_REPAYMENT_PERIOD")}
+                          {t("ISSUE_OFFER_REPAYMENT_PERIOD")} ({t("MONTHS")})
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         min="0"
                         name="repayment_period"
                         className="element"
@@ -353,13 +342,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_MONTHLY_REPAYMENT_AMOUNT")}
+                          {t("ISSUE_OFFER_MONTHLY_REPAYMENT_AMOUNT")} (kr)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         min="0"
                         name="monthly_repayment_amount"
                         className="element"
@@ -397,13 +387,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT")}
+                          {t("ISSUE_OFFER_TOTAL_REPAYMENT_AMOUNT")} (kr)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         min="0"
                         name="total_repayment_amount"
                         className="element"
@@ -485,13 +476,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_START_FEE")}
+                          {t("ISSUE_OFFER_START_FEE")} (kr)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         name="start_fee"
                         className="element"
                         placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
@@ -524,13 +516,14 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_COST")}
+                          {t("ISSUE_OFFER_COST")} (kr)
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         name="cost"
                         className="element"
                         placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
@@ -563,7 +556,8 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS")}
+                          {t("ISSUE_OFFER_PERSONAL_GUARANTEE_DETAILS")} (
+                          {t("TEXT")})
                         </span>
                       </div>
                     </div>
@@ -606,13 +600,15 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES")}
+                          {t("ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES")} (
+                          {t("NUMBER")})
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
                       <input
                         type="number"
+                        step="0.1"
                         name="number_of_personal_guarantees"
                         className="element"
                         placeholder={t(
@@ -650,7 +646,8 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_OTHER_GUARANTEE_DETAILS")}
+                          {t("ISSUE_OFFER_OTHER_GUARANTEE_DETAILS")} (
+                          {t("TEXT")})
                         </span>
                       </div>
                     </div>
@@ -691,7 +688,7 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_OTHER_GUARANTEES_TYPE")}
+                          {t("ISSUE_OFFER_OTHER_GUARANTEES_TYPE")} ({t("TEXT")})
                         </span>
                       </div>
                     </div>
@@ -734,15 +731,15 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_MORE_DETAILS")}
+                          {t("ISSUE_OFFER_MORE_DETAILS")} (
+                          {t("MULTI_LINE_TEXT")})
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        type="text"
+                      <textarea
                         name="more_details"
-                        className="element"
+                        className="element textArea"
                         placeholder={t("ISSUE_OFFER_MORE_DETAILS_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
@@ -776,14 +773,14 @@ const Form = props => {
                       <div className="formInput__header__left">
                         <span className="elementTitle">
                           {t("ISSUE_OFFER_OFFER_DESCRIPTION")}
+                          &nbsp;({t("MULTI_LINE_TEXT")})
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        type="text"
+                      <textarea
                         name="offer_description"
-                        className="element"
+                        className="element textArea"
                         placeholder={t(
                           "ISSUE_OFFER_OFFER_DESCRIPTION_PLACEHOLDER"
                         )}
@@ -819,14 +816,14 @@ const Form = props => {
                       <div className="formInput__header__left">
                         <span className="elementTitle">
                           {t("ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION")}
+                          &nbsp;({t("MULTI_LINE_TEXT")})
                         </span>
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        type="text"
+                      <textarea
                         name="extra_offer_description"
-                        className="element"
+                        className="element textArea"
                         placeholder={t(
                           "ISSUE_OFFER_EXTRA_OFFER_DESCRIPTION_PLACEHOLDER"
                         )}
@@ -850,10 +847,15 @@ const Form = props => {
               </div>
               <div className="issueOfferForm__actions">
                 {!props.viewMode && (
-                  <button type="submit" className="btn --primary">
-                    <CircleSpinner show={props.loading} />
-                    {!props.loading && t("SUBMIT")}
-                  </button>
+                  <>
+                    <button type="submit" className="btn --primary">
+                      <CircleSpinner show={props.loading} />
+                      {!props.loading && t("SUBMIT")}
+                    </button>
+                    <button className="btn --primary" onClick={closeModal}>
+                      {t("CANCEL")}
+                    </button>
+                  </>
                 )}
                 {!props.viewMode && !props.updateMode && (
                   <button className="btn --light" onClick={backToProducts}>

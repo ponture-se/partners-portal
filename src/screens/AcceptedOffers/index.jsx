@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import Modali, { useModali } from "modali";
 //
-import { t } from "../../services/languageManager";
+import { t } from "services/languageManager";
+import { _cancelOffer } from "services/redux/offer/myOffers/actions";
 //
 import "./styles.scss";
 import Item from "./item";
@@ -13,6 +15,7 @@ import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
 
 const AcceptedOffers = props => {
+  let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -20,8 +23,41 @@ const AcceptedOffers = props => {
   const [selectedOffer, setOffer] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
 
+  const [cancelModal, toggleCancelModal] = useModali({
+    animated: true,
+    title: t("ARE_YOU_SURE"),
+    message: t("OFFER_CANCEL_ALERT_MSG"),
+    buttons: [
+      <Modali.Button
+        label={t("NO")}
+        isStyleCancel
+        onClick={() => toggleCancelModal()}
+      />,
+      <Modali.Button
+        label={t("YES")}
+        isStyleDestructive
+        onClick={() => {
+          props._cancelOffer(
+            selectedOffer,
+            () => {
+              toggleCancelModal();
+            },
+            () => {
+              toggleCancelModal();
+            }
+          );
+        }}
+      />
+    ]
+  });
+
   useEffect(() => {
-    let didCancel = false;
+    _getAcceptedOffer();
+    return () => {
+      didCancel = true;
+    };
+  }, []);
+  function _getAcceptedOffer() {
     getAcceptedOffers()
       .onOk(result => {
         toggleSpinner(false);
@@ -84,11 +120,12 @@ const AcceptedOffers = props => {
         }
       })
       .call();
-
-    return () => {
-      didCancel = true;
-    };
-  }, []);
+  }
+  useEffect(() => {
+    if (props.cancelOfferSuccess) {
+      _getAcceptedOffer();
+    }
+  }, [props.cancelOfferSuccess]);
   function handleViewOffer(offer) {
     setOffer(offer);
     toggleIssueOffer(true);
@@ -103,8 +140,15 @@ const AcceptedOffers = props => {
   function handleCloseViewAppModal() {
     toggleViewApp(false);
   }
+  function handleCancelOffer(offer) {
+    if (props._cancelOffer) {
+      setOffer(offer);
+      toggleCancelModal();
+    }
+  }
   return (
     <div className="acceptedOffers">
+      <Modali.Modal {...cancelModal} />
       {spinner ? (
         <div className="page-loading">
           <SquareSpinner />
@@ -129,6 +173,7 @@ const AcceptedOffers = props => {
             item={offer}
             onViewOfferClicked={handleViewOffer}
             onViewAppClicked={handleViewApplication}
+            onCancelClicked={handleCancelOffer}
           />
         ))
       )}
@@ -152,10 +197,18 @@ const AcceptedOffers = props => {
 };
 
 function mapStateToProps(state) {
-  return {};
+  return {
+    cancelOfferSuccess: state.offer
+      ? state.offer.myOffersReducer
+        ? state.offer.myOffersReducer.cancel_success
+        : null
+      : null
+  };
 }
 
-const mapDispatchToProps = {};
+const mapDispatchToProps = {
+  _cancelOffer
+};
 
 export default connect(
   mapStateToProps,

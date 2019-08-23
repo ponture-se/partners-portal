@@ -36,8 +36,40 @@
     }
   }
   &__body {
-    padding: 20px 0;
+    padding: 15px 0;
     min-height: 300px;
+    .appInfo {
+      background: whitesmoke;
+      margin: 0 20px;
+      padding: 10px;
+      border-radius: 3px;
+      &__header {
+        display: flex;
+        flex-direction: column;
+        border-bottom: 1px solid lightgray;
+        height: 65px;
+        .title {
+          font-weight: bold;
+          font-size: 22px;
+          margin-bottom: 5px;
+        }
+        .appName {
+          font-size: 13px;
+        }
+      }
+      &__body {
+        padding-top: 10px;
+        .row {
+          display: flex;
+          font-size: 13px;
+          padding: 7px 0;
+          span:first-child {
+            font-weight: bold;
+            width: 250px;
+          }
+        }
+      }
+    }
   }
   &__footer {
     padding: 20px;
@@ -50,6 +82,7 @@
   }
 }
 .fallback {
+  margin-top: 10px;
   display: flex;
   align-items: center;
   justify-content: center;

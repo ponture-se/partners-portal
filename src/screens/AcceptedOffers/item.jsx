@@ -13,6 +13,11 @@ const Item = props => {
   function viewApplication() {
     if (props.onViewAppClicked) props.onViewAppClicked(item);
   }
+  function handleCancelClicked() {
+    if (props.onCancelClicked) {
+      props.onCancelClicked(item);
+    }
+  }
   return (
     <div className="myOfferItem animated fadeIn">
       <div className="myOfferItem__header">
@@ -50,6 +55,12 @@ const Item = props => {
         <div className="myOfferItem__footer__left">
           <button className="btn --primary" onClick={handleViewOfferClicked}>
             {t("VIEW_OFFER")}
+          </button>
+        </div>
+        <div className="myOfferItem__footer__right">
+          <button className="btn --light" onClick={handleCancelClicked}>
+            <span className="icon-cross" />
+            {t("CANCEL")}
           </button>
         </div>
       </div>

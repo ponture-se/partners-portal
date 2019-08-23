@@ -5,10 +5,8 @@ import { CircleSpinner } from "components";
 import "./styles.scss";
 import { t } from "services/languageManager";
 import { login } from "services/redux/auth/actions";
-import { useToast } from "./../../hooks";
 
 const Login = props => {
-  const [Toaster, addToast, toasts] = useToast();
   const [userName, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -20,13 +18,11 @@ const Login = props => {
   }
   function handleLoginClicked(e) {
     e.preventDefault();
-    // addToast("Champagne!");
     if (!props.loading) props.login(userName, password, props);
   }
 
   return (
     <div className="loginContainer">
-      <Toaster />
       <div className="loginHeader">
         <img src={require("./../../assets/logo-c.png")} alt="" />
       </div>
