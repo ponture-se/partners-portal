@@ -19,7 +19,7 @@ const Item = props => {
           <span>
             {item.amortizationPeriod} {t("MONTH")}
           </span>
-          <span>{item.amount} Kr</span>
+          <span>{separateNumberByChar(item.amount, " ")} Kr</span>
         </div>
       </div>
       <div className="application__body">
@@ -48,7 +48,7 @@ const Item = props => {
           </span>
         </div>
         <div className="application__bodyRow">
-          <span>{t("APP_REVENUE")} ----</span>
+          <span>{t("APP_REVENUE")}</span>
           <span>{separateNumberByChar(item.lastAvailableRevenue, " ")} Kr</span>
           <span>
             {item.companyVerified ? (
@@ -59,7 +59,7 @@ const Item = props => {
             <span>{t("APP_COMPANY_VERIFIED")}</span>
           </span>
         </div>
-        <div className="application__bodyRow">
+        <div className="application__bodyRow needsRow">
           <span>{t("APP_NEED_FOR")}</span>
           <span>
             {item.need &&
@@ -69,8 +69,12 @@ const Item = props => {
               })}
           </span>
         </div>
+        {item.needDescription && (
+          <div className="otherNeeds">{item.needDescription}</div>
+        )}
       </div>
       <div className="application__footer">
+        <span>{t("APP_OPEN_APP_LINK_INFO")}</span>
         <span onClick={viewApplication}>
           {t("APP_OPEN_APP_LINK")}
           <i className="icon-arrow-right2" />

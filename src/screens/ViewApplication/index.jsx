@@ -163,7 +163,7 @@ const ViewApplication = props => {
           </div>
         ) : data ? (
           <>
-            <div className="viewAppItem animated fadeIn">
+            <div className="viewAppItem">
               <div className="viewAppItem__header">
                 <div className="closeModal" onClick={closeModal}>
                   <span className="icon-cross" />
@@ -281,9 +281,9 @@ const ViewApplication = props => {
                 </div>
               </div>
             </div>
-            <div className="detail animated fadeIn">
+            <div className="detail">
               <div className="detail__header">
-                {data.spoStage && data.spoStage.toLowerCase() !== "opened" && (
+                {data.spoStage && data.spoStage.toLowerCase() === "opened" && (
                   <button className="btn --warning" onClick={handleRejectApp}>
                     <CircleSpinner show={rejectSpinner} />
                     {!rejectSpinner && t("REJECT")}
@@ -292,7 +292,7 @@ const ViewApplication = props => {
                 {/* <button className="btn --primary" onClick={handleViewCredit}>
                   {t("VIEW_CREDIT_REPORT")}
                 </button> */}
-                {data.spoStage && data.spoStage.toLowerCase() !== "opened" && (
+                {data.spoStage && data.spoStage.toLowerCase() === "opened" && (
                   <button className="btn --primary" onClick={handleOffer}>
                     {t("ISSUE_OFFER")}
                   </button>

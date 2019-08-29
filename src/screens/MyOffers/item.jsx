@@ -55,7 +55,8 @@ const Item = props => {
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
           <span>
-            {"<value>"}&nbsp;{"<value>"}
+            {item.repayment_period}{" "}
+            {t("MONTH_S")}
           </span>
         </div>
       </div>

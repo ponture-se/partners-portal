@@ -4,7 +4,6 @@
   flex-direction: column;
 }
 .application {
-  min-height: 350px;
   background: white;
   box-shadow: 0 0 2px lightgray;
   margin-bottom: 20px;
@@ -33,14 +32,18 @@
   }
   &__body {
     flex: 1;
-    padding: 20px 40px 0 40px;
+    padding: 10px 40px;
     display: flex;
     flex-direction: column;
+    .otherNeeds {
+      font-size: 13px;
+    }
   }
   &__bodyRow {
     flex: 1;
     display: flex;
     font-size: 13px;
+    padding: 10px 0;
     // max-width: 80%;
     span {
       flex: 1;
@@ -55,7 +58,7 @@
       padding: 0 5px;
       color: greenyellow;
     }
-    &:last-child span:last-child {
+    &.needsRow span:last-child {
       flex: 2;
       line-height: 1.5;
       font-size: 12px;
@@ -66,10 +69,13 @@
     height: 60px;
     display: flex;
     align-items: center;
-
-    flex-direction: row-reverse;
+    justify-content: flex-end;
     padding: 0 10px;
-    span {
+    span:first-child {
+      font-size: 13px;
+      padding: 0 10px;
+    }
+    span:last-child {
       cursor: pointer;
       display: flex;
       align-items: center;

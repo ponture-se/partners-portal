@@ -37,6 +37,7 @@ export default {
     MULTI_LINE_TEXT: "multi-line text",
     NUMBER: "number",
     LOADING_FORM: "Loading Form",
+    MONTH_S: "month(s)",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -192,8 +193,10 @@ export default {
     APP_NEED_FOR: "Need For",
     APP_ACTIVE_COMPANY: "Active Company",
     APP_COMPANY_VERIFIED: "Company verified",
-    APP_CREDITSAFE_SCRORE: "Creditsafe Score",
+    APP_CREDITSAFE_SCRORE: "Creditsafe Score[0-100]",
     APP_OPEN_APP_LINK: "Open Application",
+    APP_OPEN_APP_LINK_INFO:
+      "If you open this application it will move to Opened Applications page.",
     APP_REVENUE: "Revenue"
   }
 };

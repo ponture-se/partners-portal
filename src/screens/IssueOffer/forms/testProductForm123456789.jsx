@@ -16,16 +16,48 @@ import formSchema from "./formSchema";
 
 //
 const Form = props => {
-  const percentageRef = useRef(null);
-  // useEffect(() => {
-  //   if (percentageRef.current) {
-  //     var cleave = new Cleave(percentageRef.current, {
-  //       delimiters: ["."],
-  //       blocks: [10,2],
-  //       numeral: true
-  //     });
-  //   }
-  // }, []);
+  const amountRef = useRef(null);
+  const monthlyRepaymentAmountRef = useRef(null);
+  const totalRepaymentAmount = useRef(null);
+  const startFeeRef = useRef(null);
+  const costRef = useRef(null);
+  useEffect(() => {
+    if (amountRef.current) {
+      let cleave = new Cleave(amountRef.current, {
+        numeral: true,
+        numeralDecimalMark: ",",
+        delimiter: " "
+      });
+    }
+    if (monthlyRepaymentAmountRef.current) {
+      let cleave = new Cleave(monthlyRepaymentAmountRef.current, {
+        numeral: true,
+        numeralDecimalMark: ",",
+        delimiter: " "
+      });
+    }
+    if (totalRepaymentAmount.current) {
+      let cleave = new Cleave(totalRepaymentAmount.current, {
+        numeral: true,
+        numeralDecimalMark: ",",
+        delimiter: " "
+      });
+    }
+    if (startFeeRef.current) {
+      let cleave = new Cleave(startFeeRef.current, {
+        numeral: true,
+        numeralDecimalMark: ",",
+        delimiter: " "
+      });
+    }
+    if (costRef.current) {
+      let cleave = new Cleave(costRef.current, {
+        numeral: true,
+        numeralDecimalMark: ",",
+        delimiter: " "
+      });
+    }
+  }, []);
   let v;
   const maximum_loan_amount = props.userInfo
     ? props.userInfo.rules
@@ -217,9 +249,7 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        type="number"
-                        step="0.1"
-                        min="0"
+                        ref={amountRef}
                         name="amount"
                         className="element"
                         placeholder={t("ISSUE_OFFER_AMOUNT_PLACEHOLDER")}
@@ -259,7 +289,6 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        ref={percentageRef}
                         type="number"
                         step="0.1"
                         min="0"
@@ -348,9 +377,7 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        type="number"
-                        step="0.1"
-                        min="0"
+                        ref={monthlyRepaymentAmountRef}
                         name="monthly_repayment_amount"
                         className="element"
                         placeholder={t(
@@ -393,9 +420,7 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        type="number"
-                        step="0.1"
-                        min="0"
+                        ref={totalRepaymentAmount}
                         name="total_repayment_amount"
                         className="element"
                         placeholder={t(
@@ -482,8 +507,7 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        type="number"
-                        step="0.1"
+                        ref={startFeeRef}
                         name="start_fee"
                         className="element"
                         placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
@@ -522,8 +546,7 @@ const Form = props => {
                     </div>
                     <div className="formInput__body">
                       <input
-                        type="number"
-                        step="0.1"
+                        ref={costRef}
                         name="cost"
                         className="element"
                         placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
@@ -631,7 +654,6 @@ const Form = props => {
                     </div>
                   </div>
                 </div>
-
                 <div className="formRow">
                   <div
                     className={
