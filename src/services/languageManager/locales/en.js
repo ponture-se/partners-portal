@@ -29,6 +29,8 @@ export default {
     INPUT_NEGATIVE_VALUE: "It should be above 0",
     OFFER: "Offer",
     ARE_YOU_SURE: "Are you sure?",
+    NO: "No",
+    YES_DO_IT: "Yes, Do It!",
     DELETE: "Delete",
     YES: "Yes",
     NO: "No",
@@ -105,6 +107,11 @@ export default {
     APP_DETAIL_KEY_NET: "Net margin",
     APP_DETAIL_KEY_CASH: "Cash flow",
     APP_DETAIL_KEY_SOLIDITY: "Solidity",
+
+    APP_DETAIL_REJECT_ALERT_TITLE: "Please confirm that you want to reject!",
+    APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
+    APP_DETAIL_REJECT_ALERT_DESC:
+      "Rejecting application will be removed from list.",
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
     ISSUE_OFFER_PRODUCTS_LOADING_TEXT: "Loading products...",
     ISSUE_OFFER_PRODUCTS_EMPTY_TITLE: "List Empty!",

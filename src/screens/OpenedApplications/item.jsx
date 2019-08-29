@@ -19,17 +19,7 @@ const Item = props => {
   function handleRejectApp() {
     if (!spinner) {
       if (props.rejectApplication) {
-        toggleSpinner(true);
-        props.rejectApplication(
-          item.opportunityID,
-          () => {
-            toggleSpinner(false);
-            if (props.loadOpenedApps) props.loadOpenedApps();
-          },
-          () => {
-            toggleSpinner(false);
-          }
-        );
+        props.rejectApplication(item.opportunityID);
       }
     }
   }
@@ -88,7 +78,7 @@ const Item = props => {
         </div>
         <div className="openedApp__bodyRow">
           <div className="openedApp__bodyRow__left">
-            <span>{t("APP_REVENUE")} -----</span>
+            <span>{t("APP_REVENUE")}</span>
           </div>
           <div className="openedApp__bodyRow__right">
             <span>
@@ -118,18 +108,23 @@ const Item = props => {
             </span>
           </div>
         </div>
+        {item.needDescription && (
+          <div className="otherNeeds">{item.needDescription}</div>
+        )}
       </div>
       <div className="openedApp__footer">
         <button className="btn --warning" onClick={handleRejectApp}>
           <CircleSpinner show={spinner} />
           {!spinner && t("REJECT")}
         </button>
-        <button className="btn --primary" onClick={handleViewClicked}>
-          {t("VIEW_APPLICATION")}
-        </button>
-        <button className="btn --primary" onClick={handleOfferClicked}>
-          {t("ISSUE_OFFER")}
-        </button>
+        <div className="moreActions">
+          <button className="btn --primary" onClick={handleViewClicked}>
+            {t("VIEW_APPLICATION")}
+          </button>
+          <button className="btn --primary" onClick={handleOfferClicked}>
+            {t("ISSUE_OFFER")}
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -7,6 +7,7 @@ import { useTheme } from "./hooks";
 import { currentLangName } from "./services/languageManager";
 import "./styles/app.scss";
 import "./styles/animate.css";
+import { Alert } from "./components/Alert";
 //
 import PrivateRoute from "./HOCs/PrivateRoute";
 import withResolver from "./HOCs/withResolver";
@@ -16,7 +17,6 @@ import MainPage from "./screens/MainPage";
 const Main = withResolver(MainPage);
 
 function App() {
-
   useTheme("theme1");
   return (
     <>
@@ -42,6 +42,7 @@ function App() {
         </Switch>
       </BrowserRouter>
       <ToastContainer />
+      <Alert />
     </>
   );
 }

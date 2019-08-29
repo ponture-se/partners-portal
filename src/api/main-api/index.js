@@ -934,7 +934,7 @@ export function rejectApp() {
     }
   }
 
-  const _call = async oppID => {
+  const _call = ({ oppId }) => {
     const url = rejectAppUrl;
     axios({
       method: "put",
@@ -943,7 +943,7 @@ export function rejectApp() {
         "Content-Type": "application/json"
       },
       data: {
-        oppID
+        oppID: oppId
       }
     })
       .then(response => {

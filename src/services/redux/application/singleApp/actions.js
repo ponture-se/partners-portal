@@ -1,6 +1,8 @@
 import { t } from "services/languageManager";
 import { toast } from "react-toastify";
 import { rejectApp } from "api/main-api";
+import { toggleAlert } from "components/Alert";
+import { loadOpenedApps } from "./../openedApps/actions";
 
 export const LOADING = "main/app/REJECT_LOADING";
 export const SUCCESS = "main/app/REJECT_SUCCESS";
@@ -20,43 +22,35 @@ export function setError(error) {
   };
 }
 
-export function rejectApplication(appId, onSuccess, onError) {
+export function rejectApplication(oppId) {
   return function(dispatch, getState) {
-    rejectApp()
-      .onOk(result => {
+    toggleAlert({
+      title: t("APP_DETAIL_REJECT_ALERT_TITLE"),
+      description: t("APP_DETAIL_REJECT_ALERT_DESC"),
+      cancelBtnText: t("NO"),
+      okBtnText: t("APP_DETAIL_REJECT_ALERT_OK_BTN"),
+      isAjaxCall: true,
+      func: rejectApp,
+      data: {
+        oppId
+      },
+      onCancel: () => {},
+      onSuccess: result => {
+        dispatch(loadOpenedApps());
         toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
-        // const { application } = getState();
-        // const data = application.openedAppsReducer
-        //   ? application.openedAppsReducer.data
-        //   : null;
-        // if (data) {
-        //   const newData = data.filter(
-        //     item => item.opportunityID !== app.opportunityID
-        //   );
-        //   dispatch(loadedData(newData));
-        // }
-        if (onSuccess) onSuccess();
-      })
-      .onServerError(result => {
-        if (onError) onError();
+      },
+      onServerError: error => {
         toast.error(t("INTERNAL_SERVER_ERROR"));
-      })
-      .onBadRequest(result => {
-        if (onError) onError();
+      },
+      onBadRequest: error => {
         toast.error(t("BAD_REQUEST"));
-      })
-      .notFound(result => {
-        if (onError) onError();
+      },
+      notFound: error => {
         toast.error(t("NOT_FOUND"));
-      })
-      .unKnownError(result => {
-        if (onError) onError();
+      },
+      unKnownError: error => {
         toast.error(t("UNKNOWN_ERROR"));
-      })
-      .onRequestError(result => {
-        if (onError) onError();
-        toast.error(t("ON_REQUEST_ERROR"));
-      })
-      .call(appId);
+      }
+    });
   };
 }
