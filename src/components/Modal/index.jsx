@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
 import "./styles.scss";
 
 export default function Modal(props) {
@@ -15,11 +16,14 @@ export default function Modal(props) {
       // props.onClose();
     }
   }
-  return (
-    <div className="modal-back" onClick={closeModal}>
-      <div className={"modal animated fadeIn " + (size ? size : "md")}>
-        {props.children}
+  return ReactDOM.createPortal(
+    <React.Fragment>
+      <div className="modal-back" onClick={closeModal}>
+        <div className={"modal animated fadeIn " + (size ? size : "md")}>
+          {props.children}
+        </div>
       </div>
-    </div>
+    </React.Fragment>,
+    document.body
   );
 }

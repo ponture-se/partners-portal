@@ -6,7 +6,6 @@ import { t } from "services/languageManager";
 import Modal from "components/Modal";
 import "./styles.scss";
 import SquareSpinner from "components/SquareSpinner";
-import CircleSpinner from "components/CircleSpinner";
 import CreditReportModal from "./../CreditReport";
 import IssueOfferModal from "./../IssueOffer";
 import { Wrong } from "components/Commons/ErrorsComponent";
@@ -17,7 +16,6 @@ import { rejectApplication } from "services/redux/application/singleApp/actions"
 const ViewApplication = props => {
   let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
-  const [rejectSpinner, toggleRejectSpinner] = useState();
   const [data, setData] = useState();
   const [error, setError] = useState();
   const [creditReportVisibility, toggleCreditReport] = useState();
@@ -109,21 +107,12 @@ const ViewApplication = props => {
 
   function handleRejectApp() {
     if (props.rejectApplication) {
-      if (!rejectSpinner) {
-        toggleRejectSpinner(true);
-        props.rejectApplication(
-          props.oppId,
-          () => {
-            toggleRejectSpinner(false);
-            if (props.onClose) props.onClose();
-          },
-          () => {
-            toggleRejectSpinner(false);
-          }
-        );
-      }
+      props.rejectApplication(props.oppId, () => {
+        if (props.onClose) props.onClose();
+      });
     }
   }
+
   function handleViewCredit() {
     toggleCreditReport(true);
   }
@@ -306,8 +295,7 @@ const ViewApplication = props => {
               <div className="detail__header">
                 {data.spoStage && data.spoStage.toLowerCase() === "opened" && (
                   <button className="btn --warning" onClick={handleRejectApp}>
-                    <CircleSpinner show={rejectSpinner} />
-                    {!rejectSpinner && t("REJECT")}
+                    {t("REJECT")}
                   </button>
                 )}
                 {/* <button className="btn --primary" onClick={handleViewCredit}>

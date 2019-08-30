@@ -21,43 +21,6 @@ const Form = props => {
   const totalRepaymentAmount = useRef(null);
   const startFeeRef = useRef(null);
   const costRef = useRef(null);
-  useEffect(() => {
-    if (amountRef.current) {
-      let cleave = new Cleave(amountRef.current, {
-        numeral: true,
-        numeralDecimalMark: ",",
-        delimiter: " "
-      });
-    }
-    if (monthlyRepaymentAmountRef.current) {
-      let cleave = new Cleave(monthlyRepaymentAmountRef.current, {
-        numeral: true,
-        numeralDecimalMark: ",",
-        delimiter: " "
-      });
-    }
-    if (totalRepaymentAmount.current) {
-      let cleave = new Cleave(totalRepaymentAmount.current, {
-        numeral: true,
-        numeralDecimalMark: ",",
-        delimiter: " "
-      });
-    }
-    if (startFeeRef.current) {
-      let cleave = new Cleave(startFeeRef.current, {
-        numeral: true,
-        numeralDecimalMark: ",",
-        delimiter: " "
-      });
-    }
-    if (costRef.current) {
-      let cleave = new Cleave(costRef.current, {
-        numeral: true,
-        numeralDecimalMark: ",",
-        delimiter: " "
-      });
-    }
-  }, []);
   let v;
   const maximum_loan_amount = props.userInfo
     ? props.userInfo.rules

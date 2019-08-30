@@ -22,7 +22,7 @@ export function setError(error) {
   };
 }
 
-export function rejectApplication(oppId) {
+export function rejectApplication(oppId, onLocalSuccess) {
   return function(dispatch, getState) {
     toggleAlert({
       title: t("APP_DETAIL_REJECT_ALERT_TITLE"),
@@ -36,8 +36,10 @@ export function rejectApplication(oppId) {
       },
       onCancel: () => {},
       onSuccess: result => {
-        dispatch(loadOpenedApps());
         toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
+        if (onLocalSuccess) {
+          onLocalSuccess();
+        } else dispatch(loadOpenedApps());
       },
       onServerError: error => {
         toast.error(t("INTERNAL_SERVER_ERROR"));
