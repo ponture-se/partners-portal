@@ -1,21 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Modali, { useModali } from "modali";
 //
 import { t } from "../../services/languageManager";
-//
 import "./styles.scss";
 import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
-// import OfferDetail from "./Detail";
+
 //
 import {
   loadMyOffers,
-  resetOffersState,
-  _cancelOffer
+  resetOffersState
 } from "services/redux/offer/myOffers/actions";
 
 const MyOffers = props => {
@@ -25,34 +22,6 @@ const MyOffers = props => {
   const [issueOfferModalMode, setIssueOfferModalMode] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
 
-  const [completeExample, toggleCompleteModal] = useModali({
-    animated: true,
-    title: t("ARE_YOU_SURE"),
-    message: t("OFFER_CANCEL_ALERT_MSG"),
-    buttons: [
-      <Modali.Button
-        label={t("NO")}
-        isStyleCancel
-        onClick={() => toggleCompleteModal()}
-      />,
-      <Modali.Button
-        label={t("YES")}
-        isStyleDestructive
-        onClick={() => {
-          props._cancelOffer(
-            selectedOffer,
-            () => {
-              toggleCompleteModal();
-            },
-            () => {
-              toggleCompleteModal();
-            }
-          );
-        }}
-      />
-    ]
-  });
-
   useEffect(() => {
     if (props.loadMyOffers) props.loadMyOffers();
     return () => {
@@ -60,10 +29,10 @@ const MyOffers = props => {
     };
   }, []);
   useEffect(() => {
-    if (props.submittedIssueOffer || props.cancelOfferSuccess) {
+    if (props.submittedIssueOffer) {
       if (props.loadMyOffers) props.loadMyOffers();
     }
-  }, [props.submittedIssueOffer, props.cancelOfferSuccess]);
+  }, [props.submittedIssueOffer]);
 
   function handleViewOffer(offer) {
     // changeTab(2);
@@ -87,7 +56,6 @@ const MyOffers = props => {
   function handleCancelOffer(offer) {
     if (props._cancelOffer) {
       setOffer(offer);
-      toggleCompleteModal();
     }
   }
   function handleViewApplication(offer) {
@@ -99,7 +67,6 @@ const MyOffers = props => {
   }
   return (
     <div className="myOffers">
-      <Modali.Modal {...completeExample} />
       {props.loading ? (
         <div className="page-loading">
           <SquareSpinner />
@@ -170,19 +137,13 @@ function mapStateToProps(state) {
       ? state.offer.issueOfferReducer
         ? state.offer.issueOfferReducer.success
         : null
-      : null,
-    cancelOfferSuccess: state.offer
-      ? state.offer.myOffersReducer
-        ? state.offer.myOffersReducer.cancel_success
-        : null
       : null
   };
 }
 
 const mapDispatchToProps = {
   loadMyOffers,
-  resetOffersState,
-  _cancelOffer
+  resetOffersState
 };
 
 export default connect(

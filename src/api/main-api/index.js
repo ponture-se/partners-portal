@@ -1402,7 +1402,7 @@ export function cancelOffer() {
     }
   }
 
-  const _call = offerId => {
+  const _call = ({ offerId }) => {
     const url = cancelOfferUrl + `?offerId=${offerId}`;
     axios({
       method: "put",

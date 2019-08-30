@@ -97,6 +97,13 @@
     padding: 0 40px;
     &__left {
       flex: 1;
+      button {
+        width: 100px;
+        span {
+          font-size: 12px;
+          margin-right: 10px;
+        }
+      }
     }
     &__right {
       display: flex;
@@ -105,7 +112,6 @@
         margin-left: 10px;
         width: 100px;
         span {
-          color: rgba(0, 0, 0, 0.6);
           font-size: 12px;
           margin-right: 10px;
         }

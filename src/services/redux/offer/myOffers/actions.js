@@ -1,6 +1,7 @@
 import { toast } from "react-toastify";
 import { t } from "services/languageManager";
 import { getMyOffers, cancelOffer } from "api/main-api";
+import { toggleAlert } from "components/Alert";
 
 export const LOADING = "main/myOffers/LOADING";
 export const LOADED = "main/myOffers/LOADED";
@@ -85,38 +86,33 @@ export const loadMyOffers = () => dispatch => {
     })
     .call();
 };
-export const _cancelOffer = (offer, onSuccess, onError) => dispatch => {
-  dispatch({ type: CANCEL_LOADING });
-  cancelOffer()
-    .onOk(result => {
-      dispatch({ type: CANCEL_SUCCESS });
-      toast.success(t("ISSUE_OFFER_UPDATE_SUCCESS_MSG"));
-      if (onSuccess) onSuccess();
-    })
-    .onServerError(result => {
-      dispatch({ type: CANCEL_ERROR });
+export const _cancelOffer = offer => dispatch => {
+  toggleAlert({
+    title: t("ISSUE_OFFER_CANCEL_ALERT_TITLE"),
+    description: t("ISSUE_OFFER_CANCEL_ALERT_DESC"),
+    cancelBtnText: t("NO"),
+    okBtnText: t("ISSUE_OFFER_CANCEL_ALERT_OK_BTN"),
+    isAjaxCall: true,
+    func: cancelOffer,
+    data: {
+      offerId: offer.offer_id
+    },
+    onCancel: () => {},
+    onSuccess: result => {
+      dispatch(loadMyOffers());
+      toast.success(t("ISSUE_OFFER_CANCEL_SUCCESS_MSG"));
+    },
+    onServerError: error => {
       toast.error(t("INTERNAL_SERVER_ERROR"));
-      if (onError) onError();
-    })
-    .onBadRequest(result => {
-      dispatch({ type: CANCEL_ERROR });
+    },
+    onBadRequest: error => {
       toast.error(t("BAD_REQUEST"));
-      if (onError) onError();
-    })
-    .notFound(result => {
-      dispatch({ type: CANCEL_ERROR });
+    },
+    notFound: error => {
       toast.error(t("NOT_FOUND"));
-      if (onError) onError();
-    })
-    .unKnownError(result => {
-      dispatch({ type: CANCEL_ERROR });
+    },
+    unKnownError: error => {
       toast.error(t("UNKNOWN_ERROR"));
-      if (onError) onError();
-    })
-    .onRequestError(result => {
-      dispatch({ type: CANCEL_ERROR });
-      toast.error(t("ON_REQUEST_ERROR"));
-      if (onError) onError();
-    })
-    .call(offer.offer_id);
+    }
+  });
 };

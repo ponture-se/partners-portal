@@ -9,14 +9,12 @@
   @include variable(body-bg, background, lightgray);
 }
 .viewAppItem {
-  min-height: 300px;
   background: white;
-  // margin-bottom: 20px;
   display: flex;
   flex-direction: column;
   &__header {
     margin: 20px 40px 0 40px;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     display: flex;
     flex-direction: column;
     border-bottom: 1px solid lightgray;
@@ -40,28 +38,39 @@
   &__title {
     font-size: 20px;
     font-family: OpenSanceBold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
   }
   &__headerinfo {
     max-width: 80%;
     display: flex;
     justify-content: space-between;
     font-family: OpenSanceBold;
-    span {
+    .headerItem {
+      display: flex;
+      flex-direction: column;
       font-size: 13px;
+      color: gray;
+      span:first-child {
+        font-size: 14px;
+        color: black;
+      }
     }
   }
   &__body {
     flex: 1;
-    padding: 20px 40px 0 40px;
+    padding: 10px 40px;
     display: flex;
     flex-direction: column;
+    .otherNeeds {
+      font-size: 13px;
+    }
   }
   &__bodyRow {
     flex: 1;
     display: flex;
     font-size: 13px;
     max-width: 90%;
+    padding: 10px 0;
     &__left {
       width: 280px;
       font-family: OpenSanceBold;
@@ -112,6 +121,8 @@
     padding-bottom: 20px;
     display: flex;
     border-bottom: 1px solid lightgray;
+    justify-content: space-between;
+    padding-right: 10%;
     .--warning {
       margin-right: 120px;
       width: 130px;
@@ -145,10 +156,9 @@
         font-size: 14px;
       }
       & span:last-child {
-        width: 100%;
-        text-overflow: ellipsis;
+        // width: 200px;
         overflow: hidden;
-        white-space: nowrap;
+        // overflow: hidden;
       }
       i {
         color: greenyellow;
@@ -185,8 +195,19 @@
         tbody {
           tr {
             td {
-              padding: 10px 0;
               font-size: 13px;
+              padding: 10px 0;
+              div {
+                display: flex;
+                flex-direction: column;
+                span:last-child {
+                  font-size: 12px;
+                  font-family: OpenSance;
+                }
+              }
+              span {
+                font-size: 13px;
+              }
             }
           }
         }
@@ -194,9 +215,12 @@
     }
   }
   &__finan {
-    font-family: OpenSanceBold;
     font-size: 13px;
     margin-bottom: 10px;
+    .title {
+      font-family: OpenSanceBold;
+      font-size: 20px;
+    }
   }
   &__lastBox {
     display: flex;

@@ -100,7 +100,7 @@ const Alert = props => {
                   {info.cancelBtnText}
                 </button>
                 <button
-                  className="btn --success"
+                  className="btn --primary"
                   onClick={handleOkBtnClicked}
                   autoFocus
                 >

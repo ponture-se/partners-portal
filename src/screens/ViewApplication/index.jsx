@@ -173,25 +173,44 @@ const ViewApplication = props => {
                     data.opportunityDetails.RecordType}
                 </span>
                 <div className="viewAppItem__headerinfo">
-                  <span>
-                    {data.opportunityDetails && data.opportunityDetails.Name}
-                    &nbsp;-{" "}
-                    {data.opportunityDetails &&
-                      data.opportunityDetails.opportunityNumber}
-                  </span>
-                  <span>
-                    {data.opportunityDetails &&
-                      data.opportunityDetails.createdAt &&
-                      data.opportunityDetails.createdAt.split(" ")[0]}
-                  </span>
-                  <span>
-                    {data.opportunityDetails &&
-                      data.opportunityDetails.amortizationPeriod}
-                  </span>
-                  <span>
-                    {separateNumberByChar(data.opportunityDetails.amount, " ")}{" "}
-                    Kr
-                  </span>
+                  <div className="headerItem">
+                    <span>{t("APP_HEADER_LOAN_AMOUNT")}</span>
+                    <span>
+                      {separateNumberByChar(
+                        data.opportunityDetails.amount,
+                        " "
+                      )}{" "}
+                      Kr
+                    </span>
+                  </div>
+                  <div className="headerItem">
+                    <span>{t("APP_HEADER_PERIOD")}</span>
+                    <span>
+                      <span>
+                        {data.opportunityDetails &&
+                          data.opportunityDetails.amortizationPeriod}
+                      </span>{" "}
+                      {t("MONTH_S")}
+                    </span>
+                  </div>
+                  <div className="headerItem">
+                    <span>{t("APP_HEADER_DATE")}</span>
+                    <span>
+                      {data.opportunityDetails &&
+                        data.opportunityDetails.createdAt &&
+                        data.opportunityDetails.createdAt.split(" ")[0]}
+                    </span>
+                  </div>
+                  <div className="headerItem">
+                    <span>{t("APP_HEADER_NUMBER")}</span>
+                    <span>
+                      {data.opportunityDetails && data.opportunityDetails.Name}
+                      &nbsp;{" "}
+                      {data.opportunityDetails &&
+                        data.opportunityDetails.orgNumber &&
+                        "(" + data.opportunityDetails.orgNumber + ")"}
+                    </span>
+                  </div>
                 </div>
               </div>
               <div className="viewAppItem__body">
@@ -237,10 +256,7 @@ const ViewApplication = props => {
                 </div>
                 <div className="viewAppItem__bodyRow">
                   <div className="viewAppItem__bodyRow__left">
-                    <span>
-                      {t("APP_REVENUE")}{" "}
-                      {data.accountDetails && data.accountDetails.financialYear}
-                    </span>
+                    <span>{t("APP_REVENUE")}</span>
                   </div>
                   <div className="viewAppItem__bodyRow__right">
                     <span>
@@ -279,6 +295,11 @@ const ViewApplication = props => {
                     </span>
                   </div>
                 </div>
+                {data.opportunityDetails && (
+                  <div className="otherNeeds">
+                    {data.opportunityDetails.needDescription}
+                  </div>
+                )}
               </div>
             </div>
             <div className="detail">
@@ -317,7 +338,7 @@ const ViewApplication = props => {
                   </div>
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
-                    <span>77330 brnhcs...s.dsdsdd</span>
+                    <span>--no value--</span>
                   </div>
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_NUMBER_OF")}:</span>
@@ -407,12 +428,12 @@ const ViewApplication = props => {
                     </span>
                   </div>
                 </div>
-                <div className="detail__row">
+                {/* <div className="detail__row">
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
                     <span>Biger Jarlsgatan 57C 113 56 Stockholm</span>
                   </div>
-                </div>
+                </div> */}
                 <div className="detail__table">
                   <span>{t("APP_DETAIL_BOARD_MEMBER")}</span>
                   <div className="table">
@@ -429,7 +450,14 @@ const ViewApplication = props => {
                         {data.accountDetails &&
                           data.accountDetails.BoardMember.map(item => (
                             <tr key={item.personalNum}>
-                              <td>{item.firstName}</td>
+                              <td>
+                                <div>
+                                  <span>{item.firstName}</span>
+                                  <span>
+                                    {item.firstName} {item.surName}
+                                  </span>
+                                </div>
+                              </td>
                               <td>{item.personalNum}</td>
                               <td>{item.role}</td>
                               <td>{item.access}</td>
@@ -440,11 +468,12 @@ const ViewApplication = props => {
                   </div>
                 </div>
                 <div className="detail__finan">
-                  {t("APP_DETAIL_FINANCIAL_YEAR")}{" "}
-                  {data.accountDetails && data.accountDetails.financialYear}
+                  <span className="title">
+                    {t("APP_DETAIL_FINANCIAL_YEAR")}
+                  </span>
                 </div>
                 <div className="detail__finan">
-                  {t("APP_DETAIL_LAST_PUBLISHED")}:{" "}
+                  {t("APP_DETAIL_LAST_PUBLISHED")}:
                   {data.accountDetails && data.accountDetails.lastPublished}
                 </div>
                 <div className="detail__lastBox">
@@ -532,18 +561,6 @@ const ViewApplication = props => {
                       </div>
                       <div className="lastBoxItem__body">
                         <div className="lastBoxItem__body__row">
-                          <span>{t("APP_DETAIL_PROFIT_LOSS_NET")}</span>
-                          <span>
-                            {data.accountDetails &&
-                              data.accountDetails.profitLoss &&
-                              separateNumberByChar(
-                                data.accountDetails.profitLoss.netProfitLoss,
-                                " "
-                              )}{" "}
-                            Kr
-                          </span>
-                        </div>
-                        <div className="lastBoxItem__body__row">
                           <span>{t("APP_DETAIL_PROFIT_LOSS_OPERATION")}</span>
                           <span>
                             {data.accountDetails &&
@@ -581,11 +598,8 @@ const ViewApplication = props => {
                           <span>
                             {data.accountDetails &&
                               data.accountDetails.keyRatio &&
-                              separateNumberByChar(
-                                data.accountDetails.keyRatio.netMargin,
-                                " "
-                              )}{" "}
-                            Kr
+                              data.accountDetails.keyRatio.netMargin}{" "}
+                            %
                           </span>
                         </div>
                         <div className="lastBoxItem__body__row">
@@ -593,11 +607,8 @@ const ViewApplication = props => {
                           <span>
                             {data.accountDetails &&
                               data.accountDetails.keyRatio &&
-                              separateNumberByChar(
-                                data.accountDetails.keyRatio.cashFlow,
-                                " "
-                              )}{" "}
-                            Kr
+                              data.accountDetails.keyRatio.cashFlow}{" "}
+                            %
                           </span>
                         </div>
                         <div className="lastBoxItem__body__row">
@@ -605,11 +616,8 @@ const ViewApplication = props => {
                           <span>
                             {data.accountDetails &&
                               data.accountDetails.keyRatio &&
-                              separateNumberByChar(
-                                data.accountDetails.keyRatio.solidity,
-                                " "
-                              )}{" "}
-                            Kr
+                              data.accountDetails.keyRatio.solidity}{" "}
+                            %
                           </span>
                         </div>
                       </div>

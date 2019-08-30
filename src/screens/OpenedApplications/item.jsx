@@ -1,14 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
-import { loadOpenedApps } from "services/redux/application/openedApps/actions";
 import { t } from "services/languageManager";
-import CircleSpinner from "components/CircleSpinner";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {
   const { item } = props;
-  const [spinner, toggleSpinner] = useState();
 
   function handleViewClicked() {
     if (props.onViewClicked) {
@@ -17,10 +14,8 @@ const Item = props => {
   }
 
   function handleRejectApp() {
-    if (!spinner) {
-      if (props.rejectApplication) {
-        props.rejectApplication(item.opportunityID);
-      }
+    if (props.rejectApplication) {
+      props.rejectApplication(item.opportunityID);
     }
   }
   function handleOfferClicked() {
@@ -33,14 +28,24 @@ const Item = props => {
       <div className="openedApp__header">
         <span className="openedApp__title">{item.RecordType}</span>
         <div className="openedApp__headerinfo">
-          <span>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_LOAN_AMOUNT")}</span>
+            <span>{separateNumberByChar(item.amount, " ")} Kr</span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_PERIOD")}</span>
+            <span>
+              {item.amortizationPeriod} {t("MONTH_S")}
+            </span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_DATE")}</span>
+            <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_NUMBER")}</span>
             {item.Name}&nbsp;- {item.opportunityNumber}
-          </span>
-          <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
-          <span>
-            {item.amortizationPeriod} {t("MONTH")}
-          </span>
-          <span>{item.amount} Kr</span>
+          </div>
         </div>
       </div>
       <div className="openedApp__body">
@@ -114,8 +119,7 @@ const Item = props => {
       </div>
       <div className="openedApp__footer">
         <button className="btn --warning" onClick={handleRejectApp}>
-          <CircleSpinner show={spinner} />
-          {!spinner && t("REJECT")}
+          {t("REJECT")}
         </button>
         <div className="moreActions">
           <button className="btn --primary" onClick={handleViewClicked}>
@@ -134,8 +138,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  rejectApplication,
-  loadOpenedApps
+  rejectApplication
 };
 
 export default connect(

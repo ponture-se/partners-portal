@@ -40,7 +40,7 @@ export default {
 
   "my-btn-warning-bg": $color4,
   "my-btn-warning-hover-bg": "rgb(227,149,17)",
-  "my-btn-warning-color": $color6,
+  "my-btn-warning-color": $color7,
   "my-btn-warning-shadow": "0 0 5px goldenrod",
 
   "my-btn-primary-bg": $color5,

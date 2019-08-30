@@ -1,7 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import { t, currentLangName } from "./../../services/languageManager";
+import { t } from "./../../services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
 const Item = props => {
@@ -14,12 +13,24 @@ const Item = props => {
       <div className="application__header">
         <span className="application__title">{item.RecordType}</span>
         <div className="application__headerinfo">
-          <span>{item.opportunityNumber}</span>
-          <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
-          <span>
-            {item.amortizationPeriod} {t("MONTH")}
-          </span>
-          <span>{separateNumberByChar(item.amount, " ")} Kr</span>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_LOAN_AMOUNT")}</span>
+            <span>{separateNumberByChar(item.amount, " ")} Kr</span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_PERIOD")}</span>
+            <span>
+              {item.amortizationPeriod} {t("MONTH_S")}
+            </span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_DATE")}</span>
+            <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
+          </div>
+          <div className="headerItem">
+            <span>{t("APP_HEADER_NUMBER")}</span>
+            <span>{item.opportunityNumber}</span>
+          </div>
         </div>
       </div>
       <div className="application__body">
