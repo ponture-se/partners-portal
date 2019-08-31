@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import Modali, { useModali } from "modali";
 //
 import { t } from "services/languageManager";
 import { _cancelOffer } from "services/redux/offer/myOffers/actions";
@@ -22,34 +21,6 @@ const AcceptedOffers = props => {
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [selectedOffer, setOffer] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
-
-  const [cancelModal, toggleCancelModal] = useModali({
-    animated: true,
-    title: t("ARE_YOU_SURE"),
-    message: t("OFFER_CANCEL_ALERT_MSG"),
-    buttons: [
-      <Modali.Button
-        label={t("NO")}
-        isStyleCancel
-        onClick={() => toggleCancelModal()}
-      />,
-      <Modali.Button
-        label={t("YES")}
-        isStyleDestructive
-        onClick={() => {
-          props._cancelOffer(
-            selectedOffer,
-            () => {
-              toggleCancelModal();
-            },
-            () => {
-              toggleCancelModal();
-            }
-          );
-        }}
-      />
-    ]
-  });
 
   useEffect(() => {
     _getAcceptedOffer();
@@ -121,11 +92,6 @@ const AcceptedOffers = props => {
       })
       .call();
   }
-  useEffect(() => {
-    if (props.cancelOfferSuccess) {
-      _getAcceptedOffer();
-    }
-  }, [props.cancelOfferSuccess]);
   function handleViewOffer(offer) {
     setOffer(offer);
     toggleIssueOffer(true);
@@ -143,12 +109,10 @@ const AcceptedOffers = props => {
   function handleCancelOffer(offer) {
     if (props._cancelOffer) {
       setOffer(offer);
-      toggleCancelModal();
     }
   }
   return (
     <div className="acceptedOffers">
-      <Modali.Modal {...cancelModal} />
       {spinner ? (
         <div className="page-loading">
           <SquareSpinner />
@@ -197,13 +161,7 @@ const AcceptedOffers = props => {
 };
 
 function mapStateToProps(state) {
-  return {
-    cancelOfferSuccess: state.offer
-      ? state.offer.myOffersReducer
-        ? state.offer.myOffersReducer.cancel_success
-        : null
-      : null
-  };
+  return {};
 }
 
 const mapDispatchToProps = {
@@ -211,6 +169,6 @@ const mapDispatchToProps = {
 };
 
 export default connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(AcceptedOffers);

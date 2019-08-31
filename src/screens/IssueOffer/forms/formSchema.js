@@ -1,22 +1,18 @@
 import * as Yup from "yup";
 import { t } from "services/languageManager";
-function decimalFormat(ref, msg) {
-  let value = this.resolve(Yup.ref(ref));
-  if (value === 10) {
-    return msg;
-  }
-  return "";
-}
 
-Yup.addMethod(Yup.number, "decimalFormat", decimalFormat);
+//
 export default Yup.object().shape({
-  amount: Yup.number()
-    .required(t("REQUIRED"))
-    .min(0, t("INPUT_NEGATIVE_VALUE")),
+  partnerDetails: Yup.object().shape({
+    Loan_amount__c: Yup.number()
+      .typeError(t("REQUIRED"))
+      .min(0, t("INPUT_NEGATIVE_VALUE"))
+      .required(t("REQUIRED"))
+  }),
   interest_rate: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),
-    // .decimalFormat("interest_rate", "2 decimal"),
+  // .decimalFormat("interest_rate", "2 decimal"),
   repayment_period: Yup.number()
     .required(t("REQUIRED"))
     .min(0, t("INPUT_NEGATIVE_VALUE")),

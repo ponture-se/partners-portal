@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
-import Cleave from "cleave.js";
+import NumberFormat from "react-number-format";
 //
 import "./styles.scss";
 import {
@@ -16,7 +16,7 @@ import formSchema from "./formSchema";
 
 //
 const Form = props => {
-  const amountRef = useRef(null);
+  const { offer } = props;
   const monthlyRepaymentAmountRef = useRef(null);
   const totalRepaymentAmount = useRef(null);
   const startFeeRef = useRef(null);
@@ -42,7 +42,6 @@ const Form = props => {
       ? props.userInfo.rules.minimum_loan_period
       : 1
     : 1;
-  const { offer } = props;
   // function getCondition(prop) {
   //   let y = Yup;
   //   if (prop === "amount") {
@@ -77,9 +76,16 @@ const Form = props => {
   //   }
   //   return y;
   // }
-
+  // Extra_offer__c: "abc",
+  //       Loan_period__c: 12,
+  //       Monthly_fee__c: 14,
+  //       Monthly_repayment__c: 16,
+  //       Total_monthly_payment__c: 18
   const initVals = {
-    amount: offer ? (offer.amount ? offer.amount : "") : "",
+    partnerDetails: {
+      Loan_amount__c:
+        offer && offer.partnerDetails && offer.partnerDetails.Loan_amount__c
+    },
     interest_rate: offer
       ? offer.interest_rate
         ? offer.interest_rate
@@ -198,7 +204,12 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.amount && touched.amount && errors.amount
+                      (errors.partnerDetails &&
+                      errors.partnerDetails.Loan_amount__c &&
+                      touched.partnerDetails &&
+                      touched.partnerDetails.Loan_amount__c &&
+                      errors.partnerDetails &&
+                      errors.partnerDetails.Loan_amount__c
                         ? "--invalid"
                         : "")
                     }
@@ -211,14 +222,16 @@ const Form = props => {
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        ref={amountRef}
-                        name="amount"
+                      <NumberFormat
+                        thousandSeparator={" "}
+                        decimalSeparator={"."}
+                        customInput={CInput}
+                        name="partnerDetails.Loan_amount__c"
                         className="element"
                         placeholder={t("ISSUE_OFFER_AMOUNT_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.amount}
+                        value={values.partnerDetails.Loan_amount__c}
                         autoFocus
                         readOnly={props.viewMode}
                       />
@@ -226,7 +239,12 @@ const Form = props => {
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.amount && touched.amount && errors.amount}
+                          {errors.partnerDetails &&
+                            errors.partnerDetails.Loan_amount__c &&
+                            touched.partnerDetails &&
+                            touched.partnerDetails.Loan_amount__c &&
+                            errors.partnerDetails &&
+                            errors.partnerDetails.Loan_amount__c}
                         </span>
                       </div>
                     </div>
@@ -339,8 +357,10 @@ const Form = props => {
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        ref={monthlyRepaymentAmountRef}
+                      <NumberFormat
+                        thousandSeparator={" "}
+                        decimalSeparator={"."}
+                        customInput={CInput}
                         name="monthly_repayment_amount"
                         className="element"
                         placeholder={t(
@@ -382,8 +402,10 @@ const Form = props => {
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        ref={totalRepaymentAmount}
+                      <NumberFormat
+                        thousandSeparator={" "}
+                        decimalSeparator={"."}
+                        customInput={CInput}
                         name="total_repayment_amount"
                         className="element"
                         placeholder={t(
@@ -469,8 +491,10 @@ const Form = props => {
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        ref={startFeeRef}
+                      <NumberFormat
+                        thousandSeparator={" "}
+                        decimalSeparator={"."}
+                        customInput={CInput}
                         name="start_fee"
                         className="element"
                         placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
@@ -508,8 +532,10 @@ const Form = props => {
                       </div>
                     </div>
                     <div className="formInput__body">
-                      <input
-                        ref={costRef}
+                      <NumberFormat
+                        thousandSeparator={" "}
+                        decimalSeparator={"."}
+                        customInput={CInput}
                         name="cost"
                         className="element"
                         placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
@@ -882,6 +908,9 @@ export default connect(
   mapDispatchToProps
 )(Form);
 
+function CInput(props) {
+  return <input {...props} />;
+}
 // function getValidationSchema(values) {
 //   return Yup.object().shape({
 //     email: Yup.string()
