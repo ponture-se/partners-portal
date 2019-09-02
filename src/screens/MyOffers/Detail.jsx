@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { t, currentLangName } from "../../services/languageManager";
+import { t, currentLangName } from "services/languageManager";
 const Item = props => {
   const { item } = props;
   function handleViewOfferClicked() {}
@@ -85,6 +85,7 @@ const Item = props => {
           </div>
         </div>
       </div>
+   
     </div>
   );
 };

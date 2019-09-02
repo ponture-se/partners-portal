@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import { Formik } from "formik";
 import NumberFormat from "react-number-format";
@@ -17,75 +17,17 @@ import formSchema from "./formSchema";
 //
 const Form = props => {
   const { offer } = props;
-  const monthlyRepaymentAmountRef = useRef(null);
-  const totalRepaymentAmount = useRef(null);
-  const startFeeRef = useRef(null);
-  const costRef = useRef(null);
-  let v;
-  const maximum_loan_amount = props.userInfo
-    ? props.userInfo.rules
-      ? props.userInfo.rules.maximum_loan_amount
-      : undefined
-    : undefined;
-  const maximum_loan_period = props.userInfo
-    ? props.userInfo.rules
-      ? props.userInfo.rules.maximum_loan_period
-      : undefined
-    : undefined;
-  const minimum_loan_amount = props.userInfo
-    ? props.userInfo.rules
-      ? props.userInfo.rules.minimum_loan_amount
-      : 1
-    : 1;
-  const minimum_loan_period = props.userInfo
-    ? props.userInfo.rules
-      ? props.userInfo.rules.minimum_loan_period
-      : 1
-    : 1;
-  // function getCondition(prop) {
-  //   let y = Yup;
-  //   if (prop === "amount") {
-  //     y = y.number().required(t("REQUIRED"));
-  //     if (minimum_loan_amount) {
-  //       y = y.min(
-  //         minimum_loan_amount,
-  //         t(`Value can not be less than ${minimum_loan_amount}`)
-  //       );
-  //     }
-  //     if (maximum_loan_amount) {
-  //       y = y.max(
-  //         maximum_loan_amount,
-  //         t(`Value can not be more than ${maximum_loan_amount}`)
-  //       );
-  //     }
-  //   }
-  //   if (prop === "repayment_period") {
-  //     y = y.number().required(t("REQUIRED"));
-  //     if (minimum_loan_period) {
-  //       y = y.min(
-  //         minimum_loan_period,
-  //         t(`Value can not be less than ${minimum_loan_period}`)
-  //       );
-  //     }
-  //     if (maximum_loan_period) {
-  //       y = y.max(
-  //         maximum_loan_period,
-  //         t(`Value can not be more than ${maximum_loan_period}`)
-  //       );
-  //     }
-  //   }
-  //   return y;
-  // }
-  // Extra_offer__c: "abc",
-  //       Loan_period__c: 12,
-  //       Monthly_fee__c: 14,
-  //       Monthly_repayment__c: 16,
-  //       Total_monthly_payment__c: 18
+
   const initVals = {
     partnerDetails: {
-      Loan_amount__c:
-        offer && offer.partnerDetails && offer.partnerDetails.Loan_amount__c
+      Monthly_fee:
+        offer && offer.partnerDetails && offer.partnerDetails.Monthly_fee,
+      Total_monthly_payment:
+        offer &&
+        offer.partnerDetails &&
+        offer.partnerDetails.Total_monthly_payment
     },
+    amount: offer ? (offer.amount ? offer.amount : "") : "",
     interest_rate: offer
       ? offer.interest_rate
         ? offer.interest_rate
@@ -106,8 +48,6 @@ const Form = props => {
         ? offer.total_repayment_amount
         : ""
       : "",
-    start_fee: offer ? (offer.start_fee ? offer.start_fee : "") : "",
-    cost: offer ? (offer.cost ? offer.cost : "") : "",
     personal_guarantee_needed: offer
       ? offer.personal_guarantee_needed
         ? offer.personal_guarantee_needed
@@ -154,19 +94,33 @@ const Form = props => {
     if (props.onBackClicked) props.onBackClicked();
   }
   function handleSubmitOffer(values, { setSubmitting }) {
-    if (props.submitIssueOffer) {
-      let obj = {
-        ...values
-      };
-      if (props.updateMode) {
-        obj["offer_id"] = offer.offer_id;
-        props.updateIssueOffer(obj, props.onSuccess);
-      } else {
-        obj["product_name"] = props.product ? props.product.Name : null;
-        obj["partner_id"] = props.userInfo ? props.userInfo.partnerId : null;
-        obj["opportunityID"] = props.app ? props.app.opportunityID : null;
-        obj["product_master"] = props.product ? props.product.Id : null;
-        props.submitIssueOffer(obj, props.onSuccess);
+    if (!props.loading) {
+      if (props.submitIssueOffer) {
+        let obj = {
+          ...values
+        };
+
+        obj["amount"] = obj["amount"].split(" ").join("");
+        obj["monthly_repayment_amount"] = obj["monthly_repayment_amount"]
+          .split(" ")
+          .join("");
+        obj["total_repayment_amount"] = obj["total_repayment_amount"]
+          .split(" ")
+          .join("");
+        const fee = obj.partnerDetails.Monthly_fee.toString();
+        const total = obj.partnerDetails.Total_monthly_payment.toString();
+        obj.partnerDetails.Monthly_fee = fee.split(" ").join("");
+        obj.partnerDetails.Total_monthly_payment = total.split(" ").join("");
+        if (props.updateMode) {
+          obj["offer_id"] = offer.offer_id;
+          props.updateIssueOffer(obj, props.onSuccess);
+        } else {
+          obj["product_name"] = props.product ? props.product.Name : null;
+          obj["partner_id"] = props.userInfo ? props.userInfo.partnerId : null;
+          obj["opportunityID"] = props.app ? props.app.opportunityID : null;
+          obj["product_master"] = props.product ? props.product.Id : null;
+          props.submitIssueOffer(obj, props.onSuccess);
+        }
       }
     }
   }
@@ -204,12 +158,7 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.partnerDetails &&
-                      errors.partnerDetails.Loan_amount__c &&
-                      touched.partnerDetails &&
-                      touched.partnerDetails.Loan_amount__c &&
-                      errors.partnerDetails &&
-                      errors.partnerDetails.Loan_amount__c
+                      (errors.amount && touched.amount && errors.amount
                         ? "--invalid"
                         : "")
                     }
@@ -226,12 +175,12 @@ const Form = props => {
                         thousandSeparator={" "}
                         decimalSeparator={"."}
                         customInput={CInput}
-                        name="partnerDetails.Loan_amount__c"
+                        name="amount"
                         className="element"
                         placeholder={t("ISSUE_OFFER_AMOUNT_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.partnerDetails.Loan_amount__c}
+                        value={values.amount}
                         autoFocus
                         readOnly={props.viewMode}
                       />
@@ -239,12 +188,7 @@ const Form = props => {
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.partnerDetails &&
-                            errors.partnerDetails.Loan_amount__c &&
-                            touched.partnerDetails &&
-                            touched.partnerDetails.Loan_amount__c &&
-                            errors.partnerDetails &&
-                            errors.partnerDetails.Loan_amount__c}
+                          {errors.amount && touched.amount && errors.amount}
                         </span>
                       </div>
                     </div>
@@ -478,7 +422,13 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.start_fee && touched.start_fee && errors.start_fee
+                      (errors &&
+                      errors.partnerDetails &&
+                      errors.partnerDetails.Monthly_fee &&
+                      touched.partnerDetails &&
+                      touched.partnerDetails.Monthly_fee &&
+                      errors.partnerDetails &&
+                      errors.partnerDetails.Monthly_fee
                         ? "--invalid"
                         : "")
                     }
@@ -486,7 +436,7 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_START_FEE")} (kr)
+                          {t("ISSUE_OFFER_MONTHLY_FEE")} (kr)
                         </span>
                       </div>
                     </div>
@@ -495,21 +445,25 @@ const Form = props => {
                         thousandSeparator={" "}
                         decimalSeparator={"."}
                         customInput={CInput}
-                        name="start_fee"
+                        name="partnerDetails.Monthly_fee"
                         className="element"
-                        placeholder={t("ISSUE_OFFER_START_FEE_PLACEHOLDER")}
+                        placeholder={t("ISSUE_OFFER_MONTHLY_FEE_PLACEHOLDER")}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.start_fee}
+                        value={values.partnerDetails.Monthly_fee}
                         readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.start_fee &&
-                            touched.start_fee &&
-                            errors.start_fee}
+                          {errors &&
+                            errors.partnerDetails &&
+                            errors.partnerDetails.Monthly_fee &&
+                            touched.partnerDetails &&
+                            touched.partnerDetails.Monthly_fee &&
+                            errors.partnerDetails &&
+                            errors.partnerDetails.Monthly_fee}
                         </span>
                       </div>
                     </div>
@@ -519,7 +473,13 @@ const Form = props => {
                   <div
                     className={
                       "formInput " +
-                      (errors.cost && touched.cost && errors.cost
+                      (errors &&
+                      errors.partnerDetails &&
+                      errors.partnerDetails.Total_monthly_payment &&
+                      touched.partnerDetails &&
+                      touched.partnerDetails.Total_monthly_payment &&
+                      errors.partnerDetails &&
+                      errors.partnerDetails.Total_monthly_payment
                         ? "--invalid"
                         : "")
                     }
@@ -527,7 +487,7 @@ const Form = props => {
                     <div className="formInput__header">
                       <div className="formInput__header__left">
                         <span className="elementTitle">
-                          {t("ISSUE_OFFER_COST")} (kr)
+                          {t("ISSUE_OFFER_TOTAL_MONTHLY_PAYMENT")} (kr)
                         </span>
                       </div>
                     </div>
@@ -536,19 +496,27 @@ const Form = props => {
                         thousandSeparator={" "}
                         decimalSeparator={"."}
                         customInput={CInput}
-                        name="cost"
+                        name="partnerDetails.Total_monthly_payment"
                         className="element"
-                        placeholder={t("ISSUE_OFFER_COST_PLACEHOLDER")}
+                        placeholder={t(
+                          "ISSUE_OFFER_TOTAL_MONTHLY_PAYMENT_PLACEHOLDER"
+                        )}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        value={values.cost}
+                        value={values.partnerDetails.Total_monthly_payment}
                         readOnly={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">
                       <div className="formInput__footer__left">
                         <span className="elementInfo">
-                          {errors.cost && touched.cost && errors.cost}
+                          {errors &&
+                            errors.partnerDetails &&
+                            errors.partnerDetails.Total_monthly_payment &&
+                            touched.partnerDetails &&
+                            touched.partnerDetails.Total_monthly_payment &&
+                            errors.partnerDetails &&
+                            errors.partnerDetails.Total_monthly_payment}
                         </span>
                       </div>
                     </div>

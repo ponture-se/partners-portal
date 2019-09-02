@@ -308,9 +308,6 @@ const ViewApplication = props => {
                 )}
               </div>
               <div className="detail__body">
-                <div className="detail__icon">
-                  <img src={require("./../../assets/ericsson.png")} alt="" />
-                </div>
                 <div className="detail__row">
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_ORGANIZATION_NUMBER")}:</span>
@@ -340,8 +337,13 @@ const ViewApplication = props => {
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_REGISTERED_ADDRESS")}:</span>
                     <span>
-                      {data.accountDetails &&
-                        data.accountDetails.registeredAddress}
+                      {data.accountDetails.address
+                        ? data.accountDetails.address.Mailing_Zip_Code +
+                          " - " +
+                          data.accountDetails.address.Mailing_Town +
+                          " - " +
+                          data.accountDetails.address.Mailing_County
+                        : ""}
                     </span>
                   </div>
                   <div className="detail__row__item">

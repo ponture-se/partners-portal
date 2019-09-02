@@ -86,7 +86,7 @@ export const loadMyOffers = () => dispatch => {
     })
     .call();
 };
-export const _cancelOffer = offer => dispatch => {
+export const _cancelOffer = (offer, onLocalSuccess) => dispatch => {
   toggleAlert({
     title: t("ISSUE_OFFER_CANCEL_ALERT_TITLE"),
     description: t("ISSUE_OFFER_CANCEL_ALERT_DESC"),
@@ -99,7 +99,8 @@ export const _cancelOffer = offer => dispatch => {
     },
     onCancel: () => {},
     onSuccess: result => {
-      dispatch(loadMyOffers());
+      if (onLocalSuccess) onLocalSuccess();
+      else dispatch(loadMyOffers());
       toast.success(t("ISSUE_OFFER_CANCEL_SUCCESS_MSG"));
     },
     onServerError: error => {

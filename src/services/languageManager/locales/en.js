@@ -150,6 +150,10 @@ export default {
     ISSUE_OFFER_START_FEE_PLACEHOLDER: "Enter start fee",
     ISSUE_OFFER_COST: "Cost",
     ISSUE_OFFER_COST_PLACEHOLDER: "Enter cost",
+    ISSUE_OFFER_MONTHLY_FEE: "Monthly Fee",
+    ISSUE_OFFER_MONTHLY_FEE_PLACEHOLDER: "Enter monthly fee",
+    ISSUE_OFFER_TOTAL_MONTHLY_PAYMENT: "Total Monthly Payment",
+    ISSUE_OFFER_TOTAL_MONTHLY_PAYMENT_PLACEHOLDER: "Enter total",
     ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES: "Number Of Personal Guarantees",
     ISSUE_OFFER_NUMBER_OF_PERSONAL_GUARANTEES_PLACEHOLDER:
       "Enter number of personal guarantees",

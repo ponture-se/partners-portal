@@ -108,7 +108,10 @@ const AcceptedOffers = props => {
   }
   function handleCancelOffer(offer) {
     if (props._cancelOffer) {
-      setOffer(offer);
+      props._cancelOffer(offer, () => {
+        toggleSpinner(true);
+        _getAcceptedOffer();
+      });
     }
   }
   return (
