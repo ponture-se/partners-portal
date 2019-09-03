@@ -47,14 +47,10 @@
         display: flex;
         flex-direction: column;
         border-bottom: 1px solid lightgray;
-        height: 65px;
-        .title {
-          font-weight: bold;
-          font-size: 22px;
-          margin-bottom: 5px;
-        }
+        padding-bottom: 10px;
         .appName {
-          font-size: 13px;
+          font-size: 15px;
+          font-family: OpenSanceBold;
         }
       }
       &__body {

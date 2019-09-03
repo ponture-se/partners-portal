@@ -120,6 +120,8 @@ export default {
     ISSUE_OFFER_PRODUCTS_LOADING_TEXT: "Loading products...",
     ISSUE_OFFER_PRODUCTS_EMPTY_TITLE: "List Empty!",
     ISSUE_OFFER_PRODUCTS_EMPTY_INFO: "There aren't any products.",
+    ISSUE_OFFER_HEADER_PRODUCTS: "Select Product",
+    ISSUE_OFFER_HEADER_PRODUCTS_INFO: "Select a product in order to issue an offer",
     ISSUE_OFFER_HEADER_NEW_TITLE: "Issue Offer",
     ISSUE_OFFER_HEADER_EDIT_TITLE: "Edit Offer",
     ISSUE_OFFER_HEADER_VIEW_TITLE: "View Offer",

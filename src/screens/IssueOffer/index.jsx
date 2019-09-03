@@ -74,22 +74,18 @@ const IssueOffer = props => {
         <div className="issueOffer__header">
           <span className="title">
             {tab === 1
-              ? t("PRODUCTS")
+              ? t("ISSUE_OFFER_HEADER_PRODUCTS")
               : props.updateMode
               ? t("ISSUE_OFFER_HEADER_EDIT_TITLE")
               : props.viewMode
               ? t("ISSUE_OFFER_HEADER_VIEW_TITLE")
               : t("ISSUE_OFFER_HEADER_NEW_TITLE")}
           </span>
-          <span className="appName">
-            {props.app
-              ? props.app.Name
-              : props.offer
-              ? props.offer.opportunityData
-                ? props.offer.opportunityData.Name
-                : ""
-              : ""}
-          </span>
+          {tab === 1 && (
+            <span className="appName">
+              {t("ISSUE_OFFER_HEADER_PRODUCTS_INFO")}
+            </span>
+          )}
           <span
             className="icon-cross issueOffer__closeIcon"
             onClick={closeModal}
@@ -98,7 +94,6 @@ const IssueOffer = props => {
         <div className="issueOffer__body">
           <div className="appInfo">
             <div className="appInfo__header">
-              <span className="title">{t("ISSUE_FORM_APP_INFO_TITLE")}</span>
               <span className="appName">
                 {app && app.Name} {app && `(${app.orgNumber})`}
               </span>

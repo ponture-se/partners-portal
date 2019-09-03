@@ -323,7 +323,9 @@ const ViewApplication = props => {
                   </div>
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
-                    <span>--no value--</span>
+                    <span>
+                      {data.opportunityDetails && data.opportunityDetails.industryText}
+                    </span>
                   </div>
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_NUMBER_OF")}:</span>
