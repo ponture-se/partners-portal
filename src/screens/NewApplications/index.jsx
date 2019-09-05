@@ -13,6 +13,7 @@ import {
   loadNewApps,
   resetStore
 } from "services/redux/application/newApps/actions";
+import { rejectApplication } from "services/redux/application/singleApp/actions";
 //
 const NewApplications = props => {
   const [viewAppModalVisibility, toggleViewApp] = useState();
@@ -31,6 +32,13 @@ const NewApplications = props => {
   function handleCloseViewAppModal() {
     toggleViewApp(false);
     if (props.loadNewApps) props.loadNewApps();
+  }
+  function handleRejectApplication(app) {
+    if (props.rejectApplication) {
+      props.rejectApplication(app.opportunityID, () => {
+        if (props.loadNewApps) props.loadNewApps();
+      });
+    }
   }
   return (
     <div className="newApps">
@@ -81,6 +89,7 @@ const NewApplications = props => {
               key={app.opportunityID}
               item={app}
               onViewAppClicked={handleViewApplication}
+              onRejectAppClicked={handleRejectApplication}
             />
           ))}
         </>
@@ -118,7 +127,8 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   loadNewApps,
-  resetStore
+  resetStore,
+  rejectApplication
 };
 
 export default connect(

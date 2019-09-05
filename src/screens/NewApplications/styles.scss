@@ -76,9 +76,17 @@
     height: 60px;
     display: flex;
     align-items: center;
-    justify-content: flex-end;
     padding: 0 10px;
-    span:first-child {
+    padding: 0px 40px;
+    .actions {
+      flex: 1;
+       .--warning {
+      margin-right: 150px;
+      width: 130px;
+      font-family: OpenSanceBold;
+    }
+    }
+    span:nth-child(2) {
       font-size: 13px;
       padding: 0 10px;
     }

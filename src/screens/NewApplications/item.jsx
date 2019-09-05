@@ -8,6 +8,9 @@ const Item = props => {
   function viewApplication() {
     if (props.onViewAppClicked) props.onViewAppClicked(item);
   }
+  function handleRejectApp() {
+    if (props.onRejectAppClicked) props.onRejectAppClicked(item);
+  }
   return (
     <div className="application animated fadeIn">
       <div className="application__header">
@@ -85,6 +88,11 @@ const Item = props => {
         )}
       </div>
       <div className="application__footer">
+        <div className="actions">
+          <button className="btn --warning" onClick={handleRejectApp}>
+            {t("REJECT")}
+          </button>
+        </div>
         <span>{t("APP_OPEN_APP_LINK_INFO")}</span>
         <span onClick={viewApplication}>
           {t("APP_OPEN_APP_LINK")}
