@@ -382,7 +382,7 @@ const Form = props => {
                           name="personal_guarantee_needed"
                           onChange={handleChange}
                           checked={values.personal_guarantee_needed}
-                          readOnly={props.viewMode}
+                          disabled={props.viewMode}
                         />
                         <span className="checkmark" />
                       </label>
@@ -451,7 +451,7 @@ const Form = props => {
                         onChange={handleChange}
                         onBlur={handleBlur}
                         value={values.partnerDetails.Monthly_fee}
-                        readOnly={props.viewMode}
+                        disabled={props.viewMode}
                       />
                     </div>
                     <div className="formInput__footer">

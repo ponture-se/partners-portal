@@ -293,19 +293,21 @@ const ViewApplication = props => {
             </div>
             <div className="detail">
               <div className="detail__header">
-                {data.spoStage && data.spoStage.toLowerCase() === "opened" && (
-                  <button className="btn --warning" onClick={handleRejectApp}>
-                    {t("REJECT")}
-                  </button>
-                )}
-                {/* <button className="btn --primary" onClick={handleViewCredit}>
-                  {t("VIEW_CREDIT_REPORT")}
-                </button> */}
-                {data.spoStage && data.spoStage.toLowerCase() === "opened" && (
-                  <button className="btn --primary" onClick={handleOffer}>
-                    {t("ISSUE_OFFER")}
-                  </button>
-                )}
+                {data.spoStage &&
+                  data.spoStage.toLowerCase() === "opened" &&
+                  (!data.activeOffers || data.activeOffers === 0) && (
+                    <>
+                      <button
+                        className="btn --warning"
+                        onClick={handleRejectApp}
+                      >
+                        {t("REJECT")}
+                      </button>
+                      <button className="btn --primary" onClick={handleOffer}>
+                        {t("ISSUE_OFFER")}
+                      </button>
+                    </>
+                  )}
               </div>
               <div className="detail__body">
                 <div className="detail__row">
@@ -324,7 +326,8 @@ const ViewApplication = props => {
                   <div className="detail__row__item">
                     <span>{t("APP_DETAIL_BUSINESS_ACTIVITIES")}:</span>
                     <span>
-                      {data.opportunityDetails && data.opportunityDetails.industryText}
+                      {data.opportunityDetails &&
+                        data.opportunityDetails.industryText}
                     </span>
                   </div>
                   <div className="detail__row__item">

@@ -40,6 +40,9 @@ export default {
     NUMBER: "number",
     LOADING_FORM: "Loading Form",
     MONTH_S: "month(s)",
+    CONTACT_DETAILS: "Contact Details",
+    EMAIL: "Email",
+    TELEPHONE: "Telephone",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
