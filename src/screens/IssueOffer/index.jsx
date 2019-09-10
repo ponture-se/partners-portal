@@ -92,32 +92,34 @@ const IssueOffer = props => {
           />
         </div>
         <div className="issueOffer__body">
-          <div className="appInfo">
-            <div className="appInfo__header">
-              <span className="appName">
-                {app && app.Name} {app && `(${app.orgNumber})`}
-              </span>
-            </div>
-            <div className="appInfo__body">
-              <div className="row">
-                <span>{t("OFFER_AMOUNT")}</span>
-                <span>{separateNumberByChar(app.amount, " ")} kr</span>
-              </div>
-              <div className="row">
-                <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
-                <span>
-                  {app.amortizationPeriod}{" "}
-                  {app.amortizationPeriod && app.amortizationPeriod > 1
-                    ? t("MONTHS")
-                    : t("MONTH")}
+          {tab === 2 && (
+            <div className="appInfo">
+              <div className="appInfo__header">
+                <span className="appName">
+                  {app && app.Name} {app && `(${app.orgNumber})`}
                 </span>
               </div>
-              <div className="row">
-                <span>{t("APPLICATION_DATE")}</span>
-                <span>{app.createdAt && app.createdAt.split(" ")[0]}</span>
+              <div className="appInfo__body">
+                <div className="row">
+                  <span>{t("OFFER_AMOUNT")}</span>
+                  <span>{separateNumberByChar(app.amount, " ")} kr</span>
+                </div>
+                <div className="row">
+                  <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
+                  <span>
+                    {app.amortizationPeriod}{" "}
+                    {app.amortizationPeriod && app.amortizationPeriod > 1
+                      ? t("MONTHS")
+                      : t("MONTH")}
+                  </span>
+                </div>
+                <div className="row">
+                  <span>{t("APPLICATION_DATE")}</span>
+                  <span>{app.createdAt && app.createdAt.split(" ")[0]}</span>
+                </div>
               </div>
             </div>
-          </div>
+          )}
           {tab === 1 ? (
             <Products
               onSelectProduct={handleSelectedProduct}

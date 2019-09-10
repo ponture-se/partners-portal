@@ -42,9 +42,11 @@ const Item = props => {
             <span>{t("APP_HEADER_DATE")}</span>
             <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           </div>
-          <div className="headerItem">
+          <div className="headerItem" title={item.Name - item.opportunityNumber}>
             <span>{t("APP_HEADER_NUMBER")}</span>
-            {item.Name}&nbsp;- {item.opportunityNumber}
+            <span>
+              {item.Name}&nbsp;- {item.opportunityNumber}
+            </span>
           </div>
         </div>
       </div>
