@@ -3,9 +3,10 @@ import { t } from "services/languageManager";
 import mapValues from "lodash/mapValues";
 
 export default function initValidations(fields) {
-    
+  if (!fields) return;
+
   function getFieldByName(name) {
-    return fields.find(f => f.name === name);
+    return fields.find(f => f.apiName === name);
   }
   return Yup.lazy(obj =>
     Yup.object(
@@ -14,10 +15,13 @@ export default function initValidations(fields) {
         let y = Yup;
         if (f) {
           const type = f.type.toLowerCase();
+          if (type === "currency") y = y.number();
           if (type === "number") y = y.number();
+          if (type === "double") y = y.number();
           if (type === "boolean") y = y.bool();
           if (type === "string") y = y.string();
-          if (f.isRequired) y = y.required(t("REQUIRED"));
+          if (type === "textarea") y = y.string();
+          if (f.required) y = y.required(t("REQUIRED"));
         }
         return y;
       })

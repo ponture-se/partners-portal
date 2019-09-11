@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 import { t, currentLangName } from "services/languageManager";
-export default function String(props) {
+export default function Number(props) {
   const { field, viewMode, index } = props;
   return (
     <Field
@@ -33,7 +33,9 @@ export default function String(props) {
             </div>
             <div className="formInput__body">
               <input
-                type="text"
+                type="number"
+                min="0"
+                step="0.1"
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}

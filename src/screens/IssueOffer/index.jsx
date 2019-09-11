@@ -1,19 +1,12 @@
-import React, {
-  useState,
-  useMemo,
-  useEffect,
-  useRef,
-  Suspense,
-  lazy
-} from "react";
+import React, { useState, useEffect } from "react";
 //
 import { t } from "services/languageManager";
 import "./styles.scss";
 import Products from "./products";
-import ErrorForm from "./forms/errorForm";
 import Modal from "components/Modal";
 import CircleSpinner from "components/CircleSpinner";
 import separateNumberByChar from "utils/separateNumberByChar";
+import OfferForm from "./forms";
 
 const IssueOffer = props => {
   const app = props.app
@@ -21,45 +14,19 @@ const IssueOffer = props => {
     : props.offer
     ? props.offer.opportunityData
     : null;
-  const formRef = useRef(null);
   const [tab, changeTab] = useState();
   const [selectedProduct, setProduct] = useState();
-  const [FormComponent, setComponent] = useState(null);
 
   useEffect(() => {
     if (props.updateMode || props.viewMode) {
       changeTab(2);
-      importForm();
     } else changeTab(1);
   }, []);
   function handleSelectedProduct(p) {
     setProduct(p);
     changeTab(2);
-    importForm(p);
   }
-  function importForm(product) {
-    const id = "";
-    switch (id) {
-      case "":
-        let O = lazy(() => import("./forms/testProductForm123456789"));
-        const B = (
-          <O
-            product={product}
-            app={props.app}
-            offer={props.offer}
-            updateMode={props.updateMode}
-            viewMode={props.viewMode}
-            onBackClicked={handleFormBackClicked}
-            onSuccess={() => closeModal(true)}
-            onCloseModal={closeModal}
-          />
-        );
-        setComponent(B);
-        break;
-      default:
-        break;
-    }
-  }
+
   function closeModal(issueType) {
     if (props.onClose) {
       props.onClose(issueType);
@@ -126,9 +93,16 @@ const IssueOffer = props => {
               selectedProduct={selectedProduct}
             />
           ) : tab === 2 ? (
-            <Suspense fallback={<FullBackComponent />}>
-              {FormComponent}
-            </Suspense>
+            <OfferForm
+              product={selectedProduct}
+              app={props.app}
+              offer={props.offer}
+              updateMode={props.updateMode}
+              viewMode={props.viewMode}
+              onBackClicked={handleFormBackClicked}
+              onSuccess={() => closeModal(true)}
+              onCloseModal={closeModal}
+            />
           ) : null}
         </div>
       </div>

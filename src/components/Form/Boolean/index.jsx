@@ -2,10 +2,10 @@ import React from "react";
 import { Field } from "formik";
 import { currentLangName } from "services/languageManager";
 export default function Boolean(props) {
-  const { field } = props;
+  const { field, viewMode } = props;
   return (
     <Field
-      name={field.name}
+      name={field.apiName}
       render={fieldProps => {
         // const { field } = fieldProps;
         const {
@@ -21,19 +21,20 @@ export default function Boolean(props) {
               <label className="checkBox">
                 <input
                   type="checkbox"
-                  id={"chk" + field.name}
-                  name={field.nam}
+                  id={"chk" + field.apiName}
+                  name={field.apiName}
                   onChange={handleChange}
-                  checked={values[field.name]}
+                  checked={values[field.apiName]}
+                  disabled={viewMode}
                 />
                 <span className="checkmark" />
               </label>
             </div>
             <div className="right">
-              <label htmlFor={"chk" + field.name}>
+              <label htmlFor={"chk" + field.apiName}>
                 {field.title && field.title[currentLangName]
                   ? field.title[currentLangName]
-                  : field.title}
+                  : field.label}
               </label>
               <label>{/* {t("FIELD_INVISIBLE_INFO")} */}</label>
             </div>

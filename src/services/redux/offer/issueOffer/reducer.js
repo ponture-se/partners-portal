@@ -1,17 +1,28 @@
-import { LOADING, SUCCESS, FAILED } from "./actions";
+import {
+  LOADING,
+  SUCCESS,
+  FAILED,
+  COLUMNS_LOADING,
+  COLUMNS_SUCCESS,
+  COLUMNS_FAILED
+} from "./actions";
 
 const initialState = {
   loading: false,
   error: null,
-  success: false
+  success: false,
+  columnsLoading: false,
+  columns: null,
+  columnsError: null
 };
 
 export default function issueOfferReducer(state = initialState, action) {
-  switch (action.type) {
+  const { type, payload } = action;
+  switch (type) {
     case LOADING: {
       return {
         ...state,
-        loading: action.payload,
+        loading: payload,
         success: false
       };
     }
@@ -26,6 +37,26 @@ export default function issueOfferReducer(state = initialState, action) {
       return {
         ...state,
         loading: false
+      };
+    }
+    case COLUMNS_LOADING: {
+      return {
+        ...state,
+        columnsLoading: payload
+      };
+    }
+    case COLUMNS_SUCCESS: {
+      return {
+        ...state,
+        columnsLoading: false,
+        columns: payload
+      };
+    }
+    case COLUMNS_FAILED: {
+      return {
+        ...state,
+        columnsLoading: false,
+        columnsError: payload
       };
     }
     default: {

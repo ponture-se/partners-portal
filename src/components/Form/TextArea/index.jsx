@@ -1,6 +1,5 @@
 import React from "react";
 import { Field } from "formik";
-import { t, currentLangName } from "services/languageManager";
 export default function String(props) {
   const { field, viewMode, index } = props;
   return (
@@ -32,10 +31,10 @@ export default function String(props) {
               </div>
             </div>
             <div className="formInput__body">
-              <input
+              <textarea
                 type="text"
                 name={field.apiName}
-                className="element"
+                className="element textArea"
                 placeholder={field.label}
                 onChange={handleChange}
                 onBlur={handleBlur}

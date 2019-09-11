@@ -1,8 +1,11 @@
 import Number from "./Number";
 import Boolean from "./Boolean";
 import String from "./String";
-export { Number, Boolean, String };
+import TextArea from "./TextArea";
+import Currency from "./Currency";
+import Double from "./Double";
 
+export { Number, TextArea, Double, Currency, Boolean, String };
 
 // renderSelect(input) {
 //     return (

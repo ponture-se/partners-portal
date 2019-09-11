@@ -278,7 +278,7 @@ const ViewApplication = props => {
                         data.opportunityDetails.need &&
                         data.opportunityDetails.need.map((n, index) => {
                           if (index === data.opportunityDetails.need.length - 1)
-                            return n.title;
+                            return n.title ? n.title : "";
                           else return n.title + " , ";
                         })}
                     </span>

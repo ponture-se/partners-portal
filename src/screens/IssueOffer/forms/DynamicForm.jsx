@@ -48,6 +48,11 @@ const DynamicForm = props => {
     return initialValues;
   }
   const initialValues = getInitialValues(props.fields);
+  function closeModal() {
+    if (props.onCloseModal) {
+      props.onCloseModal();
+    }
+  }
   return (
     <Formik
       onSubmit={values => {
@@ -61,14 +66,27 @@ const DynamicForm = props => {
             <form onSubmit={form.handleSubmit}>
               <div className="issueOfferForm__content">{renderFields()}</div>
               <div className="issueOfferForm__actions">
-                <button type="submit" className="btn --primary">
-                  Submit
-                  {/* <CircleSpinner show={props.loading} />
-                  {!props.loading && t("SUBMIT")} */}
-                </button>
-                <button className="btn --light">
-                  {t("ISSUE_OFFER_BACK_TO_PRODUCTS")}
-                </button>
+                {!props.viewMode && (
+                  <>
+                    <button type="submit" className="btn --primary">
+                      <CircleSpinner show={props.loading} />
+                      {!props.loading && t("SUBMIT")}
+                    </button>
+                    <button className="btn --primary" onClick={closeModal}>
+                      {t("CANCEL")}
+                    </button>
+                  </>
+                )}
+                {!props.viewMode && !props.updateMode && (
+                  <button className="btn --light" onClick={backToProducts}>
+                    {t("ISSUE_OFFER_BACK_TO_PRODUCTS")}
+                  </button>
+                )}
+                {props.viewMode && (
+                  <button className="btn --warning" onClick={closeModal}>
+                    {t("CLOSE")}
+                  </button>
+                )}
               </div>
             </form>
           </div>

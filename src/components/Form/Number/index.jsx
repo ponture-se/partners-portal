@@ -2,10 +2,10 @@ import React from "react";
 import { Field } from "formik";
 import { t, currentLangName } from "services/languageManager";
 export default function Number(props) {
-  const { field } = props;
+  const { field, viewMode, index } = props;
   return (
     <Field
-      name={field.name}
+      name={field.apiName}
       render={fieldProps => {
         // const { field } = fieldProps;
         const {
@@ -19,39 +19,38 @@ export default function Number(props) {
           <div
             className={
               "formInput " +
-              (errors[field.name] && touched[field.name] && errors[field.name]
+              (errors[field.apiName] &&
+              touched[field.apiName] &&
+              errors[field.apiName]
                 ? "--invalid"
                 : "")
             }
           >
             <div className="formInput__header">
               <div className="formInput__header__left">
-                <span className="elementTitle">
-                  {field.title && field.title[currentLangName]
-                    ? field.title[currentLangName]
-                    : field.title}
-                </span>
+                <span className="elementTitle">{field.label}</span>
               </div>
             </div>
             <div className="formInput__body">
               <input
                 type="number"
                 min="0"
-                name={field.name}
+                name={field.apiName}
                 className="element"
-                placeholder={t("ISSUE_OFFER_AMOUNT_PLACEHOLDER")}
+                placeholder={field.label}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values[field.name]}
-                autoFocus={field.isFocus}
+                value={values[field.apiName]}
+                autoFocus={index === 0 ? true : false}
+                readOnly={viewMode}
               />
             </div>
             <div className="formInput__footer">
               <div className="formInput__footer__left">
                 <span className="elementInfo">
-                  {errors[field.name] &&
-                    touched[field.name] &&
-                    errors[field.name]}
+                  {errors[field.apiName] &&
+                    touched[field.apiName] &&
+                    errors[field.apiName]}
                 </span>
               </div>
             </div>

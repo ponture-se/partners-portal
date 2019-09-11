@@ -42,7 +42,10 @@ const Item = props => {
             <span>{t("APP_HEADER_DATE")}</span>
             <span>{item.createdAt && item.createdAt.split(" ")[0]}</span>
           </div>
-          <div className="headerItem" title={item.Name - item.opportunityNumber}>
+          <div
+            className="headerItem"
+            title={item.Name + "-" + item.opportunityNumber}
+          >
             <span>{t("APP_HEADER_NUMBER")}</span>
             <span>
               {item.Name}&nbsp;- {item.opportunityNumber}
@@ -109,8 +112,9 @@ const Item = props => {
             <span>
               {item.need &&
                 item.need.map((n, index) => {
-                  if (index === item.need.length - 1) return n.title;
-                  else return n.title + " , ";
+                  if (index === item.need.length - 1)
+                    return n.title ? n.title : "";
+                  else return n.title ? n.title + " , " : "";
                 })}
             </span>
           </div>
@@ -120,16 +124,20 @@ const Item = props => {
         )}
       </div>
       <div className="openedApp__footer">
-        <button className="btn --warning" onClick={handleRejectApp}>
-          {t("REJECT")}
-        </button>
+        {(!item.activeOffers || item.activeOffers === 0) && (
+          <button className="btn --warning" onClick={handleRejectApp}>
+            {t("REJECT")}
+          </button>
+        )}
         <div className="moreActions">
           <button className="btn --primary" onClick={handleViewClicked}>
             {t("VIEW_APPLICATION")}
           </button>
-          <button className="btn --primary" onClick={handleOfferClicked}>
-            {t("ISSUE_OFFER")}
-          </button>
+          {(!item.activeOffers || item.activeOffers === 0) && (
+            <button className="btn --primary" onClick={handleOfferClicked}>
+              {t("ISSUE_OFFER")}
+            </button>
+          )}
         </div>
       </div>
     </div>
