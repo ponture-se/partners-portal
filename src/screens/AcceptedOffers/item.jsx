@@ -25,7 +25,7 @@ const Item = props => {
           {item.opportunityData && item.opportunityData.RecordType}
         </span>
         <span>
-          {t("OFFER")}&nbsp;{item.offer_number}
+          {t("OFFER")}&nbsp;{item.Offer_Number}
         </span>
       </div>
       <div className="accOfferItem__body">
@@ -43,7 +43,7 @@ const Item = props => {
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_AMOUNT")}</span>
-            <span>{separateNumberByChar(item.amount, " ")} Kr</span>
+            <span>{separateNumberByChar(item.Amount, " ")} Kr</span>
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
