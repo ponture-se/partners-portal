@@ -48,9 +48,12 @@
         flex-direction: column;
         border-bottom: 1px solid lightgray;
         padding-bottom: 10px;
-        .appName {
-          font-size: 15px;
+        .title {
+          font-size: 22px;
           font-family: OpenSanceBold;
+        }
+        .appName {
+          font-size: 14px;
         }
       }
       &__body {

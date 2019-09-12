@@ -120,6 +120,10 @@ export default {
     APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
     APP_DETAIL_REJECT_ALERT_DESC: "Rejecting Lead will be removed from list.",
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
+    ISSUE_OFFER_APP_INFO_TITLE: "Lead Information",
+    ISSUE_OFFER_COLUMNS_ERROR_TITLE: "Error has occurred!",
+    ISSUE_OFFER_COLUMNS_ERROR_MSG:
+      "Sorry, there seems to be a problem to issue an offer for this product. Please contact your Ponture support for assistance",
     ISSUE_OFFER_PRODUCTS_LOADING_TEXT: "Loading products...",
     ISSUE_OFFER_PRODUCTS_EMPTY_TITLE: "List Empty!",
     ISSUE_OFFER_PRODUCTS_EMPTY_INFO: "There aren't any products.",

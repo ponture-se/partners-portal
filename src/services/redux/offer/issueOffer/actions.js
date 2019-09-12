@@ -52,23 +52,24 @@ export const loadColumns = () => (dispatch, getState) => {
   const partnerId = auth.userInfo.partnerId;
   getOfferColumns()
     .onOk(result => {
-      dispatch(successLoadColumns(result));
-    })
-    .onServerError(result => {
-      dispatch(failed({ title: "", message: "" }));
-    })
-    .onBadRequest(result => {
-      dispatch(failed({ title: "", message: "" }));
-    })
-    .notFound(result => {
-      dispatch(failed({ title: "", message: "" }));
+      if (result && result.length > 0) dispatch(successLoadColumns(result));
+      else
+        dispatch(
+          failedLoadColumns({
+            title: t("ISSUE_OFFER_COLUMNS_ERROR_TITLE"),
+            message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG")
+          })
+        );
     })
     .unKnownError(result => {
-      dispatch(failed({ title: "", message: "" }));
+      dispatch(
+        failedLoadColumns({
+          title: t("ISSUE_OFFER_COLUMNS_ERROR_TITLE"),
+          message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG")
+        })
+      );
     })
-    .onRequestError(result => {
-      dispatch(failed({ title: "", message: "" }));
-    })
+
     .call(partnerId, currentLangName);
 };
 export const submitIssueOffer = (offer, onSuccess) => dispatch => {

@@ -163,8 +163,8 @@ const Form = props => {
             <h6>{t("LOADING_FORM")}</h6>
           </div>
         ) : props.columnsError ? (
-          <div className="page-list-error animated fadeIn">
-            <Wrong />
+          <div className="issueOfferError animated fadeIn">
+            <Wrong width="150" height="150" />
             <h2>{props.columnsError && props.columnsError.title}</h2>
             <span>{props.columnsError && props.columnsError.message}</span>
           </div>

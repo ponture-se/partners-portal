@@ -62,6 +62,9 @@ const IssueOffer = props => {
           {tab === 2 && (
             <div className="appInfo">
               <div className="appInfo__header">
+                <span className="title">
+                  {t("ISSUE_OFFER_APP_INFO_TITLE")}
+                </span>
                 <span className="appName">
                   {app && app.Name} {app && `(${app.orgNumber})`}
                 </span>
@@ -118,12 +121,3 @@ const IssueOffer = props => {
 };
 
 export default IssueOffer;
-
-function FullBackComponent(props) {
-  return (
-    <div className="fallback">
-      <CircleSpinner show={true} bgColor="rgb(23, 145, 164)" />
-      <h6>{t("LOADING_FORM")}</h6>
-    </div>
-  );
-}
