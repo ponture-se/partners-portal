@@ -375,14 +375,14 @@ const ViewApplication = props => {
                     <span>{t("APP_DETAIL_REGISTERED_FOR_TAX")}:</span>
                     <span>
                       {data.accountDetails &&
-                      data.accountDetails.registeredForTax ? (
+                      data.accountDetails.registedForTax ? (
                         <i className="icon-checkmark" />
                       ) : (
                         <i className="icon-cross" style={{ color: "red" }} />
                       )}
                       <span>
                         {data.accountDetails &&
-                        data.accountDetails.registeredForTax
+                        data.accountDetails.registedForTax
                           ? t("TRUE")
                           : t("FALSE")}
                       </span>
@@ -392,14 +392,14 @@ const ViewApplication = props => {
                     <span>{t("APP_DETAIL_REGISTERED_AS_EMPLOYER")}:</span>
                     <span>
                       {data.accountDetails &&
-                      data.accountDetails.registeredAsEmployer ? (
+                      data.accountDetails.registedAsEmployer ? (
                         <i className="icon-checkmark" />
                       ) : (
                         <i className="icon-cross" style={{ color: "red" }} />
                       )}
                       <span>
                         {data.accountDetails &&
-                        data.accountDetails.registeredAsEmployer
+                        data.accountDetails.registedAsEmployer
                           ? t("TRUE")
                           : t("FALSE")}
                       </span>
@@ -409,14 +409,14 @@ const ViewApplication = props => {
                     <span>{t("APP_DETAIL_REGISTERED_FOR_VAT")}:</span>
                     <span>
                       {data.accountDetails &&
-                      data.accountDetails.registeredForVAT ? (
+                      data.accountDetails.registedForVAT ? (
                         <i className="icon-checkmark" />
                       ) : (
                         <i className="icon-cross" style={{ color: "red" }} />
                       )}
                       <span>
                         {data.accountDetails &&
-                        data.accountDetails.registeredForVAT
+                        data.accountDetails.registedForVAT
                           ? t("TRUE")
                           : t("FALSE")}
                       </span>
