@@ -133,13 +133,16 @@ const Form = props => {
     if (!renderColumns) return {};
     const initialValues = {};
     renderColumns.forEach(c => {
-      if (!initialValues[c.apiName]) {
-        initialValues[c.apiName] =
-          offer && offer[c.apiName]
+      if (c.apiName) {
+        if (!initialValues[c.apiName]) {
+          initialValues[c.apiName] = offer
             ? offer[c.apiName]
-            : c.defaultValue
-            ? c.defaultValue
+              ? offer[c.apiName]
+              : offer.partnerDetails && offer.partnerDetails[c.apiName]
+              ? offer.partnerDetails[c.apiName]
+              : ""
             : "";
+        }
       }
     });
     return initialValues;

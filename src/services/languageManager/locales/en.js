@@ -43,6 +43,7 @@ export default {
     CONTACT_DETAILS: "Contact Details",
     EMAIL: "Email",
     TELEPHONE: "Telephone",
+    OFFER_ISSUED: "Offer Issued",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:

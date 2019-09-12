@@ -133,9 +133,14 @@ const Item = props => {
           <button className="btn --primary" onClick={handleViewClicked}>
             {t("VIEW_APPLICATION")}
           </button>
-          {(!item.activeOffers || item.activeOffers === 0) && (
+          {!item.activeOffers || item.activeOffers === 0 ? (
             <button className="btn --primary" onClick={handleOfferClicked}>
               {t("ISSUE_OFFER")}
+            </button>
+          ) : (
+            <button className="btn --success offerIssued">
+              <span className="icon-checkmark"></span>
+              {t("OFFER_ISSUED")}
             </button>
           )}
         </div>
