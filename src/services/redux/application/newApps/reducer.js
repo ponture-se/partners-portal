@@ -18,6 +18,7 @@ export default function newAppsReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        error: null,
         data: action.payload
       };
     }

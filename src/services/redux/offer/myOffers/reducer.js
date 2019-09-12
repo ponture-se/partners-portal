@@ -30,6 +30,7 @@ export default function myOffersReducer(state = initialState, action) {
       return {
         ...state,
         loading: false,
+        error: null,
         data: action.payload
       };
     }
