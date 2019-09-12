@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 const Item = props => {
   const { item, index, selectedProduct } = props;

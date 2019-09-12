@@ -39,7 +39,7 @@ const Item = props => {
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_ISSUE_DATE")}</span>
-            <span>{item.issue_date && item.issue_date.split(" ")[0]}</span>
+            <span>{item.CreatedDate && item.CreatedDate.split("T")[0]}</span>
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_AMOUNT")}</span>

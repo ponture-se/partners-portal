@@ -95,7 +95,7 @@ export const _cancelOffer = (offer, onLocalSuccess) => dispatch => {
     isAjaxCall: true,
     func: cancelOffer,
     data: {
-      offerId: offer.offer_id
+      offerId: offer.Id
     },
     onCancel: () => {},
     onSuccess: result => {

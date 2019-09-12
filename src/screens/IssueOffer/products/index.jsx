@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 //
-import { t, currentLangName } from "services/languageManager";
+import { t } from "services/languageManager";
 import { getProductsList } from "api/main-api";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
@@ -124,8 +124,7 @@ const Products = props => {
         </div>
       )}
     </div>
- 
- );
+  );
 };
 
 export default Products;

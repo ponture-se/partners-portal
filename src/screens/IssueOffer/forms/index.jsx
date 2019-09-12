@@ -54,7 +54,7 @@ const Form = props => {
         };
         const finalObj = checkCurrencyValues(obj);
         if (props.updateMode) {
-          finalObj["offer_id"] = offer.offer_id;
+          finalObj["offer_id"] = offer.Id;
           props.updateIssueOffer(finalObj, props.onSuccess);
         } else {
           finalObj["partner_id"] = props.userInfo

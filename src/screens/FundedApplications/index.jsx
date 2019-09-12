@@ -127,7 +127,7 @@ const FundedApps = props => {
       ) : (
         data.map(offer => (
           <Item
-            key={offer.offer_id}
+            key={offer.Id}
             item={offer}
             onViewOfferClicked={handleViewOffer}
             onViewAppClicked={handleViewApplication}

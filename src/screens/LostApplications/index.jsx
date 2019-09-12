@@ -123,7 +123,7 @@ const LostApplications = props => {
       ) : (
         data.map(offer => (
           <Item
-            app={offer.offer_id}
+            app={offer.Id}
             item={offer}
             onViewOfferClicked={handleViewOffer}
             onViewAppClicked={handleViewApplication}
