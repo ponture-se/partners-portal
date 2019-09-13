@@ -1,4 +1,3 @@
-import Storage from "services/storageManager";
 import setAuthorizationToken from "utils/setAuthorizationToken";
 import { toast } from "react-toastify";
 import { t } from "services/languageManager";
@@ -52,7 +51,8 @@ function unAuthorized() {
     type: types.UN_AUTHORIZED
   });
   toast.error(t("UN_AUTHORIZED"));
-  Storage.remove("p_token");
+  sessionStorage.removeItem("@ponture-partners/token");
+  sessionStorage.removeItem("@ponture-partners/userInfo");
   setAuthorizationToken(false); // remove axios token
 }
 export function getNewApplications() {

@@ -1,7 +1,6 @@
 import { batch } from "react-redux";
 import { toast } from "react-toastify";
 import { getToken } from "api/account-api";
-import Storage from "../../storageManager";
 import setAuthorizationToken from "utils/setAuthorizationToken";
 import { currentLangName, t } from "../../languageManager";
 
@@ -25,7 +24,7 @@ export function setAuthorization(value) {
   };
 }
 export function setUser(user) {
-  Storage.set("@ponture-partners/userInfo", user);
+  sessionStorage.setItem("@ponture-partners/userInfo", user);
   return {
     type: types.SET_USER,
     payload: user
@@ -38,7 +37,7 @@ export function logout() {
 }
 
 export const loginUser = token => dispatch => {
-  Storage.set("@ponture-partners/token", token);
+  sessionStorage.setItem("@ponture-partners/token", token);
   setAuthorizationToken(token); // set axios token
   dispatch(setAuthorization(true));
 };
@@ -51,7 +50,8 @@ export const navigateHome = router => {
 };
 
 export const logoutUser = () => dispatch => {
-  Storage.remove("@ponture-partners/token");
+  sessionStorage.removeItem("@ponture-partners/token");
+  sessionStorage.removeItem("@ponture-partners/userInfo");
   setAuthorizationToken(false); // remove axios token
   dispatch(logout());
 };
