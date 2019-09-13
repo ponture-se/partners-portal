@@ -49,7 +49,7 @@ export function failedLoadColumns(error) {
 export const loadColumns = () => (dispatch, getState) => {
   dispatch(toggleColumnsLoading(true));
   const { authReducer: auth } = getState();
-  const partnerId = auth.userInfo.partnerId;
+  const partnerId = auth.userInfo ? auth.userInfo.partnerId : null;
   getOfferColumns()
     .onOk(result => {
       if (result && result.length > 0) dispatch(successLoadColumns(result));

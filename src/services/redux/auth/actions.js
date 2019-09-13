@@ -24,7 +24,7 @@ export function setAuthorization(value) {
   };
 }
 export function setUser(user) {
-  sessionStorage.setItem("@ponture-partners/userInfo", user);
+  sessionStorage.setItem("@ponture-partners/userInfo", JSON.stringify(user));
   return {
     type: types.SET_USER,
     payload: user
