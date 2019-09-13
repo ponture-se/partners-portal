@@ -27,7 +27,10 @@ export default function String(props) {
           >
             <div className="formInput__header">
               <div className="formInput__header__left">
-                <span className="elementTitle">{field.label}</span>
+                <span className="elementTitle">
+                  {field.label +
+                    (field.partnerUnit ? " (" + field.partnerUnit + ")" : "")}
+                </span>
               </div>
             </div>
             <div className="formInput__body">
