@@ -38,7 +38,10 @@ const Form = props => {
       if (col.type.toLowerCase() === "currency") {
         for (const key in obj) {
           if (obj[key] && key === col.apiName) {
-            obj[key] = obj[key].split(" ").join("");
+            obj[key] = obj[key]
+              .toString()
+              .split(" ")
+              .join("");
             break;
           }
         }
@@ -188,7 +191,7 @@ const Form = props => {
                             {!props.loading && t("SUBMIT")}
                           </button>
                           <button
-                            className="btn --primary"
+                            className="btn --light"
                             onClick={closeModal}
                           >
                             {t("CANCEL")}
