@@ -1,15 +1,22 @@
 import React, { Suspense, lazy } from "react";
 import { Switch } from "react-router-dom";
 import PrivateRoute from "HOCs/PrivateRoute";
+import retry from "utils/retryLazyLoad";
 //
 import "./styles.scss";
 import Header from "./header";
-const NewApplications = lazy(() => import("./../NewApplications"));
-const OpenedApplications = lazy(() => import("./../OpenedApplications"));
-const MyOffers = lazy(() => import("./../MyOffers"));
-const AcceptedOffers = lazy(() => import("./../AcceptedOffers"));
-const FundedApplications = lazy(() => import("./../FundedApplications"));
-const LostApplications = lazy(() => import("./../LostApplications"));
+const NewApplications = lazy(() => retry(() => import("./../NewApplications")));
+const OpenedApplications = lazy(() =>
+  retry(() => import("./../OpenedApplications"))
+);
+const MyOffers = lazy(() => retry(() => import("./../MyOffers")));
+const AcceptedOffers = lazy(() => retry(() => import("./../AcceptedOffers")));
+const FundedApplications = lazy(() =>
+  retry(() => import("./../FundedApplications"))
+);
+const LostApplications = lazy(() =>
+  retry(() => import("./../LostApplications"))
+);
 //
 const MainPage = props => {
   return (
@@ -62,7 +69,6 @@ const MainPage = props => {
 };
 
 export default MainPage;
-
 
 const b = {
   success: true,
