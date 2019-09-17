@@ -49,7 +49,14 @@ export function getToken() {
     }
   }
 
-  const _call = async (userName, password) => {
+  const _call = (userName, password) => {
+    const config = process.env;
+    const baseUrl = config.REACT_APP_BASE_URL;
+    const getTokenUrl = baseUrl + config.REACT_APP_LOGIN_URL;
+    console.log(process.env.NODE_ENV);
+    console.log(process.env);
+    console.log(config.REACT_APP_BASE_URL);
+    console.log(getTokenUrl);
     const url = getTokenUrl;
     axios({
       method: "post",
