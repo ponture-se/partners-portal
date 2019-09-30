@@ -22,6 +22,7 @@
     "yup": "^0.27.0"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "GENERATE_SOURCEMAP=false react-scripts build && mv build tmp_build && mkdir build &&  mv tmp_build build/app && mv build/app/index.html build/index.html",
     "test": "react-scripts test",

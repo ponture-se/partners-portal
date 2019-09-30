@@ -18,6 +18,7 @@ export default function initValidations(fields) {
           if (type === "currency") y = y.number();
           if (type === "number") y = y.number();
           if (type === "double") y = y.number();
+          if (type === "percent") y = y.number();
           if (type === "boolean") y = y.bool();
           if (type === "string") y = y.string();
           if (type === "textarea") y = y.string();

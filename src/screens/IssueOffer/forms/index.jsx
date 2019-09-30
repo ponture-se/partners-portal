@@ -7,7 +7,8 @@ import {
   Boolean,
   Double,
   Currency,
-  TextArea
+  TextArea,
+  Percent
 } from "components/Form";
 import Wrong from "components/Commons/ErrorsComponent/Wrong";
 //
@@ -97,12 +98,7 @@ const Form = props => {
         if (type === "number")
           return (
             <div className="formRow" key={f.apiName}>
-              <Number
-                field={f}
-                viewMode={props.viewMode}
-                index={index}
-                index={index}
-              />
+              <Number field={f} viewMode={props.viewMode} index={index} />
             </div>
           );
         if (type === "double")
@@ -117,6 +113,12 @@ const Form = props => {
               <Currency field={f} viewMode={props.viewMode} index={index} />
             </div>
           );
+        if (type === "percent")
+          return (
+            <div className="formRow" key={f.apiName}>
+              <Percent field={f} viewMode={props.viewMode} index={index} />
+            </div>
+          );
         if (type === "boolean")
           return (
             <div className="formRow" key={f.apiName}>
@@ -128,7 +130,6 @@ const Form = props => {
             <String field={f} viewMode={props.viewMode} index={index} />
           </div>
         );
-        return null;
       })
     );
   }
@@ -190,10 +191,7 @@ const Form = props => {
                             <CircleSpinner show={props.loading} />
                             {!props.loading && t("SUBMIT")}
                           </button>
-                          <button
-                            className="btn --light"
-                            onClick={closeModal}
-                          >
+                          <button className="btn --light" onClick={closeModal}>
                             {t("CANCEL")}
                           </button>
                         </>
@@ -260,9 +258,6 @@ export default connect(
   mapDispatchToProps
 )(Form);
 
-function CInput(props) {
-  return <input {...props} />;
-}
 // function getValidationSchema(values) {
 //   return Yup.object().shape({
 //     email: Yup.string()
