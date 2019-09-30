@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { toast } from "react-toastify";
 //
 import { t } from "services/languageManager";
 import Modal from "components/Modal";
 import "./styles.scss";
 import SquareSpinner from "components/SquareSpinner";
-import CreditReportModal from "./../CreditReport";
+import CreditReportModal from "./../CreditReport/CreditModal";
 import IssueOfferModal from "./../IssueOffer";
 import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
@@ -308,6 +307,9 @@ const ViewApplication = props => {
                       </button>
                     </>
                   )}
+                <button className="btn --primary" onClick={handleViewCredit}>
+                  {t("VIEW_CREDIT_REPORT")}
+                </button>
               </div>
               <div className="detail__body">
                 <div className="detail__row">

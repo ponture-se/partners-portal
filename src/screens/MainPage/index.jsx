@@ -17,6 +17,7 @@ const FundedApplications = lazy(() =>
 const LostApplications = lazy(() =>
   retry(() => import("./../LostApplications"))
 );
+const CreditReport = lazy(() => retry(() => import("./../CreditReport")));
 //
 const MainPage = props => {
   return (
@@ -61,6 +62,12 @@ const MainPage = props => {
               path="/:lang/lostApplications"
               render={props => <LostApplications {...props} />}
             />
+            <PrivateRoute
+              exact
+              key="creditReport"
+              path="/:lang/:orgNumber/creditReport"
+              render={props => <CreditReport {...props} />}
+            />
           </Switch>
         </Suspense>
       </div>
@@ -69,4 +76,3 @@ const MainPage = props => {
 };
 
 export default MainPage;
-
