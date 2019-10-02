@@ -1,6 +1,11 @@
 .creditReportModalSize {
   width: 1000px;
 }
+.creditReportPage {
+  background: white;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
 .creditReport {
   &__header {
     height: 80px;
@@ -33,13 +38,13 @@
     }
   }
   &__closeIcon {
-    font-size: 10px;
+    font-size: 13px;
     color: gray;
     cursor: pointer;
     transition-duration: 0.3s;
     position: absolute;
-    top: 10px;
-    right: 20px;
+    top: 20px;
+    right: 30px;
     &:hover {
       color: black;
       transition-duration: 0.3s;
@@ -88,7 +93,20 @@
     }
     &__body {
       background: rgb(238, 243, 249);
-      min-height: 50px;
+      .row {
+        padding: 5px 10px;
+        display: flex;
+        font-size: 13px;
+        span:first-child {
+          flex: 1;
+        }
+        span:last-child {
+          flex: 2;
+        }
+        span:first-child {
+          font-family: OpenSanceBold;
+        }
+      }
       table {
         width: 100%;
         thead {
@@ -103,8 +121,21 @@
         }
         tbody {
           td {
-            padding: 5px 10px!important;
+            padding: 5px 10px !important;
             font-size: 13px;
+          }
+          td:nth-child(odd) {
+            font-family: OpenSanceBold;
+          }
+        }
+        tfoot {
+          td {
+            border-bottom: 1px solid gray;
+            padding: 3px 10px;
+            background: whitesmoke;
+            font-family: OpenSanceBold;
+            font-size: 14px;
+            text-align: left;
           }
         }
       }

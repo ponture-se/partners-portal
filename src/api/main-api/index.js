@@ -1326,6 +1326,8 @@ export function creditReport() {
               _unKnownError();
               break;
           }
+        } else {
+          _unKnownError();
         }
       });
   };
