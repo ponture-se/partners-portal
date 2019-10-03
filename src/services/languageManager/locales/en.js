@@ -44,6 +44,8 @@ export default {
     EMAIL: "Email",
     TELEPHONE: "Telephone",
     OFFER_ISSUED: "Offer Issued",
+    NAME: "Name",
+    PERSONAL_NUMBER: "Personal Number",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:

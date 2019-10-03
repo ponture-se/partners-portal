@@ -56,6 +56,22 @@ const Item = props => {
         <div className="right">
           <span className="title">{t("CONTACT_DETAILS")}</span>
           <div className="contactRow">
+            <span>{t("NAME")}</span>
+            <span>
+              {item.opportunityData &&
+                item.opportunityData.contactInfo &&
+                item.opportunityData.contactInfo.name}
+            </span>
+          </div>
+          <div className="contactRow">
+            <span>{t("PERSONAL_NUMBER")}</span>
+            <span>
+              {item.opportunityData &&
+                item.opportunityData.contactInfo &&
+                item.opportunityData.contactInfo.personalNumber}
+            </span>
+          </div>
+          <div className="contactRow">
             <span>{t("TELEPHONE")}</span>
             <span>
               {item.opportunityData &&
