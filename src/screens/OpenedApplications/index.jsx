@@ -9,6 +9,7 @@ import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
+import RejectAppModal from "./../Shared/RejectAppModal";
 //
 import {
   loadOpenedApps,
@@ -19,6 +20,7 @@ const OpenedApplications = props => {
   const [selectedApp, setApp] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
+  const [rejectAppVisibility, toggleRejectApp] = useState();
 
   useEffect(() => {
     if (props.loadOpenedApps) props.loadOpenedApps();
@@ -42,6 +44,13 @@ const OpenedApplications = props => {
   function handleCloseIssueOffer(isSubmitted) {
     toggleIssueOffer(false);
     if (isSubmitted === true) if (props.loadOpenedApps) props.loadOpenedApps();
+  }
+  function handleRejectClicked(app) {
+    setApp(app);
+    toggleRejectApp(true);
+  }
+  function handleCloseRejectAppModal() {
+    toggleRejectApp(false);
   }
 
   useEffect(() => {
@@ -74,6 +83,7 @@ const OpenedApplications = props => {
             item={app}
             onViewClicked={handleViewClicked}
             onOfferClicked={handleOfferClicked}
+            onRejectClicked={handleRejectClicked}
           />
         ))
       )}
@@ -89,6 +99,13 @@ const OpenedApplications = props => {
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
           oppId={selectedApp && selectedApp.opportunityID}
+        />
+      )}
+      {rejectAppVisibility && (
+        <RejectAppModal
+          onClose={handleCloseRejectAppModal}
+          app={selectedApp}
+          onSuccess={props.loadOpenedApps ? props.loadOpenedApps : null}
         />
       )}
     </div>

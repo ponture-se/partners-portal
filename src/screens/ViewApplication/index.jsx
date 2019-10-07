@@ -7,6 +7,7 @@ import "./styles.scss";
 import SquareSpinner from "components/SquareSpinner";
 import CreditReportModal from "./../CreditReport/CreditModal";
 import IssueOfferModal from "./../IssueOffer";
+import RejectAppModal from "./../Shared/RejectAppModal";
 import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
 import { getApplicationById } from "api/main-api";
@@ -19,6 +20,7 @@ const ViewApplication = props => {
   const [error, setError] = useState();
   const [creditReportVisibility, toggleCreditReport] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
+  const [rejectAppVisibility, toggleRejectApp] = useState();
 
   useEffect(() => {
     const id = props.oppId;
@@ -104,14 +106,6 @@ const ViewApplication = props => {
     };
   }, []);
 
-  function handleRejectApp() {
-    if (props.rejectApplication) {
-      props.rejectApplication(props.oppId, () => {
-        if (props.onClose) props.onClose();
-      });
-    }
-  }
-
   function handleViewCredit() {
     toggleCreditReport(true);
   }
@@ -128,9 +122,13 @@ const ViewApplication = props => {
     }
   }
   function closeModal() {
-    if (props.onClose) {
-      props.onClose();
-    }
+    if (props.onClose) props.onClose();
+  }
+  function handleRejectApp() {
+    toggleRejectApp(true);
+  }
+  function handleCloseRejectAppModal() {
+    toggleRejectApp(false);
   }
   return (
     <Modal size="viewAppModalSize" onClose={closeModal}>
@@ -249,11 +247,15 @@ const ViewApplication = props => {
                   <div className="viewAppItem__bodyRow__right">
                     <span>
                       {data.accountDetails &&
-                        data.accountDetails.revenue &&
-                        separateNumberByChar(
-                          data.accountDetails.revenue.totalRevenue,
-                          " "
-                        )}{" "}
+                      data.accountDetails.legalFormCode &&
+                      data.accountDetails.legalFormCode.toLowerCase() == "ef"
+                        ? "Not public data because Enskildfirma"
+                        : data.accountDetails && data.accountDetails.revenue
+                        ? separateNumberByChar(
+                            data.accountDetails.revenue.totalRevenue,
+                            " "
+                          )
+                        : ""}{" "}
                       Kr
                     </span>
                     <span>
@@ -636,6 +638,13 @@ const ViewApplication = props => {
           <IssueOfferModal
             app={data ? data.opportunityDetails : null}
             onClose={handleCloseIssueOffer}
+          />
+        )}
+        {rejectAppVisibility && (
+          <RejectAppModal
+            onClose={handleCloseRejectAppModal}
+            app={data ? data.opportunityDetails : null}
+            onSuccess={closeModal}
           />
         )}
       </div>

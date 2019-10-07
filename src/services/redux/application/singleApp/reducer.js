@@ -3,7 +3,7 @@ import { LOADING, SUCCESS, ERROR } from "./actions";
 const initialState = {
   loading: true,
   data: null,
-  error: null
+  error: null,
 };
 
 export default function openedAppsReducer(state = initialState, action) {

@@ -39,7 +39,8 @@ export default function Boolean(props) {
               <label>{/* {t("FIELD_INVISIBLE_INFO")} */}</label>
             </div>
           </div>
-        );
+   
+   );
       }}
     />
   );

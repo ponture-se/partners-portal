@@ -8,7 +8,8 @@ import {
   Double,
   Currency,
   TextArea,
-  Percent
+  Percent,
+  Integer
 } from "components/Form";
 import Wrong from "components/Commons/ErrorsComponent/Wrong";
 //
@@ -99,6 +100,12 @@ const Form = props => {
           return (
             <div className="formRow" key={f.apiName}>
               <Number field={f} viewMode={props.viewMode} index={index} />
+            </div>
+          );
+        if (type === "integer")
+          return (
+            <div className="formRow" key={f.apiName}>
+              <Integer field={f} viewMode={props.viewMode} index={index} />
             </div>
           );
         if (type === "double")

@@ -17,6 +17,7 @@ export default function initValidations(fields) {
           const type = f.type.toLowerCase();
           if (type === "currency") y = y.number();
           if (type === "number") y = y.number();
+          if (type === "integer") y = y.number();
           if (type === "double") y = y.number();
           if (type === "percent") y = y.number();
           if (type === "boolean") y = y.bool();

@@ -1,6 +1,4 @@
-import React, { useState } from "react";
-import { connect } from "react-redux";
-import { rejectApplication } from "services/redux/application/singleApp/actions";
+import React from "react";
 import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
@@ -14,9 +12,7 @@ const Item = props => {
   }
 
   function handleRejectApp() {
-    if (props.rejectApplication) {
-      props.rejectApplication(item.opportunityID);
-    }
+    if (props.onRejectClicked) props.onRejectClicked(item);
   }
   function handleOfferClicked() {
     if (props.onOfferClicked) {
@@ -92,7 +88,9 @@ const Item = props => {
           </div>
           <div className="openedApp__bodyRow__right">
             <span>
-              {separateNumberByChar(item.lastAvailableRevenue, " ")} Kr
+              {item.legalFormCode && item.legalFormCode.toLowerCase() == "ef"
+                ? "Not public data because Enskildfirma"
+                : separateNumberByChar(item.lastAvailableRevenue, " ") + "Kr"}
             </span>
             <span>
               {item.companyVerified ? (
@@ -148,15 +146,5 @@ const Item = props => {
     </div>
   );
 };
-function mapStateToProps(state) {
-  return {};
-}
 
-const mapDispatchToProps = {
-  rejectApplication
-};
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(Item);
+export default Item;

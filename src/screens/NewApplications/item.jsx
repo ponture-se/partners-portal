@@ -63,7 +63,12 @@ const Item = props => {
         </div>
         <div className="application__bodyRow">
           <span>{t("APP_REVENUE")}</span>
-          <span>{separateNumberByChar(item.lastAvailableRevenue, " ")} Kr</span>
+          <span>
+            {item.legalFormCode && item.legalFormCode.toLowerCase() == "ef"
+              ? "Not public data because Enskildfirma"
+              : separateNumberByChar(item.lastAvailableRevenue, " ")}{" "}
+            Kr }
+          </span>
           <span>
             {item.companyVerified ? (
               <i className="icon-checkmark" />

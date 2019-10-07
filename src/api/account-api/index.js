@@ -85,7 +85,7 @@ export function getToken() {
               _unKnownError();
               break;
           }
-        }
+        } else _unKnownError();
       });
   };
 

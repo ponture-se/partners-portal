@@ -8,6 +8,7 @@ import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import ViewApplicationModal from "./../ViewApplication";
+import RejectAppModal from "./../Shared/RejectAppModal";
 //
 import {
   loadNewApps,
@@ -18,6 +19,7 @@ import { rejectApplication } from "services/redux/application/singleApp/actions"
 const NewApplications = props => {
   const [viewAppModalVisibility, toggleViewApp] = useState();
   const [selectedApp, setApp] = useState();
+  const [rejectAppVisibility, toggleRejectApp] = useState();
 
   useEffect(() => {
     if (props.loadNewApps) props.loadNewApps();
@@ -34,11 +36,16 @@ const NewApplications = props => {
     if (props.loadNewApps) props.loadNewApps();
   }
   function handleRejectApplication(app) {
-    if (props.rejectApplication) {
-      props.rejectApplication(app.opportunityID, () => {
-        if (props.loadNewApps) props.loadNewApps();
-      });
-    }
+    setApp(app);
+    toggleRejectApp(true);
+    // if (props.rejectApplication) {
+    //   props.rejectApplication(app.opportunityID, () => {
+    //     if (props.loadNewApps) props.loadNewApps();
+    //   });
+    // }
+  }
+  function handleCloseRejectAppModal() {
+    toggleRejectApp(false);
   }
   return (
     <div className="newApps">
@@ -99,6 +106,13 @@ const NewApplications = props => {
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
           oppId={selectedApp && selectedApp.opportunityID}
+        />
+      )}
+      {rejectAppVisibility && (
+        <RejectAppModal
+          onClose={handleCloseRejectAppModal}
+          app={selectedApp}
+          onSuccess={props.loadNewApps ? props.loadNewApps : null}
         />
       )}
     </div>

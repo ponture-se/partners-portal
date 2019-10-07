@@ -7,13 +7,15 @@ export default {
     INTERNAL_SERVER_ERROR_MSG: "Internal Server Error!",
     BAD_REQUEST: "Bad Request",
     BAD_REQUEST_MSG: "Bad Request",
-    UNKNOWN_ERROR: "Unknown Error",
-    UNKNOWN_ERROR_MSG: "Unknown Error",
+    UNKNOWN_ERROR: "Error has occurred.",
+    UNKNOWN_ERROR_MSG: "Something getting wrong.",
     NOT_FOUND: "Not Found",
     NOT_FOUND_MSG: "Not Found",
     ON_REQUEST_ERROR: "Request Error",
     ON_REQUEST_ERROR_MSG: "Request Error",
     UN_AUTHORIZED: "User authentication failed. Try again",
+    EMPTY_LIST: "Empty List!",
+    EMPTY_LIST_MSG: "There aren't any data in list.",
     MONTH: "Month",
     TRUE: "True",
     FALSE: "False",
@@ -46,6 +48,8 @@ export default {
     OFFER_ISSUED: "Offer Issued",
     NAME: "Name",
     PERSONAL_NUMBER: "Personal Number",
+    ITS_REQUIRED: "It's required",
+    DESCRIPTION: "Description",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:
@@ -118,6 +122,11 @@ export default {
     APP_DETAIL_KEY_CASH: "Cash flow",
     APP_DETAIL_KEY_SOLIDITY: "Solidity",
 
+    APP_REJECT_MODAL_TITLE: "Reject Lead",
+    APP_REJECT_MODAL_LOADING: "Please wait to load...",
+    APP_REJECT_MODAL_BODY_TITLE:
+      "Please choose the most important reason as reject lead",
+    APP_REJECT_MODAL_OTHER_INPUT_PLACEHOLDER: "More info of other reason",
     APP_DETAIL_REJECT_ALERT_TITLE: "Please confirm that you want to reject!",
     APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
     APP_DETAIL_REJECT_ALERT_DESC: "Rejecting Lead will be removed from list.",

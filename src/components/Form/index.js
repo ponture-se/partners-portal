@@ -5,8 +5,18 @@ import TextArea from "./TextArea";
 import Currency from "./Currency";
 import Double from "./Double";
 import Percent from "./Percent";
+import Integer from "./Integer";
 
-export { Number, TextArea, Double, Currency, Boolean, String, Percent };
+export {
+  Number,
+  TextArea,
+  Double,
+  Currency,
+  Boolean,
+  String,
+  Percent,
+  Integer
+};
 
 // renderSelect(input) {
 //     return (
