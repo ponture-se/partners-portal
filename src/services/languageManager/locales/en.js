@@ -125,7 +125,7 @@ export default {
     APP_REJECT_MODAL_TITLE: "Reject Lead",
     APP_REJECT_MODAL_LOADING: "Please wait to load...",
     APP_REJECT_MODAL_BODY_TITLE:
-      "Please choose the most important reason as reject lead",
+      "Please tell us the reason(reasons) you reject this lead.",
     APP_REJECT_MODAL_OTHER_INPUT_PLACEHOLDER: "More info of other reason",
     APP_DETAIL_REJECT_ALERT_TITLE: "Please confirm that you want to reject!",
     APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
