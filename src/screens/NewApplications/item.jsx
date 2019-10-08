@@ -67,7 +67,7 @@ const Item = props => {
             {item.legalFormCode && item.legalFormCode.toLowerCase() == "ef"
               ? "Not public data because Enskildfirma"
               : separateNumberByChar(item.lastAvailableRevenue, " ")}{" "}
-            Kr }
+            Kr
           </span>
           <span>
             {item.companyVerified ? (

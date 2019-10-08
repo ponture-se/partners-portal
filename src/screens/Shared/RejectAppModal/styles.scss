@@ -37,11 +37,17 @@
     .reasons {
       padding: 20px;
       padding-bottom: 10px;
-      .custom_checkbox {
-        margin: 20px 10px;
+      &__body {
+        display: flex;
+        flex-wrap: wrap;
+        .custom_checkbox {
+          width: calc(50% - 20px);
+          margin: 20px 10px;
+        }
       }
+
       .formInput {
-        padding: 0px 10px ;
+        padding: 0px 10px;
       }
     }
   }

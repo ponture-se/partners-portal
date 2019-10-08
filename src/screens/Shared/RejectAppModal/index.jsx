@@ -91,12 +91,16 @@ function RejectApp(props) {
     }
   }
   return (
-    <Modal size="md" onClose={closeModal}>
+    <Modal size="lg" onClose={closeModal}>
       <div className="rejectApp">
         <div className="rejectApp__header">
           <div className="title">
             <span>{t("APP_REJECT_MODAL_TITLE")}</span>
-            <span>{app.Name + " - " + app.opportunityNumber}</span>
+            <span>
+              {app.Name
+                ? app.Name + " - " + app.opportunityNumber
+                : app.opportunityNumber}
+            </span>
           </div>
           <div className="closeIcon" onClick={closeModal}>
             <span className="icon-cross" />
@@ -127,13 +131,15 @@ function RejectApp(props) {
           ) : (
             <div className="reasons">
               <span>{t("APP_REJECT_MODAL_BODY_TITLE")}</span>
-              {reasons.map(item => (
-                <Item
-                  data={item}
-                  key={item.Id}
-                  onChange={handleChangeReasons}
-                />
-              ))}
+              <div className="reasons__body">
+                {reasons.map(item => (
+                  <Item
+                    data={item}
+                    key={item.Id}
+                    onChange={handleChangeReasons}
+                  />
+                ))}
+              </div>
               {isOtherSelected && (
                 <div
                   className={
