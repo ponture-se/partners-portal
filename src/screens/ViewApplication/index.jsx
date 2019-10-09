@@ -309,9 +309,9 @@ const ViewApplication = props => {
                       </button>
                     </>
                   )}
-                <button className="btn --primary" onClick={handleViewCredit}>
+                {/* <button className="btn --primary" onClick={handleViewCredit}>
                   {t("VIEW_CREDIT_REPORT")}
-                </button>
+                </button> */}
               </div>
               <div className="detail__body">
                 <div className="detail__row">
