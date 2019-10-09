@@ -9,7 +9,8 @@ import { setAppLang } from "./services/languageManager";
 import Storage from "./services/storageManager";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
 import { setAuthorization, setUser } from "./services/redux/auth/actions";
-
+import liveView from "./services/liveView";
+liveView().start();
 // app language
 const pathName = window.location.pathname;
 const lang = pathName.split("/")[1];
@@ -29,7 +30,6 @@ if (userInfo) {
     console.log();
   }
 }
-
 
 ReactDOM.render(
   <Provider store={store}>
