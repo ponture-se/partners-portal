@@ -1,7 +1,6 @@
 import React from "react";
 import NumberFormat from "react-number-format";
 import { Field } from "formik";
-import { t, currentLangName } from "services/languageManager";
 export default function Number(props) {
   const { field, viewMode, index } = props;
   return (

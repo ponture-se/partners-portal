@@ -1,6 +1,7 @@
 import React from "react";
 import { Field } from "formik";
-import { t, currentLangName } from "services/languageManager";
+import NumberFormat from "react-number-format";
+//
 export default function Number(props) {
   const { field, viewMode, index } = props;
   return (
@@ -35,9 +36,11 @@ export default function Number(props) {
               </div>
             </div>
             <div className="formInput__body">
-              <input
-                type="number"
-                min="0"
+              <NumberFormat
+                thousandSeparator={false}
+                decimalSeparator={""}
+                allowNegative={false}
+                customInput={CInput}
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
@@ -62,4 +65,7 @@ export default function Number(props) {
       }}
     />
   );
+}
+function CInput(props) {
+  return <input {...props} />;
 }
