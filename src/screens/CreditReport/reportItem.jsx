@@ -4,6 +4,256 @@ import { t } from "services/languageManager";
 
 const CreditReportItem = props => {
   const { data } = props;
+  const {
+    ACCOUNT_KEY_VALUES: ann,
+    ACCOUNT_PROFITLOSS_SHEET: prSheet,
+    ACCOUNT_BALANCE_SHEET: bSheet,
+    ACCOUNT_NOTES: notes,
+    GETDATA_RESPONSE: getDataRes
+  } = data;
+  const firstYearIndex = ann && ann.length > 0 ? ann.length - 1 : -1;
+  const secondYearIndex = ann && ann.length > 1 ? ann.length - 2 : -1;
+  const thirdYearIndex = ann && ann.length > 2 ? ann.length - 3 : -1;
+  const firstYear =
+    ann && ann.length > 0
+      ? ann[ann.length - 1].DATE_FROM.split("-")[0] +
+        ann[ann.length - 1].DATE_FROM.split("-")[1] +
+        "-" +
+        ann[ann.length - 1].DATE_TO.split("-")[0] +
+        ann[ann.length - 1].DATE_TO.split("-")[1]
+      : "-";
+  const secondYear =
+    ann && ann.length > 1
+      ? ann[ann.length - 2].DATE_FROM.split("-")[0] +
+        ann[ann.length - 2].DATE_FROM.split("-")[1] +
+        "-" +
+        ann[ann.length - 2].DATE_TO.split("-")[0] +
+        ann[ann.length - 2].DATE_TO.split("-")[1]
+      : "-";
+  const thirdYear =
+    ann && ann.length > 2
+      ? ann[ann.length - 3].DATE_FROM.split("-")[0] +
+        ann[ann.length - 3].DATE_FROM.split("-")[1] +
+        "-" +
+        ann[ann.length - 3].DATE_TO
+      : "-";
+  const annualAcc = {
+    totalNetOperatingIncome: {
+      percentage:
+        firstYearIndex > -1 && secondYearIndex > -1
+          ? Math.floor(
+              (prSheet[firstYearIndex].PL_NET_OPERATING_INCOME /
+                prSheet[secondYearIndex].PL_NET_OPERATING_INCOME) *
+                100 -
+                100
+            ) + " %"
+          : "-",
+      firstYear:
+        firstYearIndex > -1
+          ? prSheet[firstYearIndex].PL_NET_OPERATING_INCOME
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? prSheet[secondYearIndex].PL_NET_OPERATING_INCOME
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? prSheet[thirdYearIndex].PL_NET_OPERATING_INCOME
+          : "-"
+    },
+    operatingProfit_loss: {
+      firstYear:
+        firstYearIndex > -1 ? prSheet[firstYearIndex].PL_OPERATING_RESULT : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? prSheet[secondYearIndex].PL_OPERATING_RESULT
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? prSheet[thirdYearIndex].PL_OPERATING_RESULT : "-"
+    },
+    profit_lossAfterFinancialItems: {
+      firstYear:
+        firstYearIndex > -1
+          ? prSheet[firstYearIndex].PL_PROF_LOSS_AFTER_FIN_ITEMS
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? prSheet[secondYearIndex].PL_PROF_LOSS_AFTER_FIN_ITEMS
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? prSheet[thirdYearIndex].PL_PROF_LOSS_AFTER_FIN_ITEMS
+          : "-"
+    },
+    netProfit_loss: {
+      firstYear:
+        firstYearIndex > -1 ? prSheet[firstYearIndex].PL_NET_PROFIT_LOSS : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? prSheet[secondYearIndex].PL_NET_PROFIT_LOSS
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? prSheet[thirdYearIndex].PL_NET_PROFIT_LOSS : "-"
+    },
+    currentAssets: {
+      firstYear:
+        firstYearIndex > -1
+          ? bSheet[firstYearIndex].BS_TOTAL_TURNOVER_ASSETS
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? bSheet[secondYearIndex].BS_TOTAL_TURNOVER_ASSETS
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? bSheet[thirdYearIndex].BS_TOTAL_TURNOVER_ASSETS
+          : "-"
+    },
+    totalFixedAssets: {
+      firstYear:
+        firstYearIndex > -1 ? bSheet[firstYearIndex].BS_TOT_FIX_ASSETS : "-",
+      secondYear:
+        secondYearIndex > -1 ? bSheet[secondYearIndex].BS_TOT_FIX_ASSETS : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? bSheet[thirdYearIndex].BS_TOT_FIX_ASSETS : "-"
+    },
+    totalCurrentLiabilities: {
+      firstYear:
+        firstYearIndex > -1
+          ? bSheet[firstYearIndex].BS_TOT_CURRENT_LIABILITIES
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? bSheet[secondYearIndex].BS_TOT_CURRENT_LIABILITIES
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? bSheet[thirdYearIndex].BS_TOT_CURRENT_LIABILITIES
+          : "-"
+    },
+    totalLong_termDebts: {
+      firstYear:
+        firstYearIndex > -1
+          ? bSheet[firstYearIndex].BS_TOT_LONG_TERM_DEBTS
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? bSheet[secondYearIndex].BS_TOT_LONG_TERM_DEBTS
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? bSheet[thirdYearIndex].BS_TOT_LONG_TERM_DEBTS
+          : "-"
+    },
+    untaxedReserves: {
+      firstYear:
+        firstYearIndex > -1 ? bSheet[firstYearIndex].BS_UNTAXED_RESERVES : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? bSheet[secondYearIndex].BS_UNTAXED_RESERVES
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? bSheet[thirdYearIndex].BS_UNTAXED_RESERVES : "-"
+    },
+    totalEquity: {
+      firstYear:
+        firstYearIndex > -1 ? bSheet[firstYearIndex].BS_TOT_EQUITY : "-",
+      secondYear:
+        secondYearIndex > -1 ? bSheet[secondYearIndex].BS_TOT_EQUITY : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? bSheet[thirdYearIndex].BS_TOT_EQUITY : "-"
+    },
+    totalEquity_liabilities: {
+      firstYear:
+        firstYearIndex > -1
+          ? bSheet[firstYearIndex].BS_TOT_EQUITY_AND_LIAB
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? bSheet[secondYearIndex].BS_TOT_EQUITY_AND_LIAB
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? bSheet[thirdYearIndex].BS_TOT_EQUITY_AND_LIAB
+          : "-"
+    },
+    numberEmployees: {
+      firstYear:
+        firstYearIndex > -1 ? notes[firstYearIndex].N_NO_EMPLOYEES : "-",
+      secondYear:
+        secondYearIndex > -1 ? notes[secondYearIndex].N_NO_EMPLOYEES : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? notes[thirdYearIndex].N_NO_EMPLOYEES : "-"
+    },
+    floatingCharge: {
+      firstYear:
+        firstYearIndex > -1 ? notes[firstYearIndex].N_FLOATING_CHARGE : "-",
+      secondYear:
+        secondYearIndex > -1 ? notes[secondYearIndex].N_FLOATING_CHARGE : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? notes[thirdYearIndex].N_FLOATING_CHARGE : "-"
+    },
+    auditorRecommendation: {
+      firstYear:
+        firstYearIndex > -1
+          ? prSheet[firstYearIndex].PL_NET_OPERATING_INCOME
+          : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? prSheet[secondYearIndex].PL_NET_OPERATING_INCOME
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1
+          ? prSheet[thirdYearIndex].PL_NET_OPERATING_INCOME
+          : "-"
+    }
+  };
+  const keyRatios = {
+    netMargin: {
+      firstYear:
+        firstYearIndex > -1 ? ann[firstYearIndex].KR_NET_MARGIN_PERCENT : "-",
+      secondYear:
+        secondYearIndex > -1 ? ann[secondYearIndex].KR_NET_MARGIN_PERCENT : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? ann[thirdYearIndex].KR_NET_MARGIN_PERCENT : "-"
+    },
+    rateOfReturn: {
+      firstYear:
+        firstYearIndex > -1 ? ann[firstYearIndex].KR_RATE_OF_RETURN_TIMES : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? ann[secondYearIndex].KR_RATE_OF_RETURN_TIMES
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? ann[thirdYearIndex].KR_RATE_OF_RETURN_TIMES : "-"
+    },
+    degreeDebt: {
+      firstYear:
+        firstYearIndex > -1 ? ann[firstYearIndex].KR_DEGREE_OF_DEBT : "-",
+      secondYear:
+        secondYearIndex > -1 ? ann[secondYearIndex].KR_DEGREE_OF_DEBT : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? ann[thirdYearIndex].KR_DEGREE_OF_DEBT : "-"
+    },
+    equityRatio: {
+      firstYear:
+        firstYearIndex > -1 ? ann[firstYearIndex].KR_SOLIDITY_PERCENT : "-",
+      secondYear:
+        secondYearIndex > -1 ? ann[secondYearIndex].KR_SOLIDITY_PERCENT : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? ann[thirdYearIndex].KR_SOLIDITY_PERCENT : "-"
+    },
+    currentRatio: {
+      firstYear:
+        firstYearIndex > -1 ? ann[firstYearIndex].KR_QUICK_RATIO_PERCENT : "-",
+      secondYear:
+        secondYearIndex > -1
+          ? ann[secondYearIndex].KR_QUICK_RATIO_PERCENT
+          : "-",
+      thirdYear:
+        thirdYearIndex > -1 ? ann[thirdYearIndex].KR_QUICK_RATIO_PERCENT : "-"
+    }
+  };
   return (
     <div className="creditReport">
       <div className="creditReport_body">
@@ -38,7 +288,7 @@ const CreditReportItem = props => {
               <div className="right">
                 <span className="headerRow">
                   <span>{t("CREDIT_REPORT_TODAYS_DATE")}:</span>
-                  <span>-----</span>
+                  <span>{data.ReportDate}</span>
                 </span>
               </div>
               {props.isModal && (
@@ -107,13 +357,21 @@ const CreditReportItem = props => {
                   <span className="key">
                     {t("CREDIT_REPORT_REGISTRATION_DATE")}
                   </span>
-                  <span className="value">-----</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].INCORPORATION_DATE}
+                  </span>
                 </div>
               </div>
               <div className="row">
                 <div className="row__left">
                   <span className="key">{t("CREDIT_REPORT_VAT_NUMBER")}</span>
-                  <span className="value">Ponture AB</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].MOMS_NR}
+                  </span>
                 </div>
                 <div className="row__right">
                   <span className="key">
@@ -165,9 +423,13 @@ const CreditReportItem = props => {
               <div className="row">
                 <div className="row__left">
                   <span className="key">
-                    {t("CREDIT_REPORT_REGISTERED_COUNTRY")}
+                    {t("CREDIT_REPORT_REGISTERED_COUNTY")}
                   </span>
-                  <span className="value">-----</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].REGION}
+                  </span>
                 </div>
                 <div className="row__right">
                   <span className="key">
@@ -185,13 +447,21 @@ const CreditReportItem = props => {
                   <span className="key">
                     {t("CREDIT_REPORT_REGISTERED_MUNICIPAL")}
                   </span>
-                  <span className="value">-----</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].COMMUNITY}
+                  </span>
                 </div>
                 <div className="row__right">
                   <span className="key">
-                    {t("CREDIT_REPORT_NUMBER_OF_GROUP_CMP")}
+                    {t("CREDIT_REPORT_COMMERCIAL_BLOCK")}
                   </span>
-                  <span className="value">-----</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].COMMERCIAL_BLOCK}
+                  </span>
                 </div>
               </div>
               <div className="row">
@@ -230,19 +500,6 @@ const CreditReportItem = props => {
                   </span>
                 </div>
               </div>
-              <div className="row">
-                <div className="row__left">
-                  <span className="key">
-                    {t("CREDIT_REPORT_COMMERCIAL_BLOCK")}
-                  </span>
-                  <span className="value">
-                    {data.GETDATA_RESPONSE &&
-                      data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].COMMERCIAL_BLOCK}
-                  </span>
-                </div>
-                <div className="row__right" />
-              </div>
             </div>
             <div className="creditReport__box1">
               <div className="creditReport__box1__header">Rating & Limit</div>
@@ -253,6 +510,7 @@ const CreditReportItem = props => {
                 </div>
               </div>
             </div>
+
             <div className="creditReport__box1">
               <div className="creditReport__box1__header">
                 Debt balance at the Swedish Enforcement Authority (2019-06-28)
@@ -311,174 +569,196 @@ const CreditReportItem = props => {
                 </div>
               </div>
             </div>
+
             <div className="creditReport__box1">
-              <div className="creditReport__box1__header">Annual Accounts</div>
-              <div className="creditReport__box1__body">
+              <div className="creditReport__box1__header">
+                {t("CREDIT_REPORT_ANNUAL_ACCOUNTS")}
+              </div>
+              <div className="creditReport__box1__body annualAccounts">
                 <table>
                   <thead>
                     <tr>
-                      <th>ANNUAL ACCOUNTS (KSEK)</th>
-                      <th>1701-1712</th>
-                      <th />
-                      <th>1605-1612</th>
+                      <th>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS").toUpperCase()}{" "}
+                        (KSEK)
+                      </th>
+                      <th>{firstYear}</th>
+                      <th>{secondYear}</th>
+                      <th>{thirdYear}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Total net operating income</td>
-                      <td>1605-1612</td>
-                      <td>1605-1612</td>
-                      <td>0 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_OPERATION_INCOME")}
+                      </td>
+                      <td>{annualAcc.totalNetOperatingIncome.firstYear}</td>
+                      <td>{annualAcc.totalNetOperatingIncome.secondYear}</td>
+                      <td>{annualAcc.totalNetOperatingIncome.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Operating profit/loss</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_O_P_L")}</td>
+                      <td>{annualAcc.operatingProfit_loss.firstYear}</td>
+                      <td>{annualAcc.operatingProfit_loss.secondYear}</td>
+                      <td>{annualAcc.operatingProfit_loss.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Profit/loss after financial items</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_P_A_F_I")}</td>
+                      <td>
+                        {annualAcc.profit_lossAfterFinancialItems.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.profit_lossAfterFinancialItems.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.profit_lossAfterFinancialItems.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>Net profit/loss</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NET_PROFIT_LOSS")}
+                      </td>
+                      <td>{annualAcc.netProfit_loss.firstYear}</td>
+                      <td>{annualAcc.netProfit_loss.secondYear}</td>
+                      <td>{annualAcc.netProfit_loss.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Current assets</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_CURRENT_ASSETS")}
+                      </td>
+                      <td>{annualAcc.currentAssets.firstYear}</td>
+                      <td>{annualAcc.currentAssets.secondYear}</td>
+                      <td>{annualAcc.currentAssets.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Total fixed assets</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_F_A")}</td>
+                      <td>{annualAcc.totalFixedAssets.firstYear}</td>
+                      <td>{annualAcc.totalFixedAssets.secondYear}</td>
+                      <td>{annualAcc.totalFixedAssets.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Total current liabilities</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_C_L")}</td>
+                      <td>{annualAcc.totalCurrentLiabilities.firstYear}</td>
+                      <td>{annualAcc.totalCurrentLiabilities.secondYear}</td>
+                      <td>{annualAcc.totalCurrentLiabilities.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Total long-term debts</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_LONG_TERM_DEBTS")}
+                      </td>
+                      <td>{annualAcc.totalLong_termDebts.firstYear}</td>
+                      <td>{annualAcc.totalLong_termDebts.secondYear}</td>
+                      <td>{annualAcc.totalLong_termDebts.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Untaxed reserves</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_UNTAXED_RESERVES")}
+                      </td>
+                      <td>{annualAcc.untaxedReserves.firstYear}</td>
+                      <td>{annualAcc.untaxedReserves.secondYear}</td>
+                      <td>{annualAcc.untaxedReserves.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Total equity</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_TOTAL_EQUALITY")}
+                      </td>
+                      <td>{annualAcc.totalEquity.firstYear}</td>
+                      <td>{annualAcc.totalEquity.secondYear}</td>
+                      <td>{annualAcc.totalEquity.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Total equity & liabilities</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_E_L")}</td>
+                      <td>{annualAcc.totalEquity_liabilities.firstYear}</td>
+                      <td>{annualAcc.totalEquity_liabilities.secondYear}</td>
+                      <td>{annualAcc.totalEquity_liabilities.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Number of employees</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                    </tr>
-                    <tr>
-                      <td>Floating Charge</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                    </tr>
-                    <tr>
-                      <td>Auditor’s recommendation to adopt</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
-                      <td>10.200 SEK</td>
+                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NUMBER_EMP")}</td>
+                      <td>{annualAcc.numberEmployees.firstYear}</td>
+                      <td>{annualAcc.numberEmployees.secondYear}</td>
+                      <td>{annualAcc.numberEmployees.thirdYear}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
             <div className="creditReport__box1">
-              <div className="creditReport__box1__header">Key ratios</div>
+              <div className="creditReport__box1__header">
+                {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS")}
+              </div>
               <div className="creditReport__box1__body">
                 <table>
                   <thead>
                     <tr>
-                      <th>KEY RATIOS</th>
-                      <th>INDUSTRY</th>
-                      <th>1701-1712</th>
-                      <th />
-                      <th>1605-1612</th>
+                      <th>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS"
+                        ).toUpperCase()}
+                      </th>
+                      <th>{firstYear}</th>
+                      <th>{secondYear}</th>
+                      <th>{thirdYear}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
-                      <td>Net margin (%)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
+                      <td>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_NET_MARGIN"
+                        )}{" "}
+                        (%)
+                      </td>
+                      <td>{keyRatios.netMargin.firstYear}</td>
+                      <td>{keyRatios.netMargin.secondYear}</td>
+                      <td>{keyRatios.netMargin.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Rate of return (times)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
+                      <td>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_RATE_OF_RETURN"
+                        )}
+                      </td>
+                      <td>{keyRatios.rateOfReturn.firstYear}</td>
+                      <td>{keyRatios.rateOfReturn.secondYear}</td>
+                      <td>{keyRatios.rateOfReturn.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Degree of debt (times)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
+                      <td>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_DEGREE_DEBT"
+                        )}
+                      </td>
+                      <td>{keyRatios.degreeDebt.firstYear}</td>
+                      <td>{keyRatios.degreeDebt.secondYear}</td>
+                      <td>{keyRatios.degreeDebt.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Equity Ratio (%)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
+                      <td>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_EQUITY_RATIO"
+                        )}{" "}
+                        (%)
+                      </td>
+                      <td>{keyRatios.equityRatio.firstYear}</td>
+                      <td>{keyRatios.equityRatio.secondYear}</td>
+                      <td>{keyRatios.equityRatio.thirdYear}</td>
                     </tr>
                     <tr>
-                      <td>Consolidation (%)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
-                    </tr>
-                    <tr>
-                      <td>Current Ratio (%)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
-                    </tr>
-                    <tr>
-                      <td>Risk buffer (%)</td>
-                      <td>--</td>
-                      <td>--</td>
-                      <td>-</td>
-                      <td>--</td>
+                      <td>
+                        {t(
+                          "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_CURRENT_RATIO"
+                        )}{" "}
+                        (%)
+                      </td>
+                      <td>{keyRatios.currentRatio.firstYear}</td>
+                      <td>{keyRatios.currentRatio.secondYear}</td>
+                      <td>{keyRatios.currentRatio.thirdYear}</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </div>
+
             <div className="creditReport__box1">
               <div className="creditReport__box1__header">Tax</div>
               <div className="creditReport__box1__body">
@@ -501,60 +781,55 @@ const CreditReportItem = props => {
               </div>
             </div>
             <div className="creditReport__box1">
-              <div className="creditReport__box1__header">Industry</div>
+              <div className="creditReport__box1__header">
+                {t("CREDIT_REPORT_INDUSTRY")}
+              </div>
               <div className="creditReport__box1__body">
                 <div className="row">
-                  <span>Industry</span>
+                  <span> {t("CREDIT_REPORT_INDUSTRY")}</span>
                   <span>
-                    SN46170 Agents involved in the sale of food, beverages and
-                    tobacco
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].BRANSCH +
+                        " " +
+                        data.GETDATA_RESPONSE[0].BRANSCH_TEXT}
                   </span>
                 </div>
                 <div className="row">
-                  <span>Secondary Industry</span>
+                  <span> {t("CREDIT_REPORT_SECONDARY_INDUSTRY")}</span>
                   <span>
-                    49410 Freight transport by road
-                    <br />
-                    46380 Wholesale of other food, including fish, crustaceans
-                    and molluscs <br />
-                    52100 Warehousing and storage <br />
-                    47911 Non-specialised retail sale via mail order houses or
-                    via Internet
+                    {data.SECONDARY_INDUSTRIES &&
+                      data.SECONDARY_INDUSTRIES.map((item, index) => {
+                        return (
+                          <div style={{ marginBottom: 5 }}>
+                            {item.INDUSTRY_CODE +
+                              " " +
+                              item.INDUSTRY_DESCRIPTION}
+                          </div>
+                        );
+                      })}
                   </span>
                 </div>
               </div>
             </div>
             <div className="creditReport__box1">
-              <div className="creditReport__box1__header">Activity</div>
+              <div className="creditReport__box1__header">
+                {t("CREDIT_REPORT_ACTIVITY")}
+              </div>
               <div className="creditReport__box1__body">
-                <div className="row">
-                  Bolaget ska bedriva konsultverksamhet vid utveckling och
-                  implementering av administrativa data- och informationssystem,
-                  konsulttjänster inom logistik, samt bedriva härmed jämförlig
-                  verksamhet. Bolaget ska bedriva speditions-, transport- och
-                  åkerirörelse samt annan därmed förenlig verksamhet. Att
-                  biträda huvudkontoret med försäljning och marknadsföring i
-                  samband med dess utveckling av dataprogramvaror för svenska
-                  kunder. Bolaget ska bedriva verksamhet avseende import av
-                  hantverk ävensom idka därmed förenlig verksamhet. Bolaget
-                  skall erbjuda personer att handla mat på internet och genom
-                  applikationer från anslutna restauranger och därmed förenlig
-                  verksamhet. Bolaget levererar av färdig mat till skolor och
-                  serviceinrättningar. Aktiebolagets verksamhet ska vara att
-                  bedriva försäljning av varor på internet, såsom kläder,
-                  hemelektronik, glas, porslin, husgeråd och presentartiklar,
-                  jämte därmed förenlig verksamhet.
+                <div className="row activityText">
+                  {data.GETDATA_RESPONSE &&
+                    data.GETDATA_RESPONSE[0] &&
+                    data.GETDATA_RESPONSE[0].ACTIVITY_TEXT}
                 </div>
               </div>
             </div>
-            <div className="creditReport__box1">
+            {/* <div className="creditReport__box1">
               <div className="creditReport__box1__header">Auditors</div>
               <div className="creditReport__box1__body">
-                <div className="row">
-                  No Information
-                </div>
-                </div>
-            </div>
+                <div className="row">No Information</div>
+              </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -562,4 +837,3 @@ const CreditReportItem = props => {
   );
 };
 export default CreditReportItem;
-

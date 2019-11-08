@@ -62,9 +62,13 @@ export const loaded = data => {
   for (let i = 0; i < keys.length; i++) {
     const k = keys[i];
     for (const key in data) {
-      if (key.startsWith(k)) {
-        const obj = { ...data[key] };
-        if (keysResult[k]) keysResult[k].push(obj);
+      if (typeof data[key] === "string") {
+        keysResult[key] = data[key];
+      } else {
+        if (key.startsWith(k)) {
+          const obj = { ...data[key] };
+          if (keysResult[k]) keysResult[k].push(obj);
+        }
       }
     }
   }

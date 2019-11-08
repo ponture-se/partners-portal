@@ -54,6 +54,7 @@
     padding: 20px;
   }
   &__box {
+    margin-bottom: 20px;
     &.firstBox {
       background: rgb(238, 243, 249);
       border-radius: 10px;
@@ -83,7 +84,10 @@
     }
   }
   &__box1 {
-    margin: 20px 0;
+    &:not(:last-child) {
+      margin: 20px 0;
+    }
+
     &__header {
       background: whitesmoke;
       font-family: OpenSanceBold;
@@ -107,6 +111,10 @@
           font-family: OpenSanceBold;
         }
       }
+      .activityText {
+        line-height: 25px;
+        text-align: justify;
+      }
       table {
         width: 100%;
         thead {
@@ -115,8 +123,10 @@
             padding: 3px 10px;
             background: whitesmoke;
             font-family: OpenSanceBold;
-            font-size: 14px;
             text-align: left;
+            &:not(:first-child) {
+              font-size: 12px !important;
+            }
           }
         }
         tbody {
@@ -136,6 +146,17 @@
             font-family: OpenSanceBold;
             font-size: 14px;
             text-align: left;
+          }
+        }
+      }
+      &.annualAccounts {
+        table {
+          thead {
+            th {
+              &:not(:first-child) {
+                font-size: 12px !important;
+              }
+            }
           }
         }
       }
