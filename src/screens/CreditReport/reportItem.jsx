@@ -506,37 +506,93 @@ const CreditReportItem = props => {
               <div className="creditReport__box1__body">
                 <div className="row">
                   <span>Currenting Rating [0-100]</span>
-                  <span>2 Not credit worthy</span>
+                  <span>
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].RATING +
+                        " " +
+                        data.GETDATA_RESPONSE[0].RATING_TEXT}
+                  </span>
                 </div>
               </div>
             </div>
 
             <div className="creditReport__box1">
               <div className="creditReport__box1__header">
-                Debt balance at the Swedish Enforcement Authority (2019-06-28)
+                Debt balance at the Swedish Enforcement Authority (
+                {data.GETDATA_RESPONSE &&
+                  data.GETDATA_RESPONSE[0] &&
+                  data.GETDATA_RESPONSE[0].KF_DEBT_DATE}
+                )
               </div>
               <div className="creditReport__box1__body">
                 <table>
                   <tbody>
                     <tr>
+                      <td>Distraint Attempt</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].INVESTIGATE}
+                      </td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr>
                       <td>Balance private claims</td>
-                      <td>0 SEK</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL}{" "}
+                        SEK
+                      </td>
                       <td>Number private claims</td>
-                      <td>0 pcs</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].KF_DEBT_NR_EMAL}{" "}
+                        pcs
+                      </td>
                     </tr>
                     <tr>
                       <td>Balance public claims</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL}{" "}
+                        SEK
+                      </td>
                       <td>Number public claims</td>
-                      <td>8 pcs</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].KF_DEBT_NR_AMAL}{" "}
+                        pcs
+                      </td>
                     </tr>
                   </tbody>
                   <tfoot>
                     <tr>
                       <td>TOTAL</td>
-                      <td>10.200 SEK</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          parseInt(
+                            data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL +
+                              data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL
+                          )}{" "}
+                        SEK
+                      </td>
                       <td>TOTAL</td>
-                      <td>8 pcs</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          parseInt(
+                            data.GETDATA_RESPONSE[0].KF_DEBT_NR_EMAL +
+                              data.GETDATA_RESPONSE[0].KF_DEBT_NR_AMAL
+                          )}{" "}
+                        pcs
+                      </td>
                     </tr>
                   </tfoot>
                 </table>
@@ -547,26 +603,41 @@ const CreditReportItem = props => {
                 Record of non-payment
               </div>
               <div className="creditReport__box1__body">
-                <div className="row">
+                {/* <div className="row">
                   <span>Distraint attempts and repossession</span>
                   <span>0 pcs</span>
-                </div>
+                </div> */}
                 <div className="row">
                   <span>Public claims</span>
-                  <span>9 pcs</span>
+                  <span>
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].ANTAL_ANM_AMAL}{" "}
+                    pcs
+                  </span>
                 </div>
                 <div className="row">
                   <span>Private claims</span>
-                  <span>0 pcs</span>
+                  <span>
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].ANTAL_ANM_EMAL}{" "}
+                    pcs
+                  </span>
                 </div>
                 <div className="row">
                   <span>Applications for an order to pay</span>
-                  <span>1 pcs</span>
+                  <span>
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].ANTAL_ANSOKAN}{" "}
+                    pcs
+                  </span>
                 </div>
-                <div className="row">
+                {/* <div className="row">
                   <span>Reclaimed/Revoked applications</span>
                   <span>8 pcs</span>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -766,15 +837,31 @@ const CreditReportItem = props => {
                   <tbody>
                     <tr>
                       <td>Registered for VAT</td>
-                      <td>Yes, since 2016-06</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].MOMS_START_DATE}
+                      </td>
                       <td>Tax registration number</td>
-                      <td>SE559063583401</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].MOMS_NR}
+                      </td>
                     </tr>
                     <tr>
                       <td>Registered for F-tax</td>
-                      <td>Yes, since 2016-06</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].FTAX_START_DATE}
+                      </td>
                       <td>Registered for payroll tax</td>
-                      <td>Yes</td>
+                      <td>
+                        {data.GETDATA_RESPONSE &&
+                          data.GETDATA_RESPONSE[0] &&
+                          data.GETDATA_RESPONSE[0].EMP_TAX}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
