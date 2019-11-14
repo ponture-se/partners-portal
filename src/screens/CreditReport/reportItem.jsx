@@ -362,7 +362,18 @@ const CreditReportItem = props => {
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].INCORPORATION_DATE}
+                      data.GETDATA_RESPONSE[0].INCORPORATION_DATE &&
+                      data.GETDATA_RESPONSE[0].INCORPORATION_DATE.substr(0, 4) +
+                        "-" +
+                        data.GETDATA_RESPONSE[0].INCORPORATION_DATE.substr(
+                          4,
+                          2
+                        ) +
+                        "-" +
+                        data.GETDATA_RESPONSE[0].INCORPORATION_DATE.substr(
+                          6,
+                          2
+                        )}
                   </span>
                 </div>
               </div>
@@ -418,7 +429,11 @@ const CreditReportItem = props => {
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].REVENUE}
+                      separateNumberByChar(
+                        data.GETDATA_RESPONSE[0].REVENUE,
+                        " "
+                      )}{" "}
+                    Kr
                   </span>
                 </div>
               </div>
@@ -521,7 +536,12 @@ const CreditReportItem = props => {
                 Debt balance at the Swedish Enforcement Authority (
                 {data.GETDATA_RESPONSE &&
                   data.GETDATA_RESPONSE[0] &&
-                  data.GETDATA_RESPONSE[0].KF_DEBT_DATE}
+                  data.GETDATA_RESPONSE[0].KF_DEBT_DATE &&
+                  data.GETDATA_RESPONSE[0].KF_DEBT_DATE.substr(0, 4) +
+                    "-" +
+                    data.GETDATA_RESPONSE[0].KF_DEBT_DATE.substr(4, 2) +
+                    "-" +
+                    data.GETDATA_RESPONSE[0].KF_DEBT_DATE.substr(6, 2)}
                 )
               </div>
               <div className="creditReport__box1__body">
