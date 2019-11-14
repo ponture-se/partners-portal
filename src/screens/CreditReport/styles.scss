@@ -14,9 +14,9 @@
     padding: 0 20px;
     .left {
       flex: 1;
-      img {
-        width: 130px;
-      }
+      font-size: 25px;
+      color: red;
+      font-weight: bold;
     }
     .center {
       flex: 1.5;
@@ -101,6 +101,7 @@
         padding: 5px 10px;
         display: flex;
         font-size: 13px;
+        border-bottom: 1px solid lightgray;
         span:first-child {
           flex: 1;
         }
@@ -115,8 +116,10 @@
         line-height: 25px;
         text-align: justify;
       }
+
       table {
         width: 100%;
+        border-collapse: collapse;
         thead {
           th {
             border-bottom: 1px solid gray;
@@ -130,6 +133,9 @@
           }
         }
         tbody {
+          tr {
+            border-bottom: 1px solid lightgray;
+          }
           td {
             padding: 5px 10px !important;
             font-size: 13px;
@@ -171,4 +177,8 @@
       margin-left: 10px;
     }
   }
+}
+
+.border-bold {
+  border-bottom: 3px solid gray !important;
 }

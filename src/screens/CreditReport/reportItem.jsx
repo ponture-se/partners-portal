@@ -1,6 +1,7 @@
 import React from "react";
 import "./styles.scss";
 import { t } from "services/languageManager";
+import separateNumberByChar from "utils/separateNumberByChar";
 
 const CreditReportItem = props => {
   const { data } = props;
@@ -260,12 +261,7 @@ const CreditReportItem = props => {
         <div className="products">
           <div className="creditReport__body">
             <div className="creditReport__header">
-              <div className="left">
-                <img
-                  src={require("./../../assets/creditsafe_logo.png")}
-                  alt=""
-                />
-              </div>
+              <div className="left">{t("CREDIT_REPORT_TITLE")}</div>
               <div className="center">
                 <span className="headerRow">
                   <span>{t("CREDIT_REPORT_COMPANY_NAME")}:</span>
@@ -338,9 +334,15 @@ const CreditReportItem = props => {
                     {t("CREDIT_REPORT_SHARE_CAPITAL")}
                   </span>
                   <span className="value">
-                    {data.GETDATA_RESPONSE &&
-                      data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].SHARE_CAPITAL}
+                    {data.GETDATA_RESPONSE && data.GETDATA_RESPONSE[0]
+                      ? separateNumberByChar(
+                          data.GETDATA_RESPONSE[0].SHARE_CAPITAL.split(
+                            "SEK"
+                          )[0],
+                          " "
+                        )
+                      : ""}{" "}
+                    Kr
                   </span>
                 </div>
               </div>
@@ -454,14 +456,20 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">
+                  <span className="key">{t("CREDIT_REPORT_STATUS")}</span>
+                  <span className="value">
+                    {data.GETDATA_RESPONSE &&
+                      data.GETDATA_RESPONSE[0] &&
+                      data.GETDATA_RESPONSE[0].COMPANY_STATUS}
+                  </span>
+                  {/* <span className="key">
                     {t("CREDIT_REPORT_COMMERCIAL_BLOCK")}
                   </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
                       data.GETDATA_RESPONSE[0].COMMERCIAL_BLOCK}
-                  </span>
+                  </span> */}
                 </div>
               </div>
               <div className="row">
@@ -491,14 +499,7 @@ const CreditReportItem = props => {
                       data.GETDATA_RESPONSE[0].FAXNR}
                   </span>
                 </div>
-                <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_STATUS")}</span>
-                  <span className="value">
-                    {data.GETDATA_RESPONSE &&
-                      data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].COMPANY_STATUS}
-                  </span>
-                </div>
+                <div className="row__right"></div>
               </div>
             </div>
             <div className="creditReport__box1">
@@ -509,9 +510,7 @@ const CreditReportItem = props => {
                   <span>
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
-                      data.GETDATA_RESPONSE[0].RATING +
-                        " " +
-                        data.GETDATA_RESPONSE[0].RATING_TEXT}
+                      data.GETDATA_RESPONSE[0].RATING}
                   </span>
                 </div>
               </div>
@@ -541,10 +540,13 @@ const CreditReportItem = props => {
                     <tr>
                       <td>Balance private claims</td>
                       <td>
-                        {data.GETDATA_RESPONSE &&
-                          data.GETDATA_RESPONSE[0] &&
-                          data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL}{" "}
-                        SEK
+                        {data.GETDATA_RESPONSE && data.GETDATA_RESPONSE[0]
+                          ? separateNumberByChar(
+                              data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL,
+                              " "
+                            )
+                          : ""}{" "}
+                        Kr
                       </td>
                       <td>Number private claims</td>
                       <td>
@@ -557,10 +559,13 @@ const CreditReportItem = props => {
                     <tr>
                       <td>Balance public claims</td>
                       <td>
-                        {data.GETDATA_RESPONSE &&
-                          data.GETDATA_RESPONSE[0] &&
-                          data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL}{" "}
-                        SEK
+                        {data.GETDATA_RESPONSE && data.GETDATA_RESPONSE[0]
+                          ? separateNumberByChar(
+                              data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL,
+                              " "
+                            )
+                          : ""}{" "}
+                        Kr
                       </td>
                       <td>Number public claims</td>
                       <td>
@@ -575,13 +580,16 @@ const CreditReportItem = props => {
                     <tr>
                       <td>TOTAL</td>
                       <td>
-                        {data.GETDATA_RESPONSE &&
-                          data.GETDATA_RESPONSE[0] &&
-                          parseInt(
-                            data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL +
-                              data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL
-                          )}{" "}
-                        SEK
+                        {data.GETDATA_RESPONSE && data.GETDATA_RESPONSE[0]
+                          ? separateNumberByChar(
+                              parseInt(
+                                data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL +
+                                  data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL
+                              ),
+                              " "
+                            )
+                          : ""}{" "}
+                        Kr
                       </td>
                       <td>TOTAL</td>
                       <td>
@@ -685,7 +693,7 @@ const CreditReportItem = props => {
                         {annualAcc.profit_lossAfterFinancialItems.thirdYear}
                       </td>
                     </tr>
-                    <tr>
+                    <tr className="border-bold">
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NET_PROFIT_LOSS")}
                       </td>
@@ -737,7 +745,7 @@ const CreditReportItem = props => {
                       <td>{annualAcc.totalEquity.secondYear}</td>
                       <td>{annualAcc.totalEquity.thirdYear}</td>
                     </tr>
-                    <tr>
+                    <tr className="border-bold">
                       <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_E_L")}</td>
                       <td>{annualAcc.totalEquity_liabilities.firstYear}</td>
                       <td>{annualAcc.totalEquity_liabilities.secondYear}</td>

@@ -197,6 +197,7 @@ export default {
     ISSUE_FORM_APP_INFO_TITLE: "Business Loan Lead overview",
     OFFER_CANCEL_ALERT_MSG: "Canceling this selected offer.",
 
+    CREDIT_REPORT_TITLE: "Credit Report",
     CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
     CREDIT_REPORT_TODAYS_DATE: "Todays date",
     CREDIT_REPORT_COMPANY_NAME: "Company name",

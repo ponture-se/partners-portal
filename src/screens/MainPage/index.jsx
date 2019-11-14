@@ -20,10 +20,16 @@ const LostApplications = lazy(() =>
 const CreditReport = lazy(() => retry(() => import("./../CreditReport")));
 //
 const MainPage = props => {
+  const { location } = props;
+  const isCreditReport =
+    location.pathname.split("/").pop() === "creditReport" ? true : false;
   return (
     <div className="mainPage">
-      <Header />
-      <div className="mainPage__content">
+      {!isCreditReport && <Header />}
+      <div
+        className="mainPage__content"
+        style={{ marginTop: isCreditReport ? 0 : 100 }}
+      >
         <Suspense fallback={<div />}>
           <Switch>
             <PrivateRoute
