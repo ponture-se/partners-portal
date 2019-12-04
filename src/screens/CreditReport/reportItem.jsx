@@ -43,8 +43,8 @@ const CreditReportItem = props => {
       percentage:
         firstYearIndex > -1 && secondYearIndex > -1
           ? Math.floor(
-              (prSheet[firstYearIndex].PL_NET_OPERATING_INCOME /
-                prSheet[secondYearIndex].PL_NET_OPERATING_INCOME) *
+              prSheet[firstYearIndex].PL_NET_OPERATING_INCOME /
+                prSheet[secondYearIndex].PL_NET_OPERATING_INCOME *
                 100 -
                 100
             ) + " %"
@@ -261,19 +261,24 @@ const CreditReportItem = props => {
         <div className="products">
           <div className="creditReport__body">
             <div className="creditReport__header">
-              <div className="left">{t("CREDIT_REPORT_TITLE")}</div>
+              <div className="left">
+                {t("CREDIT_REPORT_TITLE")}
+              </div>
               <div className="center">
                 <span className="headerRow">
-                  <span>{t("CREDIT_REPORT_COMPANY_NAME")}:</span>
                   <span>
-                    {" "}
-                    {data.GETDATA_RESPONSE &&
+                    {t("CREDIT_REPORT_COMPANY_NAME")}:
+                  </span>
+                  <span>
+                    {" "}{data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
                       data.GETDATA_RESPONSE[0].NAME}
                   </span>
                 </span>
                 <span className="headerRow">
-                  <span>{t("CREDIT_REPORT_COMPANY_NUMBER")}:</span>
+                  <span>
+                    {t("CREDIT_REPORT_COMPANY_NUMBER")}:
+                  </span>
                   <span>
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -283,23 +288,28 @@ const CreditReportItem = props => {
               </div>
               <div className="right">
                 <span className="headerRow">
-                  <span>{t("CREDIT_REPORT_TODAYS_DATE")}:</span>
-                  <span>{data.ReportDate}</span>
+                  <span>
+                    {t("CREDIT_REPORT_TODAYS_DATE")}:
+                  </span>
+                  <span>
+                    {data.ReportDate}
+                  </span>
                 </span>
               </div>
-              {props.isModal && (
+              {props.isModal &&
                 <div
                   className="creditReport__closeIcon"
                   onClick={props.onClose}
                 >
-                  <span className="icon-cross"></span>
-                </div>
-              )}
+                  <span className="icon-cross" />
+                </div>}
             </div>
             <div className="creditReport__box firstBox">
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_COMPANY_NAME")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_COMPANY_NAME")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -307,7 +317,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_LEGAL_FORM")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_LEGAL_FORM")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -348,7 +360,9 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_SAFE_NUMBER")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_SAFE_NUMBER")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -379,7 +393,9 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_VAT_NUMBER")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_VAT_NUMBER")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -399,7 +415,9 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_ADDRESS")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_ADDRESS")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -407,7 +425,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_WEB_ADDRESS")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_WEB_ADDRESS")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -417,7 +437,9 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_CITY")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_CITY")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -425,7 +447,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_TURN_OVER")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_TURN_OVER")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -471,7 +495,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_STATUS")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_STATUS")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -489,7 +515,9 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_PHONE")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_PHONE")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -497,7 +525,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row__right">
-                  <span className="key">{t("CREDIT_REPORT_UNITS")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_UNITS")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -507,14 +537,16 @@ const CreditReportItem = props => {
               </div>
               <div className="row">
                 <div className="row__left">
-                  <span className="key">{t("CREDIT_REPORT_FAX")}</span>
+                  <span className="key">
+                    {t("CREDIT_REPORT_FAX")}
+                  </span>
                   <span className="value">
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
                       data.GETDATA_RESPONSE[0].FAXNR}
                   </span>
                 </div>
-                <div className="row__right"></div>
+                <div className="row__right" />
               </div>
             </div>
             <div className="creditReport__box1">
@@ -554,8 +586,8 @@ const CreditReportItem = props => {
                           data.GETDATA_RESPONSE[0] &&
                           data.GETDATA_RESPONSE[0].INVESTIGATE}
                       </td>
-                      <td></td>
-                      <td></td>
+                      <td />
+                      <td />
                     </tr>
                     <tr>
                       <td>Balance private claims</td>
@@ -603,9 +635,11 @@ const CreditReportItem = props => {
                         {data.GETDATA_RESPONSE && data.GETDATA_RESPONSE[0]
                           ? separateNumberByChar(
                               parseInt(
-                                data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL +
+                                data.GETDATA_RESPONSE[0].KF_DEBT_SUM_EMAL
+                              ) +
+                                parseInt(
                                   data.GETDATA_RESPONSE[0].KF_DEBT_SUM_AMAL
-                              ),
+                                ),
                               " "
                             )
                           : ""}{" "}
@@ -615,10 +649,10 @@ const CreditReportItem = props => {
                       <td>
                         {data.GETDATA_RESPONSE &&
                           data.GETDATA_RESPONSE[0] &&
-                          parseInt(
-                            data.GETDATA_RESPONSE[0].KF_DEBT_NR_EMAL +
+                          parseInt(data.GETDATA_RESPONSE[0].KF_DEBT_NR_EMAL) +
+                            parseInt(
                               data.GETDATA_RESPONSE[0].KF_DEBT_NR_AMAL
-                          )}{" "}
+                            )}{" "}
                         pcs
                       </td>
                     </tr>
@@ -681,9 +715,15 @@ const CreditReportItem = props => {
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS").toUpperCase()}{" "}
                         (KSEK)
                       </th>
-                      <th>{firstYear}</th>
-                      <th>{secondYear}</th>
-                      <th>{thirdYear}</th>
+                      <th>
+                        {firstYear}
+                      </th>
+                      <th>
+                        {secondYear}
+                      </th>
+                      <th>
+                        {thirdYear}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -691,18 +731,34 @@ const CreditReportItem = props => {
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_OPERATION_INCOME")}
                       </td>
-                      <td>{annualAcc.totalNetOperatingIncome.firstYear}</td>
-                      <td>{annualAcc.totalNetOperatingIncome.secondYear}</td>
-                      <td>{annualAcc.totalNetOperatingIncome.thirdYear}</td>
+                      <td>
+                        {annualAcc.totalNetOperatingIncome.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalNetOperatingIncome.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalNetOperatingIncome.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_O_P_L")}</td>
-                      <td>{annualAcc.operatingProfit_loss.firstYear}</td>
-                      <td>{annualAcc.operatingProfit_loss.secondYear}</td>
-                      <td>{annualAcc.operatingProfit_loss.thirdYear}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_O_P_L")}
+                      </td>
+                      <td>
+                        {annualAcc.operatingProfit_loss.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.operatingProfit_loss.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.operatingProfit_loss.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_P_A_F_I")}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_P_A_F_I")}
+                      </td>
                       <td>
                         {annualAcc.profit_lossAfterFinancialItems.firstYear}
                       </td>
@@ -717,65 +773,127 @@ const CreditReportItem = props => {
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NET_PROFIT_LOSS")}
                       </td>
-                      <td>{annualAcc.netProfit_loss.firstYear}</td>
-                      <td>{annualAcc.netProfit_loss.secondYear}</td>
-                      <td>{annualAcc.netProfit_loss.thirdYear}</td>
+                      <td>
+                        {annualAcc.netProfit_loss.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.netProfit_loss.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.netProfit_loss.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_CURRENT_ASSETS")}
                       </td>
-                      <td>{annualAcc.currentAssets.firstYear}</td>
-                      <td>{annualAcc.currentAssets.secondYear}</td>
-                      <td>{annualAcc.currentAssets.thirdYear}</td>
+                      <td>
+                        {annualAcc.currentAssets.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.currentAssets.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.currentAssets.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_F_A")}</td>
-                      <td>{annualAcc.totalFixedAssets.firstYear}</td>
-                      <td>{annualAcc.totalFixedAssets.secondYear}</td>
-                      <td>{annualAcc.totalFixedAssets.thirdYear}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_F_A")}
+                      </td>
+                      <td>
+                        {annualAcc.totalFixedAssets.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalFixedAssets.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalFixedAssets.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_C_L")}</td>
-                      <td>{annualAcc.totalCurrentLiabilities.firstYear}</td>
-                      <td>{annualAcc.totalCurrentLiabilities.secondYear}</td>
-                      <td>{annualAcc.totalCurrentLiabilities.thirdYear}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_C_L")}
+                      </td>
+                      <td>
+                        {annualAcc.totalCurrentLiabilities.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalCurrentLiabilities.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalCurrentLiabilities.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_LONG_TERM_DEBTS")}
                       </td>
-                      <td>{annualAcc.totalLong_termDebts.firstYear}</td>
-                      <td>{annualAcc.totalLong_termDebts.secondYear}</td>
-                      <td>{annualAcc.totalLong_termDebts.thirdYear}</td>
+                      <td>
+                        {annualAcc.totalLong_termDebts.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalLong_termDebts.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalLong_termDebts.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_UNTAXED_RESERVES")}
                       </td>
-                      <td>{annualAcc.untaxedReserves.firstYear}</td>
-                      <td>{annualAcc.untaxedReserves.secondYear}</td>
-                      <td>{annualAcc.untaxedReserves.thirdYear}</td>
+                      <td>
+                        {annualAcc.untaxedReserves.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.untaxedReserves.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.untaxedReserves.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
                         {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_TOTAL_EQUALITY")}
                       </td>
-                      <td>{annualAcc.totalEquity.firstYear}</td>
-                      <td>{annualAcc.totalEquity.secondYear}</td>
-                      <td>{annualAcc.totalEquity.thirdYear}</td>
+                      <td>
+                        {annualAcc.totalEquity.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalEquity.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalEquity.thirdYear}
+                      </td>
                     </tr>
                     <tr className="border-bold">
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_E_L")}</td>
-                      <td>{annualAcc.totalEquity_liabilities.firstYear}</td>
-                      <td>{annualAcc.totalEquity_liabilities.secondYear}</td>
-                      <td>{annualAcc.totalEquity_liabilities.thirdYear}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_T_E_L")}
+                      </td>
+                      <td>
+                        {annualAcc.totalEquity_liabilities.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalEquity_liabilities.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.totalEquity_liabilities.thirdYear}
+                      </td>
                     </tr>
                     <tr>
-                      <td>{t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NUMBER_EMP")}</td>
-                      <td>{annualAcc.numberEmployees.firstYear}</td>
-                      <td>{annualAcc.numberEmployees.secondYear}</td>
-                      <td>{annualAcc.numberEmployees.thirdYear}</td>
+                      <td>
+                        {t("CREDIT_REPORT_ANNUAL_ACCOUNTS_NUMBER_EMP")}
+                      </td>
+                      <td>
+                        {annualAcc.numberEmployees.firstYear}
+                      </td>
+                      <td>
+                        {annualAcc.numberEmployees.secondYear}
+                      </td>
+                      <td>
+                        {annualAcc.numberEmployees.thirdYear}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -794,9 +912,15 @@ const CreditReportItem = props => {
                           "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS"
                         ).toUpperCase()}
                       </th>
-                      <th>{firstYear}</th>
-                      <th>{secondYear}</th>
-                      <th>{thirdYear}</th>
+                      <th>
+                        {firstYear}
+                      </th>
+                      <th>
+                        {secondYear}
+                      </th>
+                      <th>
+                        {thirdYear}
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -807,9 +931,15 @@ const CreditReportItem = props => {
                         )}{" "}
                         (%)
                       </td>
-                      <td>{keyRatios.netMargin.firstYear}</td>
-                      <td>{keyRatios.netMargin.secondYear}</td>
-                      <td>{keyRatios.netMargin.thirdYear}</td>
+                      <td>
+                        {keyRatios.netMargin.firstYear}
+                      </td>
+                      <td>
+                        {keyRatios.netMargin.secondYear}
+                      </td>
+                      <td>
+                        {keyRatios.netMargin.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -817,9 +947,15 @@ const CreditReportItem = props => {
                           "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_RATE_OF_RETURN"
                         )}
                       </td>
-                      <td>{keyRatios.rateOfReturn.firstYear}</td>
-                      <td>{keyRatios.rateOfReturn.secondYear}</td>
-                      <td>{keyRatios.rateOfReturn.thirdYear}</td>
+                      <td>
+                        {keyRatios.rateOfReturn.firstYear}
+                      </td>
+                      <td>
+                        {keyRatios.rateOfReturn.secondYear}
+                      </td>
+                      <td>
+                        {keyRatios.rateOfReturn.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -827,9 +963,15 @@ const CreditReportItem = props => {
                           "CREDIT_REPORT_ANNUAL_ACCOUNTS_KEY_RATIOS_DEGREE_DEBT"
                         )}
                       </td>
-                      <td>{keyRatios.degreeDebt.firstYear}</td>
-                      <td>{keyRatios.degreeDebt.secondYear}</td>
-                      <td>{keyRatios.degreeDebt.thirdYear}</td>
+                      <td>
+                        {keyRatios.degreeDebt.firstYear}
+                      </td>
+                      <td>
+                        {keyRatios.degreeDebt.secondYear}
+                      </td>
+                      <td>
+                        {keyRatios.degreeDebt.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -838,9 +980,15 @@ const CreditReportItem = props => {
                         )}{" "}
                         (%)
                       </td>
-                      <td>{keyRatios.equityRatio.firstYear}</td>
-                      <td>{keyRatios.equityRatio.secondYear}</td>
-                      <td>{keyRatios.equityRatio.thirdYear}</td>
+                      <td>
+                        {keyRatios.equityRatio.firstYear}
+                      </td>
+                      <td>
+                        {keyRatios.equityRatio.secondYear}
+                      </td>
+                      <td>
+                        {keyRatios.equityRatio.thirdYear}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -849,9 +997,15 @@ const CreditReportItem = props => {
                         )}{" "}
                         (%)
                       </td>
-                      <td>{keyRatios.currentRatio.firstYear}</td>
-                      <td>{keyRatios.currentRatio.secondYear}</td>
-                      <td>{keyRatios.currentRatio.thirdYear}</td>
+                      <td>
+                        {keyRatios.currentRatio.firstYear}
+                      </td>
+                      <td>
+                        {keyRatios.currentRatio.secondYear}
+                      </td>
+                      <td>
+                        {keyRatios.currentRatio.thirdYear}
+                      </td>
                     </tr>
                   </tbody>
                 </table>
@@ -901,7 +1055,9 @@ const CreditReportItem = props => {
               </div>
               <div className="creditReport__box1__body">
                 <div className="row">
-                  <span> {t("CREDIT_REPORT_INDUSTRY")}</span>
+                  <span>
+                    {" "}{t("CREDIT_REPORT_INDUSTRY")}
+                  </span>
                   <span>
                     {data.GETDATA_RESPONSE &&
                       data.GETDATA_RESPONSE[0] &&
@@ -911,7 +1067,9 @@ const CreditReportItem = props => {
                   </span>
                 </div>
                 <div className="row">
-                  <span> {t("CREDIT_REPORT_SECONDARY_INDUSTRY")}</span>
+                  <span>
+                    {" "}{t("CREDIT_REPORT_SECONDARY_INDUSTRY")}
+                  </span>
                   <span>
                     {data.SECONDARY_INDUSTRIES &&
                       data.SECONDARY_INDUSTRIES.map((item, index) => {
