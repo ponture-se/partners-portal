@@ -10,7 +10,10 @@ import IssueOfferModal from "./../IssueOffer";
 import RejectAppModal from "./../Shared/RejectAppModal";
 import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
-import { getApplicationById } from "api/main-api";
+import {
+  getApplicationById,
+  getApplicationAttachmentsbyFileId
+} from "api/main-api";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
 
 const ViewApplication = props => {
@@ -18,10 +21,10 @@ const ViewApplication = props => {
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
+  const [attachments, setAttachments] = useState(undefined);
   const [creditReportVisibility, toggleCreditReport] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [rejectAppVisibility, toggleRejectApp] = useState();
-
   useEffect(() => {
     const id = props.oppId;
     if (!id) {
@@ -129,6 +132,68 @@ const ViewApplication = props => {
   }
   function handleCloseRejectAppModal() {
     toggleRejectApp(false);
+  }
+  function downloadAttachment(fileId) {
+    const didCancel = true;
+    getApplicationAttachmentsbyFileId()
+      .onOk(file => {
+        console.log("file", file);
+      })
+      .onServerError(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("INTERNAL_SERVER_ERROR"),
+            message: t("INTERNAL_SERVER_ERROR_MSG")
+          });
+        }
+      })
+      .onBadRequest(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("BAD_REQUEST"),
+            message: t("BAD_REQUEST_MSG")
+          });
+        }
+      })
+      .unAuthorized(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("UNKNOWN_ERROR"),
+            message: t("UNKNOWN_ERROR_MSG")
+          });
+        }
+      })
+      .notFound(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("NOT_FOUND"),
+            message: t("NOT_FOUND_MSG")
+          });
+        }
+      })
+      .unKnownError(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("UNKNOWN_ERROR"),
+            message: t("UNKNOWN_ERROR_MSG")
+          });
+        }
+      })
+      .onRequestError(result => {
+        if (!didCancel) {
+          toggleSpinner(false);
+          setError({
+            title: t("ON_REQUEST_ERROR"),
+            message: t("ON_REQUEST_ERROR_MSG")
+          });
+        }
+      })
+      .call(fileId);
   }
   return (
     <Modal size="viewAppModalSize" onClose={closeModal}>
@@ -623,6 +688,28 @@ const ViewApplication = props => {
                     </div>
                   </div>
                 </div>
+                {/* if application has attachment then display the attachment section */}
+                {data.opportunityAttachments &&
+                  data.opportunityAttachments.length && (
+                    <>
+                      <div className="detail__attachment">
+                        <span className="title">
+                          {t("APP_DETAIL_ATTACHMENT")}
+                        </span>
+                      </div>
+                      <div className="detail__attachment">
+                        {data.opportunityAttachments.map(file => (
+                          <span className="detail__attachment__item">
+                            <i className="icon-file-text" />
+                            &nbsp;
+                            <a onClick={() => downloadAttachment(file.id)}>
+                              {file.title}
+                            </a>
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
               </div>
             </div>
           </>
@@ -660,7 +747,4 @@ const mapDispatchToProps = {
   rejectApplication
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(ViewApplication);
+export default connect(mapStateToProps, mapDispatchToProps)(ViewApplication);

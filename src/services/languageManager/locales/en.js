@@ -105,6 +105,7 @@ export default {
     APP_DETAIL_BOARD_ROLE: "Role",
     APP_DETAIL_BOARD_ACCESS: "Access",
     APP_DETAIL_FINANCIAL_YEAR: "Financials",
+    APP_DETAIL_ATTACHMENT: "Attachments",
     APP_DETAIL_LAST_PUBLISHED: "Last published",
     APP_DETAIL_REVENUE: "Revenue",
     APP_DETAIL_REVENUE_TOTAL: "Total revenue",

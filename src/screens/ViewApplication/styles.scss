@@ -230,6 +230,27 @@
       font-size: 20px;
     }
   }
+  &__attachment {
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    .title {
+      font-family: OpenSanceBold;
+      font-size: 20px;
+    }
+    &__item {
+      font-weight: bold;
+      font-size: 14px;
+      & a {
+        font-weight: bold;
+        font-family: OpenSanceBold;
+        &:hover {
+          cursor: pointer;
+          color: mediumblue;
+        }
+      }
+    }
+  }
   &__lastBox {
     display: flex;
     margin-top: 40px;
