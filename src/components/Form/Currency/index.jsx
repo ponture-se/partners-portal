@@ -2,7 +2,8 @@ import React from "react";
 import NumberFormat from "react-number-format";
 import { Field } from "formik";
 export default function Number(props) {
-  const { field, viewMode, index } = props;
+  const { field, viewMode, index, defaultValue, value } = props;
+  let initialValue = defaultValue;
   return (
     <Field
       name={field.apiName}
@@ -44,9 +45,17 @@ export default function Number(props) {
                 placeholder={field.label}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values[field.apiName]}
+                value={
+                  values[field.apiName]
+                    ? // ? () => {
+                      //     initialValue = null;
+                      values[field.apiName]
+                    : // }
+                      initialValue
+                }
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
+                defaultValue={defaultValue}
               />
             </div>
             <div className="formInput__footer">

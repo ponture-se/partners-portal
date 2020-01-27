@@ -87,54 +87,99 @@ const Form = props => {
         if (type === "string")
           return (
             <div className="formRow" key={f.apiName}>
-              <String field={f} viewMode={props.viewMode} index={index} />
+              <String
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={"f.defaultValue"}
+              />
             </div>
           );
         if (type === "textarea")
           return (
             <div className="formRow" key={f.apiName}>
-              <TextArea field={f} viewMode={props.viewMode} index={index} />
+              <TextArea
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={"f.defaultValue"}
+              />
             </div>
           );
         if (type === "number")
           return (
             <div className="formRow" key={f.apiName}>
-              <Number field={f} viewMode={props.viewMode} index={index} />
+              <Number
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         if (type === "integer")
           return (
             <div className="formRow" key={f.apiName}>
-              <Integer field={f} viewMode={props.viewMode} index={index} />
+              <Integer
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         if (type === "double")
           return (
             <div className="formRow" key={f.apiName}>
-              <Double field={f} viewMode={props.viewMode} index={index} />
+              <Double
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         if (type === "currency")
           return (
             <div className="formRow" key={f.apiName}>
-              <Currency field={f} viewMode={props.viewMode} index={index} />
+              <Currency
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         if (type === "percent")
           return (
             <div className="formRow" key={f.apiName}>
-              <Percent field={f} viewMode={props.viewMode} index={index} />
+              <Percent
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         if (type === "boolean")
           return (
             <div className="formRow" key={f.apiName}>
-              <Boolean field={f} viewMode={props.viewMode} index={index} />
+              <Boolean
+                field={f}
+                viewMode={props.viewMode}
+                index={index}
+                defaultValue={f.defaultValue}
+              />
             </div>
           );
         return (
           <div className="formRow" key={f.apiName}>
-            <String field={f} viewMode={props.viewMode} index={index} />
+            <String
+              field={f}
+              viewMode={props.viewMode}
+              index={index}
+              defaultValue={f.defaultValue}
+            />
           </div>
         );
       })
@@ -260,10 +305,7 @@ const mapDispatchToProps = {
   loadColumns
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Form);
+export default connect(mapStateToProps, mapDispatchToProps)(Form);
 
 // function getValidationSchema(values) {
 //   return Yup.object().shape({

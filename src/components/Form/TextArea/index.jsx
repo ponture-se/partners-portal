@@ -1,7 +1,7 @@
 import React from "react";
 import { Field } from "formik";
 export default function String(props) {
-  const { field, viewMode, index } = props;
+  const { field, viewMode, index, defaultValue } = props;
   return (
     <Field
       name={field.apiName}
@@ -41,9 +41,10 @@ export default function String(props) {
                 placeholder={field.label}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                value={values[field.apiName]}
+                value={defaultValue ? defaultValue : values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
+                // defaultValue={defaultValue}
               />
             </div>
             <div className="formInput__footer">

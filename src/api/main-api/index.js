@@ -6,7 +6,6 @@ import store from "services/redux/store";
 
 const axios = require("axios");
 const config = process.env;
-console.log("env", process.env);
 const baseUrl = config.REACT_APP_BASE_URL;
 const allNewUrl = baseUrl + config.REACT_APP_ALL_NEW;
 const openedAppsUrl = baseUrl + config.REACT_APP_OPENED_APPS;
@@ -939,7 +938,6 @@ export function getApplicationAttachmentsbyFileId() {
 
   const _call = async attId => {
     const url = getAppAttachmentUrl;
-    console.log("in api, URL:", url);
     axios({
       method: "get",
       url: url,

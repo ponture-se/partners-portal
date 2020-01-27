@@ -15,7 +15,6 @@ import Login from "./screens/Login";
 import MainPage from "./screens/MainPage";
 
 const Main = withResolver(MainPage);
-
 function App() {
   useTheme("theme1");
   return (

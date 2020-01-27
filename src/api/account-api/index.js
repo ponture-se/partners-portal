@@ -1,5 +1,4 @@
 const axios = require("axios");
-
 const config = process.env;
 const baseUrl = config.REACT_APP_BASE_URL;
 const getTokenUrl = baseUrl + config.REACT_APP_LOGIN_URL;

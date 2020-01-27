@@ -2,7 +2,7 @@ import React from "react";
 import { Field } from "formik";
 import { currentLangName } from "services/languageManager";
 export default function Boolean(props) {
-  const { field, viewMode } = props;
+  const { field, viewMode, defaultValue } = props;
   return (
     <Field
       name={field.apiName}
@@ -24,8 +24,9 @@ export default function Boolean(props) {
                   id={"chk" + field.apiName}
                   name={field.apiName}
                   onChange={handleChange}
-                  checked={values[field.apiName]}
+                  checked={defaultValue ? defaultValue : values[field.apiName]}
                   disabled={viewMode}
+                  // defaultValue={defaultValue}
                 />
                 <span className="checkmark" />
               </label>
@@ -39,8 +40,7 @@ export default function Boolean(props) {
               <label>{/* {t("FIELD_INVISIBLE_INFO")} */}</label>
             </div>
           </div>
-   
-   );
+        );
       }}
     />
   );
