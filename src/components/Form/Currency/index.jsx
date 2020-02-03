@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import NumberFormat from "react-number-format";
 import { Field } from "formik";
 export default function Number(props) {
-  const { field, viewMode, index, defaultValue, value } = props;
-  let initialValue = defaultValue;
+  const { field, viewMode, index } = props;
+  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
@@ -43,19 +43,16 @@ export default function Number(props) {
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
-                onChange={handleChange}
+                onChange={(value, e) => {
+                  if (defaultValue) {
+                    setDefaultValue(null);
+                  }
+                  handleChange(value);
+                }}
                 onBlur={handleBlur}
-                value={
-                  values[field.apiName]
-                    ? // ? () => {
-                      //     initialValue = null;
-                      values[field.apiName]
-                    : // }
-                      initialValue
-                }
+                value={defaultValue ? defaultValue : values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
-                defaultValue={defaultValue}
               />
             </div>
             <div className="formInput__footer">

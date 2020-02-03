@@ -1,12 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Field } from "formik";
 export default function String(props) {
-  const { field, viewMode, index, defaultValue } = props;
+  const { field, viewMode, index } = props;
+  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
       render={fieldProps => {
-        // const { field } = fieldProps;
         const {
           errors,
           touched,
@@ -39,7 +39,12 @@ export default function String(props) {
                 name={field.apiName}
                 className="element textArea"
                 placeholder={field.label}
-                onChange={handleChange}
+                onChange={value => {
+                  if (defaultValue) {
+                    setDefaultValue(null);
+                  }
+                  handleChange(value);
+                }}
                 onBlur={handleBlur}
                 value={defaultValue ? defaultValue : values[field.apiName]}
                 autoFocus={index === 0 ? true : false}

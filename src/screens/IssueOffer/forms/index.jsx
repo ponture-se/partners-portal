@@ -91,7 +91,7 @@ const Form = props => {
                 field={f}
                 viewMode={props.viewMode}
                 index={index}
-                defaultValue={"f.defaultValue"}
+                defaultValue={f.defaultValue}
               />
             </div>
           );
@@ -102,7 +102,7 @@ const Form = props => {
                 field={f}
                 viewMode={props.viewMode}
                 index={index}
-                defaultValue={"f.defaultValue"}
+                defaultValue={f.defaultValue}
               />
             </div>
           );

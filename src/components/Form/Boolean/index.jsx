@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Field } from "formik";
 import { currentLangName } from "services/languageManager";
 export default function Boolean(props) {
-  const { field, viewMode, defaultValue } = props;
+  const { field, viewMode } = props;
+  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
@@ -23,8 +24,15 @@ export default function Boolean(props) {
                   type="checkbox"
                   id={"chk" + field.apiName}
                   name={field.apiName}
-                  onChange={handleChange}
-                  checked={defaultValue ? defaultValue : values[field.apiName]}
+                  onChange={value => {
+                    if (defaultValue) {
+                      setDefaultValue(null);
+                    }
+                    handleChange(value);
+                  }}
+                  checked={
+                    defaultValue !== null ? defaultValue : values[field.apiName]
+                  }
                   disabled={viewMode}
                   // defaultValue={defaultValue}
                 />

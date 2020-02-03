@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Field } from "formik";
 import { t, currentLangName } from "services/languageManager";
 export default function Number(props) {
-  const { field, viewMode, index, defaultValue } = props;
+  const { field, viewMode, index } = props;
+
+  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
@@ -42,7 +44,12 @@ export default function Number(props) {
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
-                onChange={handleChange}
+                onChange={value => {
+                  if (defaultValue) {
+                    setDefaultValue(null);
+                  }
+                  handleChange(value);
+                }}
                 onBlur={handleBlur}
                 value={defaultValue ? defaultValue : values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
