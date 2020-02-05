@@ -3,12 +3,10 @@ import { Field } from "formik";
 import { t, currentLangName } from "services/languageManager";
 export default function String(props) {
   const { field, viewMode, index } = props;
-  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
       render={fieldProps => {
-        // const { field } = fieldProps;
         const {
           errors,
           touched,
@@ -41,14 +39,9 @@ export default function String(props) {
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
-                onChange={value => {
-                  if (defaultValue) {
-                    setDefaultValue(null);
-                  }
-                  handleChange(value);
-                }}
+                onChange={handleChange}
                 onBlur={handleBlur}
-                value={defaultValue ? defaultValue : values[field.apiName]}
+                value={values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
                 // defaultValue={defaultValue}

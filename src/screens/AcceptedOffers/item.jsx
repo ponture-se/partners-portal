@@ -43,7 +43,7 @@ const Item = props => {
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_AMOUNT")}</span>
-            <span>{separateNumberByChar(item.Amount, " ")} Kr</span>
+            <span>{separateNumberByChar(item.Amount)} Kr</span>
           </div>
           <div className="accOfferItem__bodyRow">
             <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>

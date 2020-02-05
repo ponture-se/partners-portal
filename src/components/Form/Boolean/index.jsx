@@ -3,12 +3,10 @@ import { Field } from "formik";
 import { currentLangName } from "services/languageManager";
 export default function Boolean(props) {
   const { field, viewMode } = props;
-  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
       render={fieldProps => {
-        // const { field } = fieldProps;
         const {
           errors,
           touched,
@@ -24,17 +22,9 @@ export default function Boolean(props) {
                   type="checkbox"
                   id={"chk" + field.apiName}
                   name={field.apiName}
-                  onChange={value => {
-                    if (defaultValue) {
-                      setDefaultValue(null);
-                    }
-                    handleChange(value);
-                  }}
-                  checked={
-                    defaultValue !== null ? defaultValue : values[field.apiName]
-                  }
+                  onChange={handleChange}
+                  checked={values[field.apiName]}
                   disabled={viewMode}
-                  // defaultValue={defaultValue}
                 />
                 <span className="checkmark" />
               </label>

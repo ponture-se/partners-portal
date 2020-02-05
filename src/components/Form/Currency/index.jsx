@@ -3,12 +3,10 @@ import NumberFormat from "react-number-format";
 import { Field } from "formik";
 export default function Number(props) {
   const { field, viewMode, index } = props;
-  const [defaultValue, setDefaultValue] = useState(props.defaultValue);
   return (
     <Field
       name={field.apiName}
       render={fieldProps => {
-        // const { field } = fieldProps;
         const {
           errors,
           touched,
@@ -43,14 +41,9 @@ export default function Number(props) {
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
-                onChange={(value, e) => {
-                  if (defaultValue) {
-                    setDefaultValue(null);
-                  }
-                  handleChange(value);
-                }}
+                onChange={handleChange}
                 onBlur={handleBlur}
-                value={defaultValue ? defaultValue : values[field.apiName]}
+                value={values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
               />

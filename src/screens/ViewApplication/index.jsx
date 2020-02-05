@@ -690,7 +690,7 @@ const ViewApplication = props => {
                 </div>
                 {/* if application has attachment then display the attachment section */}
                 {data.opportunityAttachments &&
-                  data.opportunityAttachments.length && (
+                  data.opportunityAttachments.length > 0 && (
                     <>
                       <div className="detail__attachment">
                         <span className="title">

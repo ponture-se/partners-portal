@@ -197,6 +197,8 @@ const Form = props => {
               : offer.partnerDetails && offer.partnerDetails[c.apiName]
               ? offer.partnerDetails[c.apiName]
               : ""
+            : c.defaultValue
+            ? c.defaultValue
             : "";
         }
       }
