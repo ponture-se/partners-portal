@@ -118,6 +118,33 @@
       margin-right: 20px;
     }
   }
+  & .tag {
+    display: inline-block;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-family: OpenSance !important;
+    background-color: #d8d8d8;
+    font-size: 13px;
+    margin: 2px;
+  }
+  & a.file {
+    color: black;
+    &:hover {
+      cursor: pointer;
+      color: mediumblue;
+    }
+  }
+  & .BA-info-body,
+  & .RE-info-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    & .viewAppItem__bodyRow {
+      margin: 0 8px;
+    }
+  }
 }
 .detail {
   min-height: 300px;
@@ -291,23 +318,5 @@
     & a {
       color: black;
     }
-  }
-}
-.tag {
-  display: inline-block;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 1px 5px;
-  border-radius: 4px;
-  font-family: OpenSance !important;
-  background-color: #d8d8d8;
-  font-size: 13px;
-  margin: 0 5px 0 0;
-}
-a.file {
-  color: black;
-  &:hover {
-    cursor: pointer;
-    color: mediumblue;
   }
 }

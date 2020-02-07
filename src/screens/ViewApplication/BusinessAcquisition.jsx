@@ -106,307 +106,309 @@ const BusinessAcquisition = props => {
       <div className="viewAppItem__header" style={{ margin: "20px 0px 0 0px" }}>
         <span className="viewAppItem__title">{t("APP_BUSINESS_ACQ1")}</span>
       </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_BA_PURCHASE_TYPE")}</span>
+      <div className="BA-info-body">
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_BA_PURCHASE_TYPE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {purchaseType ? (
+                <span className="tag">{purchaseType}</span>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {purchaseType ? (
-              <span className="tag">{purchaseType}</span>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OWN_INVESTMENT_AMOUNT")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{ownInvestmentAmount + " Kr"}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OWN_INVESTMENT_AMOUNT")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_ADDITIONAL_DETAILS")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{additionalDetails}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{ownInvestmentAmount + " Kr"}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_ADDITIONAL_FILES")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {additionalFiles.length !== 0 ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(this, additionalFiles)}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_ADDITIONAL_DETAILS")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_BUSINESS_PLAN")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {businessPlan ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(this, businessPlan)}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{additionalDetails}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OWN_INVESTMENT_DETAILS")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{ownInvestmentDetails}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_ADDITIONAL_FILES")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_PURCHASE_OF_DESCRIPTION")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{description}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {additionalFiles.length !== 0 ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(this, additionalFiles)}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_NAME")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{objectName}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_BUSINESS_PLAN")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_COMPANY_NAME")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{objectCompanyName}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {businessPlan ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(this, businessPlan)}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_ORG_NUMBER")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{objectOrgNumber}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OWN_INVESTMENT_DETAILS")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_PRICE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{objectPrice + " Kr"}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{ownInvestmentDetails}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_INDUSTRY_BRANCH")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{objectIndustryBranch}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_PURCHASE_OF_DESCRIPTION")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_VALUATION_LETTER")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {objectValuationLetter ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(this, objectValuationLetter)}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{description}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_ANNUAL_REPORT")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {objectAnnualReport ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(this, objectAnnualReport)}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_NAME")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_LATEST_BALANCE_SHEET")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {objectLatestBalanceSheet ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(this, objectLatestBalanceSheet)}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{objectName}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_OBJECT_LATEST_INCOME_STATEMENT")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {objectLatestIncomeStatement ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(
+                      this,
+                      objectLatestIncomeStatement
+                    )}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_COMPANY_NAME")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_PURCHASER_COMPANY_LATEST_BALANCE_SHEET")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {purchaserCompanyLatestBalanceSheet ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(
+                      this,
+                      purchaserCompanyLatestBalanceSheet
+                    )}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{objectCompanyName}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_PURCHASER_COMPANY_LATEST_INCOME_STATEMENT")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {purchaserCompanyLatestIncomeStatement ? (
+                <>
+                  <a
+                    href={downloadAppAsset.call(
+                      this,
+                      purchaserCompanyLatestIncomeStatement
+                    )}
+                    target="_blank"
+                    className="file"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_ORG_NUMBER")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_PURCHASER_GUARANTEES_AVAILABLE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {purchaserGuaranteesAvailable
+                ? purchaserGuaranteesAvailable.split(",").map((item, key) => (
+                    <span className="tag" key={key}>
+                      {item}
+                    </span>
+                  ))
+                : t("NOT_SPECIFIED")}
+            </span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{objectOrgNumber}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_PURCHASER_GUARANTEES_DESCRIPTION")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{purchaserGuaranteesDescription}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_PRICE")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{objectPrice + " Kr"}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_INDUSTRY_BRANCH")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{objectIndustryBranch}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_VALUATION_LETTER")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {objectValuationLetter ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(this, objectValuationLetter)}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_ANNUAL_REPORT")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {objectAnnualReport ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(this, objectAnnualReport)}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_LATEST_BALANCE_SHEET")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {objectLatestBalanceSheet ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(this, objectLatestBalanceSheet)}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_OBJECT_LATEST_INCOME_STATEMENT")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {objectLatestIncomeStatement ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(
-                    this,
-                    objectLatestIncomeStatement
-                  )}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_PURCHASER_COMPANY_LATEST_BALANCE_SHEET")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {purchaserCompanyLatestBalanceSheet ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(
-                    this,
-                    purchaserCompanyLatestBalanceSheet
-                  )}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_PURCHASER_COMPANY_LATEST_INCOME_STATEMENT")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {purchaserCompanyLatestIncomeStatement ? (
-              <>
-                <a
-                  href={downloadAppAsset.call(
-                    this,
-                    purchaserCompanyLatestIncomeStatement
-                  )}
-                  target="_blank"
-                  className="file"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_PURCHASER_GUARANTEES_AVAILABLE")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {purchaserGuaranteesAvailable
-              ? purchaserGuaranteesAvailable.split(",").map((item, key) => (
-                  <span className="tag" key={key}>
-                    {item}
-                  </span>
-                ))
-              : t("NOT_SPECIFIED")}
-          </span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_PURCHASER_GUARANTEES_DESCRIPTION")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{purchaserGuaranteesDescription}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("APP_EXPERIENCE")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{experience}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("APP_EXPERIENCE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{experience}</span>
+          </div>
         </div>
       </div>
     </>

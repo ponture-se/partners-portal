@@ -78,122 +78,124 @@ const RealEstate = props => {
       <div className="viewAppItem__header" style={{ margin: "20px 0px 0 0px" }}>
         <span className="viewAppItem__title">{t("BL_REALESTATE_INFO")}</span>
       </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_TYPE")}</span>
+      <div className="RE-info-body">
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_TYPE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span className="tag">{realEstateType}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span className="tag">{realEstateType}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_SIZE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateSize}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_SIZE")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_PRICE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstatePrice}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateSize}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_USAGE_CATEGORY")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {realEstateUsageCategory.length > 0
+                ? realEstateUsageCategory.map((item, key) => (
+                    <span className="tag" key={key}>
+                      {item}
+                    </span>
+                  ))
+                : t("NOT_SPECIFIED")}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_PRICE")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_TAXATION_VALUE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateTaxationValue + " Kr"}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstatePrice}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_ADDRESS")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateAddress}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_USAGE_CATEGORY")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_CITY")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateCity}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {realEstateUsageCategory.length > 0
-              ? realEstateUsageCategory.map((item, key) => (
-                  <span className="tag" key={key}>
-                    {item}
-                  </span>
-                ))
-              : t("NOT_SPECIFIED")}
-          </span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_LINK")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateLink}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_TAXATION_VALUE")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_DESCRIPTION")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{realEstateDescription}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateTaxationValue + " Kr"}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_OWN_INVESTMENT_AMOUNT")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{ownInvestmentAmount}</span>
+          </div>
         </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_ADDRESS")}</span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_PURCHASE_DESCRIPTION")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>{description}</span>
+          </div>
         </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateAddress}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_CITY")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateCity}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_LINK")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateLink}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_DESCRIPTION")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{realEstateDescription}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_OWN_INVESTMENT_AMOUNT")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{ownInvestmentAmount}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_PURCHASE_DESCRIPTION")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>{description}</span>
-        </div>
-      </div>
-      <div className="viewAppItem__bodyRow">
-        <div className="viewAppItem__bodyRow__left">
-          <span>{t("BL_REALESTATE_FILE")}</span>
-        </div>
-        <div className="viewAppItem__bodyRow__right">
-          <span>
-            {realEstateDocument ? (
-              <>
-                <i className="icon-file-plus-o"></i>&nbsp;
-                <a
-                  href={downloadAppAsset.call(this, realEstateDocument)}
-                  target="_blank"
-                >
-                  {t("DOWNLOAD_ATTACHMENT")}
-                </a>
-              </>
-            ) : (
-              t("NOT_SPECIFIED")
-            )}
-          </span>
+        <div className="viewAppItem__bodyRow">
+          <div className="viewAppItem__bodyRow__left">
+            <span>{t("BL_REALESTATE_FILE")}</span>
+          </div>
+          <div className="viewAppItem__bodyRow__right">
+            <span>
+              {realEstateDocument ? (
+                <>
+                  <i className="icon-file-plus-o"></i>&nbsp;
+                  <a
+                    href={downloadAppAsset.call(this, realEstateDocument)}
+                    target="_blank"
+                  >
+                    {t("DOWNLOAD_ATTACHMENT")}
+                  </a>
+                </>
+              ) : (
+                t("NOT_SPECIFIED")
+              )}
+            </span>
+          </div>
         </div>
       </div>
     </>
