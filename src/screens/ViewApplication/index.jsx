@@ -10,12 +10,10 @@ import IssueOfferModal from "./../IssueOffer";
 import RejectAppModal from "./../Shared/RejectAppModal";
 import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
-import {
-  getApplicationById,
-  getApplicationAttachmentsbyFileId
-} from "api/main-api";
+import { getApplicationById, downloadAppAsset } from "api/main-api";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
-
+import BusinessAcquisition from "./BusinessAcquisition";
+import RealEstate from "./RealEstate";
 const ViewApplication = props => {
   let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
@@ -25,6 +23,10 @@ const ViewApplication = props => {
   const [creditReportVisibility, toggleCreditReport] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [rejectAppVisibility, toggleRejectApp] = useState();
+  const [recordType, setRecordType] = useState("BL");
+  //BA: business acquisition
+  //RE: real estate
+  //BL: business loan
   useEffect(() => {
     const id = props.oppId;
     if (!id) {
@@ -40,6 +42,17 @@ const ViewApplication = props => {
           if (!didCancel) {
             if (result) {
               setData(result);
+              let recordType =
+                result && result.opportunityDetails.RecordType.toLowerCase();
+              setRecordType(
+                recordType
+                  ? recordType === "business acquisition loan"
+                    ? "BA"
+                    : recordType === "real estate"
+                    ? "RE"
+                    : "BL"
+                  : "BL"
+              );
             } else {
               setError({
                 title: t("GET_APP_ERROR_RESULT"),
@@ -134,66 +147,7 @@ const ViewApplication = props => {
     toggleRejectApp(false);
   }
   function downloadAttachment(fileId) {
-    const didCancel = true;
-    getApplicationAttachmentsbyFileId()
-      .onOk(file => {
-        console.log("file", file);
-      })
-      .onServerError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("INTERNAL_SERVER_ERROR"),
-            message: t("INTERNAL_SERVER_ERROR_MSG")
-          });
-        }
-      })
-      .onBadRequest(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("BAD_REQUEST"),
-            message: t("BAD_REQUEST_MSG")
-          });
-        }
-      })
-      .unAuthorized(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .notFound(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("NOT_FOUND"),
-            message: t("NOT_FOUND_MSG")
-          });
-        }
-      })
-      .unKnownError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
-          });
-        }
-      })
-      .onRequestError(result => {
-        if (!didCancel) {
-          toggleSpinner(false);
-          setError({
-            title: t("ON_REQUEST_ERROR"),
-            message: t("ON_REQUEST_ERROR_MSG")
-          });
-        }
-      })
-      .call(fileId);
+    return downloadAppAsset(fileId);
   }
   return (
     <Modal size="viewAppModalSize" onClose={closeModal}>
@@ -355,6 +309,13 @@ const ViewApplication = props => {
                     {data.opportunityDetails.needDescription}
                   </div>
                 )}
+                {recordType === "BA" && (
+                  <BusinessAcquisition data={data.opportunityDetails} />
+                )}
+                {recordType === "RE" && (
+                  <RealEstate data={data.opportunityDetails} />
+                )}
+                <br />
               </div>
             </div>
             <div className="detail">
@@ -702,7 +663,10 @@ const ViewApplication = props => {
                           <span className="detail__attachment__item">
                             <i className="icon-file-text" />
                             &nbsp;
-                            <a onClick={() => downloadAttachment(file.id)}>
+                            <a
+                              href={downloadAttachment.call(this, file.id)}
+                              target="_blank"
+                            >
                               {file.title}
                             </a>
                           </span>
