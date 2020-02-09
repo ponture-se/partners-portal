@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+import React from "react";
 import { downloadAppAsset } from "api/main-api";
 import SafeValue from "utils/SafeValue";
 import { t } from "services/languageManager";
+import FileBox from "components/FileBox";
 import separateNumberByChar from "utils/separateNumberByChar";
 const BusinessAcquisition = props => {
-  const BA = props.data.acquisition;
-
+  const BA = props.data.opportunityDetails.acquisition;
+  const Attachments = SafeValue(
+    props,
+    "data.opportunityAttachments",
+    "array",
+    []
+  );
   //fields
   const objectName = SafeValue(BA, "object_name", "string", t("NOT_SPECIFIED"));
   const objectCompanyName = SafeValue(
@@ -143,15 +148,19 @@ const BusinessAcquisition = props => {
           </div>
           <div className="viewAppItem__bodyRow__right">
             <span>
-              {additionalFiles.length !== 0 ? (
+              {additionalFiles ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(this, additionalFiles)}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === additionalFiles && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -167,13 +176,17 @@ const BusinessAcquisition = props => {
             <span>
               {businessPlan ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(this, businessPlan)}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === businessPlan && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -245,13 +258,17 @@ const BusinessAcquisition = props => {
             <span>
               {objectValuationLetter ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(this, objectValuationLetter)}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === objectValuationLetter && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -267,13 +284,17 @@ const BusinessAcquisition = props => {
             <span>
               {objectAnnualReport ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(this, objectAnnualReport)}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === objectAnnualReport && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -289,13 +310,17 @@ const BusinessAcquisition = props => {
             <span>
               {objectLatestBalanceSheet ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(this, objectLatestBalanceSheet)}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === objectLatestBalanceSheet && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -311,16 +336,17 @@ const BusinessAcquisition = props => {
             <span>
               {objectLatestIncomeStatement ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(
-                      this,
-                      objectLatestIncomeStatement
-                    )}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === objectLatestIncomeStatement && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -336,16 +362,17 @@ const BusinessAcquisition = props => {
             <span>
               {purchaserCompanyLatestBalanceSheet ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(
-                      this,
-                      purchaserCompanyLatestBalanceSheet
-                    )}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === purchaserCompanyLatestBalanceSheet && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")
@@ -361,16 +388,17 @@ const BusinessAcquisition = props => {
             <span>
               {purchaserCompanyLatestIncomeStatement ? (
                 <>
-                  <a
-                    href={downloadAppAsset.call(
-                      this,
-                      purchaserCompanyLatestIncomeStatement
-                    )}
-                    target="_blank"
-                    className="file"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === purchaserCompanyLatestIncomeStatement && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")

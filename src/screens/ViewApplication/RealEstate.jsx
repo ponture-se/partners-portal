@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
 import { downloadAppAsset } from "api/main-api";
 import SafeValue from "utils/SafeValue";
 import separateNumberByChar from "utils/separateNumberByChar";
+import FileBox from "components/FileBox";
 import { t } from "services/languageManager";
 const RealEstate = props => {
-  const RE = props.data.real_estate;
-
+  const RE = props.data.opportunityDetails.real_estate;
+  const Attachments = SafeValue(
+    props,
+    "data.opportunityAttachments",
+    "array",
+    []
+  );
   // additional_details: null;
 
   //fields
@@ -183,13 +188,17 @@ const RealEstate = props => {
             <span>
               {realEstateDocument ? (
                 <>
-                  <i className="icon-file-plus-o"></i>&nbsp;
-                  <a
-                    href={downloadAppAsset.call(this, realEstateDocument)}
-                    target="_blank"
-                  >
-                    {t("DOWNLOAD_ATTACHMENT")}
-                  </a>
+                  {Attachments.map(
+                    (item, idx) =>
+                      item.id === realEstateDocument && (
+                        <FileBox
+                          idx={idx}
+                          title={item.title}
+                          type={item.fileExtension}
+                          src={downloadAppAsset.call(this, item.id)}
+                        />
+                      )
+                  )}
                 </>
               ) : (
                 t("NOT_SPECIFIED")

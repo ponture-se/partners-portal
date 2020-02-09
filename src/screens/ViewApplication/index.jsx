@@ -309,12 +309,8 @@ const ViewApplication = props => {
                     {data.opportunityDetails.needDescription}
                   </div>
                 )}
-                {recordType === "BA" && (
-                  <BusinessAcquisition data={data.opportunityDetails} />
-                )}
-                {recordType === "RE" && (
-                  <RealEstate data={data.opportunityDetails} />
-                )}
+                {recordType === "BA" && <BusinessAcquisition data={data} />}
+                {recordType === "RE" && <RealEstate data={data} />}
                 <br />
               </div>
             </div>
@@ -650,7 +646,7 @@ const ViewApplication = props => {
                   </div>
                 </div>
                 {/* if application has attachment then display the attachment section */}
-                {data.opportunityAttachments &&
+                {/* {data.opportunityAttachments &&
                   data.opportunityAttachments.length > 0 && (
                     <>
                       <div className="detail__attachment">
@@ -673,7 +669,7 @@ const ViewApplication = props => {
                         ))}
                       </div>
                     </>
-                  )}
+                  )} */}
               </div>
             </div>
           </>
