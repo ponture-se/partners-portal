@@ -12,6 +12,7 @@ const RealEstate = props => {
     "array",
     []
   );
+  const filesCount = Attachments.length;
   // additional_details: null;
 
   //fields
@@ -78,6 +79,19 @@ const RealEstate = props => {
     "string",
     ""
   );
+  const File = (file, title) =>
+    file &&
+    Attachments.map(
+      (item, idx) =>
+        item.id === file && (
+          <FileBox
+            idx={idx}
+            title={title}
+            type={item.fileExtension}
+            src={downloadAppAsset.call(this, item.id)}
+          />
+        )
+    );
   return (
     <>
       <div className="viewAppItem__header" style={{ margin: "20px 0px 0 0px" }}>
@@ -180,33 +194,17 @@ const RealEstate = props => {
             <span>{description}</span>
           </div>
         </div>
-        <div className="viewAppItem__bodyRow">
-          <div className="viewAppItem__bodyRow__left">
-            <span>{t("BL_REALESTATE_FILE")}</span>
-          </div>
-          <div className="viewAppItem__bodyRow__right">
-            <span>
-              {realEstateDocument ? (
-                <>
-                  {Attachments.map(
-                    (item, idx) =>
-                      item.id === realEstateDocument && (
-                        <FileBox
-                          idx={idx}
-                          title={item.title}
-                          type={item.fileExtension}
-                          src={downloadAppAsset.call(this, item.id)}
-                        />
-                      )
-                  )}
-                </>
-              ) : (
-                t("NOT_SPECIFIED")
-              )}
-            </span>
+      </div>
+      {filesCount > 0 && (
+        <div className="attachments-box">
+          <strong className="attachments-box__title">
+            {filesCount + " " + t("ATTACHMENT")}
+          </strong>
+          <div className="attachments-box__body">
+            {File(realEstateDocument, "Real estate document")}
           </div>
         </div>
-      </div>
+      )}
     </>
   );
 };

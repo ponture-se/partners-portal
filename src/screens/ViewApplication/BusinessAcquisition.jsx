@@ -12,6 +12,7 @@ const BusinessAcquisition = props => {
     "array",
     []
   );
+  const filesCount = Attachments.length;
   //fields
   const objectName = SafeValue(BA, "object_name", "string", t("NOT_SPECIFIED"));
   const objectCompanyName = SafeValue(
@@ -106,6 +107,21 @@ const BusinessAcquisition = props => {
     "string",
     t("NOT_SPECIFIED")
   );
+
+  const File = (file, title) =>
+    file &&
+    Attachments.map(
+      (item, idx) =>
+        item.id === file && (
+          <FileBox
+            idx={idx}
+            title={title}
+            type={item.fileExtension}
+            src={downloadAppAsset.call(this, item.id)}
+          />
+        )
+    );
+
   return (
     <>
       <div className="viewAppItem__header" style={{ margin: "20px 0px 0 0px" }}>
@@ -142,7 +158,7 @@ const BusinessAcquisition = props => {
             <span>{additionalDetails}</span>
           </div>
         </div>
-        <div className="viewAppItem__bodyRow">
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_ADDITIONAL_FILES")}</span>
           </div>
@@ -167,8 +183,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_BUSINESS_PLAN")}</span>
           </div>
@@ -193,7 +209,7 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_OWN_INVESTMENT_DETAILS")}</span>
@@ -250,7 +266,7 @@ const BusinessAcquisition = props => {
             <span>{objectIndustryBranch}</span>
           </div>
         </div>
-        <div className="viewAppItem__bodyRow">
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_OBJECT_VALUATION_LETTER")}</span>
           </div>
@@ -275,8 +291,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_OBJECT_ANNUAL_REPORT")}</span>
           </div>
@@ -301,8 +317,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_OBJECT_LATEST_BALANCE_SHEET")}</span>
           </div>
@@ -327,8 +343,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_OBJECT_LATEST_INCOME_STATEMENT")}</span>
           </div>
@@ -353,8 +369,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_PURCHASER_COMPANY_LATEST_BALANCE_SHEET")}</span>
           </div>
@@ -379,8 +395,8 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
-        <div className="viewAppItem__bodyRow">
+        </div> */}
+        {/* <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_PURCHASER_COMPANY_LATEST_INCOME_STATEMENT")}</span>
           </div>
@@ -405,7 +421,7 @@ const BusinessAcquisition = props => {
               )}
             </span>
           </div>
-        </div>
+        </div> */}
         <div className="viewAppItem__bodyRow">
           <div className="viewAppItem__bodyRow__left">
             <span>{t("APP_PURCHASER_GUARANTEES_AVAILABLE")}</span>
@@ -439,6 +455,32 @@ const BusinessAcquisition = props => {
           </div>
         </div>
       </div>
+      {filesCount > 0 && (
+        <div className="attachments-box">
+          <strong className="attachments-box__title">
+            {filesCount + " " + t("ATTACHMENT")}
+          </strong>
+          <div className="attachments-box__body">
+            {File(businessPlan, "Business plan")}
+            {File(objectValuationLetter, "Object valuation letter")}
+            {File(objectAnnualReport, "Object annual report")}
+            {File(objectLatestBalanceSheet, "Object latest balance sheet")}
+            {File(
+              objectLatestIncomeStatement,
+              "Object latest income statement"
+            )}
+            {File(
+              purchaserCompanyLatestBalanceSheet,
+              "Purchaser company latest balance sheet"
+            )}
+            {File(
+              purchaserCompanyLatestIncomeStatement,
+              "Purchaser company latest income statement"
+            )}
+            {File(additionalFiles, "Additional file")}
+          </div>
+        </div>
+      )}
     </>
   );
 };

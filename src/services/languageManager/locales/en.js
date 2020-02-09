@@ -51,6 +51,7 @@ export default {
     ITS_REQUIRED: "It's required",
     DESCRIPTION: "Description",
     DOWNLOAD_ATTACHMENT: "Download Attachment",
+    ATTACHMENT: "Attachment(s)",
     //
     LOGIN_TITLE: "Login To Ponture",
     LOGIN_INFO:

@@ -11,14 +11,14 @@ const FileBox = props => {
   }
   return (
     <div className="fileBox" key={idx}>
-      <a href={src} target="_blank">
-        <div className="preview">
-          <div className="extension">
-            <img src={source} width="60" />
-          </div>
-          <span className="title">{title}</span>
-        </div>
-      </a>
+      <div className="extension">
+        <img src={source} width="60" />
+      </div>
+      <span className="title">
+        {title}
+        <a className="icon-arrow-down2" href={src} target="_blank"></a>
+      </span>
+
       {/* <div className="hovered">
         <div className="title">
           <span>{title}</span>

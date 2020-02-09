@@ -145,6 +145,30 @@
       margin: 0 8px;
     }
   }
+
+  & .attachments-box {
+    border: 2px dashed #e2e2e2;
+    margin-top: 40px;
+    padding: 0 8px 20px;
+    &__title {
+      font-family: OpenSanceBold;
+      margin: 10px 0;
+      display: inline-block;
+    }
+    &__body {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      & > * {
+        &:first-child {
+          margin: 5px 5px 5px 0;
+        }
+        &:not(:first-child) {
+          margin: 5px;
+        }
+      }
+    }
+  }
 }
 .detail {
   min-height: 300px;
