@@ -10,6 +10,7 @@ export default {
   ERROR_OCCURRED: "Fel har uppstått",
   LOADING_TEXT: "Vänligen vänta en stund...",
   TELEPHONE: "Telefon",
+  NOT_SPECIFIED: "Ej angivet",
   BISINUSS_LOAN: "affärslån",
   BL_LOAN_AMOUNT: "Önskat Lånebelopp",
   BL_LOAN_PERIOD: "Önskad låneperiod",

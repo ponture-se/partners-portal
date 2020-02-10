@@ -110,6 +110,7 @@ const BusinessAcquisition = props => {
 
   const File = (file, title) =>
     file &&
+    Attachments.length > 0 &&
     Attachments.map(
       (item, idx) =>
         item.id === file && (
