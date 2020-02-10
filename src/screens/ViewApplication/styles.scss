@@ -142,14 +142,21 @@
     flex-direction: row;
     flex-wrap: wrap;
     & .viewAppItem__bodyRow {
-      margin: 0 8px;
+      margin: 0;
+      max-width: 50%;
+      &__right {
+        max-width: 200px;
+      }
+      &__right {
+        margin: 0 20px 0 0;
+      }
     }
   }
 
   & .attachments-box {
-    border: 2px dashed #e2e2e2;
-    margin-top: 40px;
-    padding: 0 8px 20px;
+    border-top: 1px solid lightgray;
+    margin-top: 20px;
+    padding: 0 0 20px;
     &__title {
       font-family: OpenSanceBold;
       margin: 10px 0;
@@ -160,12 +167,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       & > * {
-        &:first-child {
-          margin: 5px 5px 5px 0;
-        }
-        &:not(:first-child) {
-          margin: 5px;
-        }
+        margin: 5px;
       }
     }
   }
@@ -177,11 +179,12 @@
   flex-direction: column;
   &__header {
     margin: 20px 40px 0 40px;
-    padding-bottom: 20px;
+    padding: 20px 0;
     display: flex;
     border-bottom: 1px solid lightgray;
     justify-content: space-between;
     padding-right: 10%;
+    border-top: 1px solid lightgray;
     .--warning {
       margin-right: 120px;
       width: 130px;

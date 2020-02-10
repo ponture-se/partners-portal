@@ -477,6 +477,15 @@ const BusinessAcquisition = props => {
               purchaserCompanyLatestIncomeStatement,
               "Purchaser company latest income statement"
             )}
+          </div>
+        </div>
+      )}
+      {additionalFiles.length > 0 && (
+        <div className="attachments-box">
+          <strong className="attachments-box__title">
+            {t("APP_ADDITIONAL_FILES")}
+          </strong>
+          <div className="attachments-box__body">
             {File(additionalFiles, "Additional file")}
           </div>
         </div>
