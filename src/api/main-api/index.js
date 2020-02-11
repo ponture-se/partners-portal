@@ -10,7 +10,7 @@ const baseUrl = config.REACT_APP_BASE_URL;
 const allNewUrl = baseUrl + config.REACT_APP_ALL_NEW;
 const openedAppsUrl = baseUrl + config.REACT_APP_OPENED_APPS;
 const openAppUrl = baseUrl + config.REACT_APP_OPEN_APP;
-const getAppAttachmentUrl = config.REACT_APP_GET_APP_ATTACHMENT;
+const getAppAttachmentUrl = baseUrl + config.REACT_APP_GET_APP_ATTACHMENT;
 const rejectReasonsUrl = baseUrl + config.REACT_APP_REJECT_REASONS_APP;
 const rejectAppUrl = baseUrl + config.REACT_APP_REJECT_APP;
 const creditReportUrl = baseUrl + config.REACT_APP_CREDIT_REPORT;
@@ -894,7 +894,7 @@ export function getApplicationById() {
 }
 export function downloadAppAsset(attId) {
   const url = getAppAttachmentUrl;
-  return url + "?fileId=" + attId;
+  return url + "/" + attId;
 }
 export function getRejectReasons() {
   let _onOkCallBack;
