@@ -183,7 +183,7 @@ const RealEstate = props => {
             <span>{t("BL_OWN_INVESTMENT_AMOUNT")}</span>
           </div>
           <div className="viewAppItem__bodyRow__right">
-            <span>{ownInvestmentAmount}</span>
+            <span>{ownInvestmentAmount + " Kr"}</span>
           </div>
         </div>
         <div className="viewAppItem__bodyRow">

@@ -93,7 +93,7 @@ const BusinessAcquisition = props => {
     "string",
     ""
   );
-  const additionalFiles = SafeValue(BA, "additional_files.0", "string", "");
+  const additionalFiles = SafeValue(BA, "additional_files", "array", []);
   const businessPlan = SafeValue(BA, "business_plan.0", "string", "");
   const additionalDetails = SafeValue(
     BA,
@@ -487,7 +487,7 @@ const BusinessAcquisition = props => {
             {t("APP_ADDITIONAL_FILES")}
           </strong>
           <div className="attachments-box__body">
-            {File(additionalFiles, "Additional file")}
+            {additionalFiles.map(name => File(name, "Additional file"))}
           </div>
         </div>
       )}

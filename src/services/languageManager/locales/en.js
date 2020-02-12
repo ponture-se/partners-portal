@@ -16,6 +16,7 @@ export default {
     UN_AUTHORIZED: "User authentication failed. Try again",
     EMPTY_LIST: "Empty List!",
     EMPTY_LIST_MSG: "There aren't any data in list.",
+    NOT_SPECIFIED: "Not specified",
     MONTH: "Month",
     TRUE: "True",
     FALSE: "False",
@@ -192,6 +193,8 @@ export default {
       "Link to the sales object's page on the broker or Objektvision.se",
     BL_REALESTATE_DESCRIPTION: "Description",
     BL_REALESTATE_FILE: "Document file",
+    BL_OWN_INVESTMENT_AMOUNT: "Own investment amount",
+    BL_PURCHASE_DESCRIPTION: "Purchase of description",
     //
 
     ISSUE_OFFER_APP_INFO_TITLE: "Lead Information",

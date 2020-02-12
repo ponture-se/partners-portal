@@ -24,6 +24,8 @@ export default {
   BL_EMAIL: "E-post",
   BL_TERMS: "Härmed godkänner jag användarvillkoren.",
   BL_TERMS_LINK: "läs våra användarvillkor",
+  BL_OWN_INVESTMENT_AMOUNT: "Summa egna pengar",
+  BL_PURCHASE_DESCRIPTION: "Köpsbeskrivning",
   PHONE_NUMBER_IS_REQUIRED: "telefonnummer är requird.",
   PHONE_NUMBER_IN_CORRECT: "telefonnummer kan inte vara mindre än 9 chacter",
   EMAIL_IS_REQUIRED: "e-post krävs",
