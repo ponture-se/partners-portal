@@ -137,7 +137,7 @@ export default {
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
     //Business acquisition view
     APP_COMPANY_NAME: "Company name",
-    APP_ADDITIONAL_FILES: "Additional files",
+    APP_ADDITIONAL_FILES: "Additional file(s)",
     APP_ADDITIONAL_DETAILS: "Additional details",
     APP_BUSINESS_PLAN: "Business plan",
     APP_OWN_INVESTMENT_AMOUNT: "Own investment amount",

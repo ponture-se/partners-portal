@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 //
-import { t } from "services/languageManager";
 import Modal from "components/Modal";
-import "./styles.scss";
 import SquareSpinner from "components/SquareSpinner";
+import { Wrong } from "components/Commons/ErrorsComponent";
+import FileBox from "components/FileBox";
+import { t } from "services/languageManager";
+import "./styles.scss";
 import CreditReportModal from "./../CreditReport/CreditModal";
 import IssueOfferModal from "./../IssueOffer";
 import RejectAppModal from "./../Shared/RejectAppModal";
-import { Wrong } from "components/Commons/ErrorsComponent";
 import separateNumberByChar from "utils/separateNumberByChar";
+import SafeValue from "utils/SafeValue";
 import { getApplicationById, downloadAppAsset } from "api/main-api";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
 import BusinessAcquisition from "./BusinessAcquisition";
@@ -19,11 +21,12 @@ const ViewApplication = props => {
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
-  const [attachments, setAttachments] = useState(undefined);
+  const [attachments, setAttachments] = useState([]);
   const [creditReportVisibility, toggleCreditReport] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [rejectAppVisibility, toggleRejectApp] = useState();
   const [recordType, setRecordType] = useState("BL");
+  //Attachments
   //BA: business acquisition
   //RE: real estate
   //BL: business loan
@@ -52,6 +55,9 @@ const ViewApplication = props => {
                     ? "RE"
                     : "BL"
                   : "BL"
+              );
+              setAttachments(
+                SafeValue(result, "opportunityAttachments", "array", [])
               );
             } else {
               setError({
@@ -146,9 +152,16 @@ const ViewApplication = props => {
   function handleCloseRejectAppModal() {
     toggleRejectApp(false);
   }
-  function downloadAttachment(fileId) {
-    return downloadAppAsset(fileId);
-  }
+  //File
+  const File = (files, title) =>
+    files.map((item, idx) => (
+      <FileBox
+        idx={idx}
+        title={title || item.title}
+        type={item.fileExtension}
+        src={downloadAppAsset.call(this, item.id)}
+      />
+    ));
   return (
     <Modal size="viewAppModalSize" onClose={closeModal}>
       <div className="viewApp">
@@ -309,8 +322,23 @@ const ViewApplication = props => {
                     {data.opportunityDetails.needDescription}
                   </div>
                 )}
-                {recordType === "BA" && <BusinessAcquisition data={data} />}
-                {recordType === "RE" && <RealEstate data={data} />}
+                {recordType === "BA" ? (
+                  <BusinessAcquisition data={data} />
+                ) : recordType === "RE" ? (
+                  <RealEstate data={data} />
+                ) : (
+                  //BusinessLoan files section
+                  attachments.length > 0 && (
+                    <div className="attachments-box">
+                      <strong className="attachments-box__title">
+                        {attachments.length + " " + t("ATTACHMENT")}
+                      </strong>
+                      <div className="attachments-box__body">
+                        {File(attachments)}
+                      </div>
+                    </div>
+                  )
+                )}
                 <br />
               </div>
             </div>
