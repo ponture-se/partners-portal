@@ -108,7 +108,7 @@ const BusinessAcquisition = props => {
     t("NOT_SPECIFIED")
   );
 
-  const File = (file, title) =>
+  const File = (file, _title) =>
     file &&
     Attachments.length > 0 &&
     Attachments.map(
@@ -116,7 +116,7 @@ const BusinessAcquisition = props => {
         item.id === file && (
           <FileBox
             idx={idx}
-            title={title}
+            title={item.title ? item.title : _title}
             type={item.fileExtension}
             src={downloadAppAsset.call(this, item.id)}
           />
@@ -487,7 +487,7 @@ const BusinessAcquisition = props => {
             {t("APP_ADDITIONAL_FILES")}
           </strong>
           <div className="attachments-box__body">
-            {additionalFiles.map(name => File(name, "Additional file"))}
+            {additionalFiles.map(file => File(file))}
           </div>
         </div>
       )}
