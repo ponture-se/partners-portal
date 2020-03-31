@@ -20,7 +20,6 @@ const NewApplications = props => {
   const [viewAppModalVisibility, toggleViewApp] = useState();
   const [selectedApp, setApp] = useState();
   const [rejectAppVisibility, toggleRejectApp] = useState();
-
   useEffect(() => {
     if (props.loadNewApps) props.loadNewApps();
     return () => {

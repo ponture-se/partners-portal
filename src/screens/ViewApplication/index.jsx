@@ -711,7 +711,9 @@ const ViewApplication = props => {
         )}
         {issueOfferVisibility && (
           <IssueOfferModal
-            app={data ? data.opportunityDetails : null}
+            app={
+              data ? { ...data.opportunityDetails, spoID: props.spoId } : null
+            }
             onClose={handleCloseIssueOffer}
           />
         )}
