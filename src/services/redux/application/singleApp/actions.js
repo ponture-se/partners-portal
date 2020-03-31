@@ -22,7 +22,7 @@ export function setError(error) {
   };
 }
 
-export function rejectApplication(oppId, onLocalSuccess) {
+export function rejectApplication(spoId, onLocalSuccess) {
   return function(dispatch, getState) {
     toggleAlert({
       title: t("APP_DETAIL_REJECT_ALERT_TITLE"),
@@ -32,7 +32,7 @@ export function rejectApplication(oppId, onLocalSuccess) {
       isAjaxCall: true,
       func: rejectApp,
       data: {
-        oppId
+        spoId
       },
       onCancel: () => {},
       onSuccess: result => {

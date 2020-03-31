@@ -91,9 +91,9 @@ const NewApplications = props => {
               </div>
             </div>
           </div> */}
-          {props.data.map(app => (
+          {props.data.map((app, idx) => (
             <Item
-              key={app.opportunityID}
+              key={idx}
               item={app}
               onViewAppClicked={handleViewApplication}
               onRejectAppClicked={handleRejectApplication}
@@ -105,7 +105,7 @@ const NewApplications = props => {
         <ViewApplicationModal
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
-          oppId={selectedApp && selectedApp.opportunityID}
+          spoId={selectedApp && selectedApp.spoID}
         />
       )}
       {rejectAppVisibility && (
@@ -145,7 +145,4 @@ const mapDispatchToProps = {
   rejectApplication
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(NewApplications);
+export default connect(mapStateToProps, mapDispatchToProps)(NewApplications);

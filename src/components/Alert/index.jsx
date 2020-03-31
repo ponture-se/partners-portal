@@ -9,20 +9,46 @@ const Alert = props => {
   const [show, _toggleAlert] = useState(false);
   const [info, setInfo] = useState();
   const [ajaxSpinner, toggleSpinner] = useState(false);
-
+  // const extraComponent = { position: "mamad", component: false };
+  const [extraComponent, setExtraComponent] = useState({});
   useEffect(() => {
     if (show) document.body.style.overflowY = "hidden";
     else document.body.style.overflowY = "auto";
   }, [show]);
-
+  useEffect(() => {
+    if (info)
+      setExtraComponent({
+        ...info.extraComponent,
+        component: () => (
+          <info.extraComponent.component
+            parentStates={{
+              show: show,
+              toggleAlert: _toggleAlert,
+              info: info,
+              setInfo: setInfo,
+              ajaxSpinner: ajaxSpinner,
+              toggleSpinner: toggleSpinner,
+              handleOkBtnClicked: handleOkBtnClicked
+            }}
+          />
+        )
+      });
+  }, [info]);
   toggleAlert = props => {
-    setInfo(props);
-    _toggleAlert(prev => !prev);
+    if (props) {
+      //construct alert
+      setInfo(props);
+      _toggleAlert(prev => !prev);
+    } else {
+      //destroy alert
+      setInfo();
+      _toggleAlert();
+    }
   };
   function handleCloseModal() {
     if (!ajaxSpinner) _toggleAlert(prev => !prev);
   }
-  function handleOkBtnClicked() {
+  function handleOkBtnClicked(data) {
     if (!info.func) {
       _toggleAlert(prev => !prev);
     } else {
@@ -76,13 +102,13 @@ const Alert = props => {
           }
           _toggleAlert(prev => !prev);
         });
-      if (f.call) f.call(info.data);
+      if (f.call) f.call(data);
     }
   }
   return show
     ? ReactDOM.createPortal(
         <React.Fragment>
-          <div className="alert">
+          <div className="alert" style={info.style ? info.style : {}}>
             <div className="alert__bg" onClick={handleCloseModal} />
             <div className="alert__content animated fadeInUp faster">
               <div className="alert__header">
@@ -91,25 +117,46 @@ const Alert = props => {
                   className="icon-cross closeIcn"
                   onClick={handleCloseModal}
                 ></span>
+                {extraComponent.component &&
+                  extraComponent.position === "header" && (
+                    <extraComponent.component />
+                  )}
               </div>
               <div className="alert__body">
                 <span>{info.description}</span>
+                {extraComponent.component &&
+                  extraComponent.position === "body" && (
+                    <extraComponent.component />
+                  )}
               </div>
               <div className="alert__footer">
-                <button className="btn --light" onClick={handleCloseModal}>
+                <CircleSpinner
+                  show={ajaxSpinner}
+                  color="black"
+                  bgColor="lightgray"
+                />
+                &nbsp; &nbsp;
+                <button
+                  className="btn --light"
+                  onClick={handleCloseModal}
+                  disabled={ajaxSpinner}
+                >
                   {info.cancelBtnText}
                 </button>
+                &nbsp;
                 <button
                   className="btn --primary"
-                  onClick={handleOkBtnClicked}
+                  onClick={() => handleOkBtnClicked(info.data)}
+                  disabled={ajaxSpinner}
                   autoFocus
                 >
-                  {ajaxSpinner ? (
-                    <CircleSpinner show={ajaxSpinner} />
-                  ) : (
-                    info.okBtnText
-                  )}
+                  {info.okBtnText}
                 </button>
+                &nbsp;
+                {extraComponent.component &&
+                  extraComponent.position === "footer" && (
+                    <extraComponent.component />
+                  )}
               </div>
             </div>
           </div>

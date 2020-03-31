@@ -13,6 +13,7 @@ import "./styles.scss";
 
 function RejectApp(props) {
   let didCancel = false;
+  const activateApiCall = props.activateApiCall ? props.activateApiCall : true;
   const { app } = props;
   const [spinner, toggleSpinner] = useState(true);
   const [reasons, setReasons] = useState();
@@ -22,7 +23,9 @@ function RejectApp(props) {
   const [otherText, setOtherText] = useState();
   const [otherError, toggleOtherError] = useState();
   const [btnSpinner, toggleBtnSpinner] = useState();
-
+  const [_rejectApp, _setRejectApp] = useState(() =>
+    props.customApiFunc ? props.customApiFunc : rejectApp
+  );
   useEffect(() => {
     getRejectReasons()
       .onOk(result => {
@@ -61,33 +64,40 @@ function RejectApp(props) {
     }
   }
   function handleRejectClicked() {
+    const _extraData = props.extraData ? props.extraData : {};
     if (isOtherSelected && (!otherText || otherText.length === 0)) {
       toggleOtherError(true);
     } else {
       if (isOtherSelected) toggleOtherError(false);
       toggleBtnSpinner(true);
       const obj = {
+        ..._extraData,
         partnerId: props.userInfo ? props.userInfo.partnerId : null,
-        oppId: app.opportunityID,
+        oppId: app ? app.opportunityID : null,
+        spoId: app ? app.spoID : null,
         closeReasons: selectedReasons,
         closeDesc: otherText ? otherText : ""
       };
-      rejectApp()
-        .onOk(result => {
-          if (!didCancel) {
-            toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
-            toggleBtnSpinner(false);
-            closeModal();
-            if (props.onSuccess) props.onSuccess();
-          }
-        })
-        .unKnownError(() => {
-          if (!didCancel) {
-            toast.error(t("UNKNOWN_ERROR"));
-            toggleBtnSpinner(false);
-          }
-        })
-        .call(obj);
+      if (activateApiCall) {
+        _rejectApp()
+          .onOk(result => {
+            if (!didCancel) {
+              toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
+              toggleBtnSpinner(false);
+              closeModal();
+              if (props.onSuccess) props.onSuccess(obj);
+            }
+          })
+          .unKnownError(() => {
+            if (!didCancel) {
+              toast.error(t("UNKNOWN_ERROR"));
+              toggleBtnSpinner(false);
+            }
+          })
+          .call(obj);
+      } else {
+        if (props.onSuccess) props.onSuccess(obj);
+      }
     }
   }
   return (
@@ -96,11 +106,13 @@ function RejectApp(props) {
         <div className="rejectApp__header">
           <div className="title">
             <span>{t("APP_REJECT_MODAL_TITLE")}</span>
-            <span>
-              {app.Name
-                ? app.Name + " - " + app.opportunityNumber
-                : app.opportunityNumber}
-            </span>
+            {app && (
+              <span>
+                {app.Name
+                  ? app.Name + " - " + app.opportunityNumber
+                  : app.opportunityNumber}
+              </span>
+            )}
           </div>
           <div className="closeIcon" onClick={closeModal}>
             <span className="icon-cross" />
@@ -204,7 +216,4 @@ const mapDispatchToProps = {
   rejectApplication
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(RejectApp);
+export default connect(mapStateToProps, mapDispatchToProps)(RejectApp);

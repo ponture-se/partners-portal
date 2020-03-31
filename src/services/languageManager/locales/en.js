@@ -28,6 +28,7 @@ export default {
     CREDIT_REPORT: "Credit Report",
     VIEW_OFFER: "View Offer",
     CANCEL: "Cancel",
+    SIGN_LOAN_AS_FUNDED: "Sign loan as funded",
     EDIT: "Edit",
     INPUT_NEGATIVE_VALUE: "It should be above 0",
     OFFER: "Offer",
@@ -216,7 +217,8 @@ export default {
     ISSUE_OFFER_CANCEL_ALERT_TITLE:
       "Please confirm that you want to cancel this offer.",
     ISSUE_OFFER_CANCEL_ALERT_DESC: "Canceling offer will be removed from list.",
-    ISSUE_OFFER_CANCEL_ALERT_OK_BTN: "I Confirm",
+    ISSUE_OFFER_CANCEL_ALERT_OK_BTN: "Yes",
+    ISSUE_OFFER_CANCEL_ALERT_REJECTANDCANCEL_BTN: "Cancel and reject lead",
     ISSUE_OFFER_PRODUCTS_TITLE: "Products List",
     ISSUE_OFFER_BACK_TO_PRODUCTS: "Choose another product",
     ISSUE_OFFER_AMOUNT: "Amount",
@@ -261,7 +263,14 @@ export default {
     ISSUE_OFFER_OFFER_PERSONAL_GUARANTEE_NEEDED: "Personal Guarantee Needed",
     ISSUE_OFFER_OFFER_OTHER_GUARANTEE_NEEDED: "Other Guarantee Needed",
     ISSUE_FORM_APP_INFO_TITLE: "Business Loan Lead overview",
+    ISSUE_OFFER_SIGN_AS_FUNDED_TITLE:
+      "Please confirm that you want to sign this loan as funded.",
+    ISSUE_OFFER_SIGN_AS_FUNDED_DESC:
+      "The related loan will be sign as funded ,are sure to continue?",
+    ISSUE_OFFER_SIGN_AS_FUNDED_OK_BTN: "Yes and Sign the loan as funded",
     OFFER_CANCEL_ALERT_MSG: "Canceling this selected offer.",
+    ISSUE_OFFER_SIGN_AS_FUNDED_SUCCESS_MSG:
+      "The loan has been signed as funded successfuly",
 
     CREDIT_REPORT_TITLE: "Credit Report",
     CREDIT_REPORT_LOADING_TEXT: "Loading credit report...",
@@ -331,6 +340,7 @@ export default {
     APP_OPEN_APP_LINK: "Open Lead",
     APP_OPEN_APP_LINK_INFO:
       "If you open this lead it will move to Opened Leads page.",
-    APP_REVENUE: "Revenue"
+    APP_REVENUE: "Revenue",
+    APP_FUNDED_SUCCESSFULY: "App signed as funded successfuly."
   }
 };

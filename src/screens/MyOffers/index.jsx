@@ -8,12 +8,16 @@ import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
-
+import RejectAppModal from "./../Shared/RejectAppModal";
 //
 import {
   loadMyOffers,
   resetOffersState
 } from "services/redux/offer/myOffers/actions";
+//Api
+import { cancelOffer } from "api/main-api";
+//
+import { toast } from "react-toastify";
 
 const MyOffers = props => {
   const [tab, changeTab] = useState(1);
@@ -21,6 +25,11 @@ const MyOffers = props => {
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [issueOfferModalMode, setIssueOfferModalMode] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
+  const [rejectAppVisibility, handleCloseRejectAppModal] = useState({
+    visibility: false,
+    offerId: "",
+    callback: () => {}
+  });
 
   useEffect(() => {
     if (props.loadMyOffers) props.loadMyOffers();
@@ -65,6 +74,12 @@ const MyOffers = props => {
   function handleCloseViewAppModal() {
     toggleViewApp(false);
   }
+  function handleLoanAsFunded(offer) {
+    if (props._signLoanAsFunded) {
+      setOffer(offer);
+    }
+  }
+
   return (
     <div className="myOffers">
       {props.loading ? (
@@ -85,14 +100,17 @@ const MyOffers = props => {
           <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : tab === 1 ? (
-        props.data.map(offer => (
+        props.data.map((offer, idx) => (
           <Item
-            key={offer.Id}
+            key={idx}
             item={offer}
             onViewOfferClicked={handleViewOffer}
             onEditClicked={handleEditOffer}
             onCancelClicked={handleCancelOffer}
             onViewAppClicked={handleViewApplication}
+            toggleReasonsModal={handleCloseRejectAppModal}
+            handleFundedClicked={handleLoanAsFunded}
+            reasonsModal={handleCloseRejectAppModal}
           />
         ))
       ) : null}
@@ -110,6 +128,27 @@ const MyOffers = props => {
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
           oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
+        />
+      )}
+      {rejectAppVisibility && rejectAppVisibility.visibility && (
+        <RejectAppModal
+          onClose={handleCloseRejectAppModal}
+          activateApiCall={false}
+          onSuccess={
+            props.loadMyOffers
+              ? () => {
+                  rejectAppVisibility.callback();
+                  props.loadMyOffers();
+                }
+              : () => {
+                  rejectAppVisibility.callback();
+                }
+          }
+          customApiFunc={cancelOffer}
+          extraData={{
+            offerId: rejectAppVisibility.offerId,
+            rejectSpo: true
+          }}
         />
       )}
     </div>
@@ -146,7 +185,4 @@ const mapDispatchToProps = {
   resetOffersState
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MyOffers);
+export default connect(mapStateToProps, mapDispatchToProps)(MyOffers);

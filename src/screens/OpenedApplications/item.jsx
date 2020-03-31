@@ -19,6 +19,7 @@ const Item = props => {
       props.onOfferClicked(item);
     }
   }
+
   return (
     <div className="openedApp animated fadeIn">
       <div className="openedApp__header">
@@ -127,6 +128,7 @@ const Item = props => {
             {t("REJECT")}
           </button>
         )}
+
         <div className="moreActions">
           <button className="btn --primary" onClick={handleViewClicked}>
             {t("VIEW_APPLICATION")}

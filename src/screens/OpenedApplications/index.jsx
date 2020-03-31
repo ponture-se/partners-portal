@@ -21,14 +21,16 @@ const OpenedApplications = props => {
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
   const [rejectAppVisibility, toggleRejectApp] = useState();
-
+  const [fundedSpinner, toggleFundedSpinner] = useState();
   useEffect(() => {
     if (props.loadOpenedApps) props.loadOpenedApps();
     return () => {
       if (props.resetStore) props.resetStore();
     };
   }, []);
-
+  function handleSignAsFundedClicked(app) {
+    toggleFundedSpinner(true);
+  }
   function handleViewClicked(app) {
     setApp(app);
     toggleViewApp(true);
@@ -77,13 +79,14 @@ const OpenedApplications = props => {
           <span>{t("OPEN_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        props.data.map(app => (
+        props.data.map((app, idx) => (
           <Item
-            key={app.opportunityID}
+            key={idx}
             item={app}
             onViewClicked={handleViewClicked}
             onOfferClicked={handleOfferClicked}
             onRejectClicked={handleRejectClicked}
+            onSignAsFundedClicked={handleSignAsFundedClicked}
           />
         ))
       )}
@@ -98,7 +101,7 @@ const OpenedApplications = props => {
         <ViewApplicationModal
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
-          oppId={selectedApp && selectedApp.opportunityID}
+          spoId={selectedApp && selectedApp.spoID}
         />
       )}
       {rejectAppVisibility && (
@@ -142,7 +145,4 @@ const mapDispatchToProps = {
   resetStore
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(OpenedApplications);
+export default connect(mapStateToProps, mapDispatchToProps)(OpenedApplications);

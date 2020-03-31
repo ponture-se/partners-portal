@@ -31,7 +31,7 @@ const ViewApplication = props => {
   //RE: real estate
   //BL: business loan
   useEffect(() => {
-    const id = props.oppId;
+    const id = props.spoId;
     if (!id) {
       toggleSpinner(false);
       setError({

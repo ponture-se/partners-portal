@@ -1,7 +1,9 @@
+import React from "react";
 import { toast } from "react-toastify";
 import { t } from "services/languageManager";
-import { getMyOffers, cancelOffer } from "api/main-api";
+import { getMyOffers, cancelOffer, signLoanAsFunded } from "api/main-api";
 import { toggleAlert } from "components/Alert";
+import CircleSpinner from "components/CircleSpinner";
 
 export const LOADING = "main/myOffers/LOADING";
 export const LOADED = "main/myOffers/LOADED";
@@ -86,7 +88,49 @@ export const loadMyOffers = () => dispatch => {
     })
     .call();
 };
-export const _cancelOffer = (offer, onLocalSuccess) => dispatch => {
+export const _cancelOffer = (
+  offer,
+  reasonsModal,
+  onLocalSuccess
+) => dispatch => {
+  //Extra component: cancel with reject
+  const rejectAndCancel = props => {
+    const { ajaxSpinner, toggleAlert } = props.parentStates;
+    const activateReject = () => {
+      reasonsModal({
+        visibility: true,
+        offerId: offer.Id,
+        callback: () => toggleAlert()
+      });
+      // const closeReasons = ["other"];
+      // const closeDesc = "description";
+      // setInfo({
+      //   ...info,
+      //   data: {
+      //     offerId: offer.Id,
+      //     rejectSpo: true,
+      //     closeReasons: closeReasons,
+      //     closeDesc: closeDesc
+      //   }
+      // });
+      // handleOkBtnClicked({
+      //   offerId: offer.Id,
+      //   rejectSpo: true,
+      //   closeReasons: closeReasons,
+      //   closeDesc: closeDesc
+      // });
+    };
+    return (
+      <button
+        className="btn --success"
+        onClick={activateReject}
+        disabled={ajaxSpinner}
+        autoFocus
+      >
+        {t("ISSUE_OFFER_CANCEL_ALERT_REJECTANDCANCEL_BTN")}
+      </button>
+    );
+  };
   toggleAlert({
     title: t("ISSUE_OFFER_CANCEL_ALERT_TITLE"),
     description: t("ISSUE_OFFER_CANCEL_ALERT_DESC"),
@@ -95,13 +139,48 @@ export const _cancelOffer = (offer, onLocalSuccess) => dispatch => {
     isAjaxCall: true,
     func: cancelOffer,
     data: {
-      offerId: offer.Id
+      offerId: offer.Id,
+      rejectSpo: false,
+      closeReasons: [],
+      closeDesc: ""
     },
+    extraComponent: { position: "footer", component: rejectAndCancel },
+    style: { zIndex: 999 },
     onCancel: () => {},
     onSuccess: result => {
       if (onLocalSuccess) onLocalSuccess();
       else dispatch(loadMyOffers());
       toast.success(t("ISSUE_OFFER_CANCEL_SUCCESS_MSG"));
+    },
+    onServerError: error => {
+      toast.error(t("INTERNAL_SERVER_ERROR"));
+    },
+    onBadRequest: error => {
+      toast.error(t("BAD_REQUEST"));
+    },
+    notFound: error => {
+      toast.error(t("NOT_FOUND"));
+    },
+    unKnownError: error => {
+      toast.error(t("UNKNOWN_ERROR"));
+    }
+  });
+};
+
+export const _signLoanAsFunded = (offer, onLocalSuccess) => dispatch => {
+  toggleAlert({
+    title: t("ISSUE_OFFER_SIGN_AS_FUNDED_TITLE"),
+    description: t("ISSUE_OFFER_SIGN_AS_FUNDED_DESC"),
+    cancelBtnText: t("NO"),
+    okBtnText: t("ISSUE_OFFER_SIGN_AS_FUNDED_OK_BTN"),
+    isAjaxCall: true,
+    func: signLoanAsFunded,
+    data: offer.Id,
+    onCancel: () => {},
+    onSuccess: result => {
+      if (onLocalSuccess) onLocalSuccess();
+      else dispatch(loadMyOffers());
+      toast.success(t("ISSUE_OFFER_SIGN_AS_FUNDED_SUCCESS_MSG"));
     },
     onServerError: error => {
       toast.error(t("INTERNAL_SERVER_ERROR"));

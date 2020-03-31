@@ -52,6 +52,8 @@ const Form = props => {
     return obj;
   }
   function handleSubmitOffer(values, { setSubmitting }) {
+    console.log("props.app: ", props);
+    debugger;
     if (!props.loading) {
       if (props.submitIssueOffer) {
         let obj = {
@@ -65,9 +67,7 @@ const Form = props => {
           finalObj["partner_id"] = props.userInfo
             ? props.userInfo.partnerId
             : null;
-          finalObj["opportunityID"] = props.app
-            ? props.app.opportunityID
-            : null;
+          finalObj["spoId"] = props.app ? props.app.spoID : null;
           finalObj["product_master"] = props.product ? props.product.Id : null;
           props.submitIssueOffer(finalObj, props.onSuccess);
         }
