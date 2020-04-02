@@ -74,11 +74,6 @@ const MyOffers = props => {
   function handleCloseViewAppModal() {
     toggleViewApp(false);
   }
-  function handleLoanAsFunded(offer) {
-    if (props._signLoanAsFunded) {
-      setOffer(offer);
-    }
-  }
 
   return (
     <div className="myOffers">
@@ -109,7 +104,6 @@ const MyOffers = props => {
             onCancelClicked={handleCancelOffer}
             onViewAppClicked={handleViewApplication}
             toggleReasonsModal={handleCloseRejectAppModal}
-            handleFundedClicked={handleLoanAsFunded}
             reasonsModal={handleCloseRejectAppModal}
           />
         ))

@@ -18,6 +18,11 @@ const Item = props => {
       props.onCancelClicked(item);
     }
   }
+  function handleFundedClicked() {
+    if (props.handleFundedClicked) {
+      props.handleFundedClicked(item);
+    }
+  }
   return (
     <div className="accOfferItem animated fadeIn">
       <div className="accOfferItem__header">
@@ -96,6 +101,13 @@ const Item = props => {
           <button className="btn --primary" onClick={handleViewOfferClicked}>
             {t("VIEW_OFFER")}
           </button>
+          <button
+            style={{ width: "auto", marginLeft: "10px" }}
+            className="btn --warning"
+            onClick={handleFundedClicked}
+          >
+            {t("SIGN_LOAN_AS_FUNDED")}
+          </button>
         </div>
         <div className="accOfferItem__footer__right">
           <button className="btn --light" onClick={handleCancelClicked}>
@@ -107,4 +119,5 @@ const Item = props => {
     </div>
   );
 };
+
 export default Item;

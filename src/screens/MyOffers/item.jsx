@@ -2,10 +2,7 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
-import {
-  _cancelOffer,
-  _signLoanAsFunded
-} from "services/redux/offer/myOffers/actions";
+import { _cancelOffer } from "services/redux/offer/myOffers/actions";
 import { CircleSpinner } from "components";
 //
 const Item = props => {
@@ -23,18 +20,15 @@ const Item = props => {
   }
   function handleCancelClicked() {
     if (props._cancelOffer) {
-      props._cancelOffer(item, props.reasonsModal);
+      props._cancelOffer(
+        item,
+        typeof props.reasonsModal === "function" ? props.reasonsModal : () => {}
+      );
     }
   }
   function viewApplication() {
     if (props.onViewAppClicked) props.onViewAppClicked(item);
   }
-  function handleFundedClicked() {
-    if (props._signLoanAsFunded) {
-      props._signLoanAsFunded(item);
-    }
-  }
-
   return (
     <div className="myOfferItem animated fadeIn">
       <div className="myOfferItem__header">
@@ -82,13 +76,6 @@ const Item = props => {
             : null}
         </div>
         <div className="myOfferItem__footer__right">
-          <button
-            style={{ width: "auto", marginRight: "20px" }}
-            className="btn --warning"
-            onClick={handleFundedClicked}
-          >
-            {t("SIGN_LOAN_AS_FUNDED")}
-          </button>
           <button className="btn --primary" onClick={handleViewOfferClicked}>
             {t("VIEW_OFFER")}
           </button>
@@ -108,8 +95,7 @@ const Item = props => {
 };
 
 const mapDispatchToProps = {
-  _cancelOffer,
-  _signLoanAsFunded
+  _cancelOffer
 };
 
 export default connect(null, mapDispatchToProps)(Item);

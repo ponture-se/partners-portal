@@ -2,16 +2,20 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 //
 import { t } from "services/languageManager";
-import { _cancelOffer } from "services/redux/offer/myOffers/actions";
+import {
+  _cancelOffer,
+  _signLoanAsFunded
+} from "services/redux/offer/myOffers/actions";
 //
 import "./styles.scss";
 import Item from "./item";
 import SquareSpinner from "components/SquareSpinner";
 import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 //
-import { getAcceptedOffers } from "api/main-api";
+import { cancelOffer, getAcceptedOffers } from "api/main-api";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
+import RejectAppModal from "./../Shared/RejectAppModal";
 
 const AcceptedOffers = props => {
   let didCancel = false;
@@ -21,7 +25,11 @@ const AcceptedOffers = props => {
   const [issueOfferVisibility, toggleIssueOffer] = useState();
   const [selectedOffer, setOffer] = useState();
   const [viewAppModalVisibility, toggleViewApp] = useState();
-
+  const [rejectAppVisibility, handleCloseRejectAppModal] = useState({
+    visibility: false,
+    offerId: "",
+    callback: () => {}
+  });
   useEffect(() => {
     _getAcceptedOffer();
     return () => {
@@ -29,6 +37,7 @@ const AcceptedOffers = props => {
     };
   }, []);
   function _getAcceptedOffer() {
+    toggleSpinner(true);
     getAcceptedOffers()
       .onOk(result => {
         toggleSpinner(false);
@@ -108,10 +117,20 @@ const AcceptedOffers = props => {
   }
   function handleCancelOffer(offer) {
     if (props._cancelOffer) {
-      props._cancelOffer(offer, () => {
-        toggleSpinner(true);
-        _getAcceptedOffer();
-      });
+      props._cancelOffer(
+        offer,
+        typeof handleCloseRejectAppModal === "function" &&
+          handleCloseRejectAppModal,
+        () => {
+          _getAcceptedOffer();
+        }
+      );
+    }
+  }
+  function handleLoanAsFunded(offer) {
+    if (props._signLoanAsFunded) {
+      setOffer(offer);
+      props._signLoanAsFunded(offer, () => _getAcceptedOffer());
     }
   }
   return (
@@ -141,6 +160,9 @@ const AcceptedOffers = props => {
             onViewOfferClicked={handleViewOffer}
             onViewAppClicked={handleViewApplication}
             onCancelClicked={handleCancelOffer}
+            toggleReasonsModal={handleCloseRejectAppModal}
+            handleFundedClicked={handleLoanAsFunded}
+            reasonsModal={handleCloseRejectAppModal}
           />
         ))
       )}
@@ -159,6 +181,21 @@ const AcceptedOffers = props => {
           oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
         />
       )}
+      {rejectAppVisibility && rejectAppVisibility.visibility && (
+        <RejectAppModal
+          onClose={handleCloseRejectAppModal}
+          activateApiCall={false}
+          onSuccess={() => {
+            rejectAppVisibility.callback();
+            _getAcceptedOffer();
+          }}
+          customApiFunc={cancelOffer}
+          extraData={{
+            offerId: rejectAppVisibility.offerId,
+            rejectSpo: true
+          }}
+        />
+      )}
     </div>
   );
 };
@@ -168,10 +205,8 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  _cancelOffer
+  _cancelOffer,
+  _signLoanAsFunded
 };
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(AcceptedOffers);
+export default connect(null, mapDispatchToProps)(AcceptedOffers);

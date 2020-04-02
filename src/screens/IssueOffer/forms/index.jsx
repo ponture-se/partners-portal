@@ -52,8 +52,6 @@ const Form = props => {
     return obj;
   }
   function handleSubmitOffer(values, { setSubmitting }) {
-    console.log("props.app: ", props);
-    debugger;
     if (!props.loading) {
       if (props.submitIssueOffer) {
         let obj = {

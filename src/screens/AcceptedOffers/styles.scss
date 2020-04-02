@@ -181,6 +181,7 @@
     padding: 0 40px;
     &__left {
       flex: 1;
+      display: inline-flex;
     }
     &__right {
       display: flex;
