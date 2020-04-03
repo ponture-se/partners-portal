@@ -142,7 +142,7 @@ const LostApplications = props => {
         <ViewApplicationModal
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
-          oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
+          spoId={selectedOffer && selectedOffer.Supplier_Partner_Opportunity}
         />
       )}
     </div>
@@ -155,7 +155,4 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {};
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(LostApplications);
+export default connect(mapStateToProps, mapDispatchToProps)(LostApplications);

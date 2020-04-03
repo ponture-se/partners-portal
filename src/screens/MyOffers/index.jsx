@@ -121,7 +121,7 @@ const MyOffers = props => {
         <ViewApplicationModal
           isOpen={viewAppModalVisibility}
           onClose={handleCloseViewAppModal}
-          oppId={selectedOffer && selectedOffer.opportunityData.opportunityID}
+          spoId={selectedOffer && selectedOffer.Supplier_Partner_Opportunity}
         />
       )}
       {rejectAppVisibility && rejectAppVisibility.visibility && (
