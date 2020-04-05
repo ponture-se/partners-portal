@@ -29,6 +29,7 @@ const Item = props => {
   function viewApplication() {
     if (props.onViewAppClicked) props.onViewAppClicked(item);
   }
+
   return (
     <div className="myOfferItem animated fadeIn">
       <div className="myOfferItem__header">
@@ -68,10 +69,22 @@ const Item = props => {
           {item.supplierPartnerStage
             ? item.supplierPartnerStage.toLowerCase() !== "offer won" &&
               item.supplierPartnerStage.toLowerCase() !== "offer lost" && (
-                <button className="btn --warning" onClick={handleCancelClicked}>
-                  <span className="icon-cross" />
-                  {t("CANCEL")}
-                </button>
+                <>
+                  <button
+                    className="btn --warning"
+                    onClick={handleCancelClicked}
+                  >
+                    <span className="icon-cross" />
+                    {t("CANCEL")}
+                  </button>
+                  <button
+                    style={{ width: "auto", marginLeft: "10px" }}
+                    className="btn --warning"
+                    onClick={handleFundedClicked}
+                  >
+                    {t("SIGN_LOAN_AS_FUNDED")}
+                  </button>
+                </>
               )
             : null}
         </div>
@@ -95,7 +108,8 @@ const Item = props => {
 };
 
 const mapDispatchToProps = {
-  _cancelOffer
+  _cancelOffer,
+  _signLoanAsFunded
 };
 
 export default connect(null, mapDispatchToProps)(Item);
