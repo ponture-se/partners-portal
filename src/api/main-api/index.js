@@ -26,11 +26,11 @@ const offerColumnsUrl = baseUrl + config.REACT_APP_OFFER_COLUMNS;
 const signLoanAsFundedUrl = baseUrl + config.REACT_APP_FUND_APP;
 // Add a request interceptor
 axios.interceptors.request.use(
-  function(config) {
+  function (config) {
     // Do something before request is sent
     return config;
   },
-  function(error) {
+  function (error) {
     // Do something with request error
     return Promise.reject(error);
   }
@@ -38,11 +38,11 @@ axios.interceptors.request.use(
 
 // Add a response interceptor
 axios.interceptors.response.use(
-  function(response) {
+  function (response) {
     // Do something with response data
     return response;
   },
-  function(error) {
+  function (error) {
     // Do something with response error
     const response = error.response;
     if (response.status === 401) unAuthorized();
@@ -51,7 +51,7 @@ axios.interceptors.response.use(
 );
 function unAuthorized() {
   store.dispatch({
-    type: types.UN_AUTHORIZED
+    type: types.UN_AUTHORIZED,
   });
   toast.error(t("UN_AUTHORIZED"));
   sessionStorage.removeItem("@ponture-partners/token");
@@ -107,10 +107,10 @@ export function getNewApplications() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -119,7 +119,7 @@ export function getNewApplications() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -147,34 +147,34 @@ export function getNewApplications() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getOpenedApplications() {
@@ -226,10 +226,10 @@ export function getOpenedApplications() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -238,7 +238,7 @@ export function getOpenedApplications() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -266,34 +266,34 @@ export function getOpenedApplications() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getMyOffers() {
@@ -345,10 +345,10 @@ export function getMyOffers() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -357,7 +357,7 @@ export function getMyOffers() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -385,34 +385,34 @@ export function getMyOffers() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getAcceptedOffers() {
@@ -464,10 +464,10 @@ export function getAcceptedOffers() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -476,7 +476,7 @@ export function getAcceptedOffers() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -504,34 +504,34 @@ export function getAcceptedOffers() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getFundedApps() {
@@ -583,10 +583,10 @@ export function getFundedApps() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -595,7 +595,7 @@ export function getFundedApps() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -623,34 +623,34 @@ export function getFundedApps() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getLostApps() {
@@ -702,10 +702,10 @@ export function getLostApps() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -714,7 +714,7 @@ export function getLostApps() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -742,34 +742,34 @@ export function getLostApps() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getApplicationById() {
@@ -816,19 +816,19 @@ export function getApplicationById() {
     }
   }
 
-  const _call = async spoId => {
+  const _call = async (spoId) => {
     const url = openAppUrl;
     axios({
       method: "put",
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       data: {
-        spoId: spoId
-      }
+        spoId: spoId,
+      },
     })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -837,7 +837,7 @@ export function getApplicationById() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -863,34 +863,34 @@ export function getApplicationById() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function downloadAppAsset(attId) {
@@ -946,10 +946,10 @@ export function getRejectReasons() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -958,41 +958,41 @@ export function getRejectReasons() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         _unKnownError();
       });
   };
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function rejectApp() {
@@ -1039,17 +1039,17 @@ export function rejectApp() {
     }
   }
 
-  const _call = rejectObj => {
+  const _call = (rejectObj) => {
     const url = rejectAppUrl;
     axios({
       method: "put",
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      data: rejectObj
+      data: rejectObj,
     })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1058,7 +1058,7 @@ export function rejectApp() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         _unKnownError();
         // if (error.response) {
         //   const status = error.response.status;
@@ -1085,34 +1085,34 @@ export function rejectApp() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function signLoanAsFunded() {
@@ -1159,25 +1159,26 @@ export function signLoanAsFunded() {
     }
   }
 
-  const _call = offerId => {
-    const url = signLoanAsFundedUrl + "?offerId=" + offerId;
+  const _call = ({ Id, Amount, Loan_Period }) => {
+    const url =
+      signLoanAsFundedUrl +
+      "?offerId=" +
+      Id +
+      "&loanAmount=" +
+      Amount +
+      "&loanPeriod=" +
+      Loan_Period;
     axios({
       method: "put",
       url: url,
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
-      .then(response => {
-        _onOk(
-          response.data
-            ? response.data.data
-              ? response.data.data
-              : undefined
-            : undefined
-        );
+      .then((response) => {
+        _onOk(response.data ? response.data.data : undefined);
       })
-      .catch(error => {
+      .catch((error) => {
         _unKnownError();
         // if (error.response) {
         //   const status = error.response.status;
@@ -1204,34 +1205,34 @@ export function signLoanAsFunded() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function submitOffer() {
@@ -1278,17 +1279,17 @@ export function submitOffer() {
     }
   }
 
-  const _call = async offer => {
+  const _call = async (offer) => {
     const url = issueOfferUrl;
     axios({
       method: "post",
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      data: offer
+      data: offer,
     })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1297,7 +1298,7 @@ export function submitOffer() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1323,34 +1324,34 @@ export function submitOffer() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function getProductsList() {
@@ -1402,10 +1403,10 @@ export function getProductsList() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1414,7 +1415,7 @@ export function getProductsList() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1442,34 +1443,34 @@ export function getProductsList() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function creditReport() {
@@ -1510,15 +1511,15 @@ export function creditReport() {
     }
   }
 
-  const _call = customerId => {
+  const _call = (customerId) => {
     const url = creditReportUrl + "?customerId=" + customerId;
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1527,7 +1528,7 @@ export function creditReport() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1557,30 +1558,30 @@ export function creditReport() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function cancelOffer() {
@@ -1627,17 +1628,17 @@ export function cancelOffer() {
     }
   }
 
-  const _call = data => {
+  const _call = (data) => {
     const url = cancelOfferUrl;
     axios({
       method: "put",
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      data: data
+      data: data,
     })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1646,7 +1647,7 @@ export function cancelOffer() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1672,34 +1673,34 @@ export function cancelOffer() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 export function updateOffer() {
@@ -1746,17 +1747,17 @@ export function updateOffer() {
     }
   }
 
-  const _call = offer => {
+  const _call = (offer) => {
     const url = updateOfferUrl;
     axios({
       method: "put",
       url: url,
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      data: offer
+      data: offer,
     })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1765,7 +1766,7 @@ export function updateOffer() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1791,34 +1792,34 @@ export function updateOffer() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
 
@@ -1871,10 +1872,10 @@ export function getOfferColumns() {
     axios
       .get(url, {
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       })
-      .then(response => {
+      .then((response) => {
         _onOk(
           response.data
             ? response.data.data
@@ -1883,7 +1884,7 @@ export function getOfferColumns() {
             : undefined
         );
       })
-      .catch(error => {
+      .catch((error) => {
         if (error.response) {
           const status = error.response.status;
           switch (status) {
@@ -1911,33 +1912,33 @@ export function getOfferColumns() {
 
   return {
     call: _call,
-    onOk: function(callback) {
+    onOk: function (callback) {
       _onOkCallBack = callback;
       return this;
     },
-    onServerError: function(callback) {
+    onServerError: function (callback) {
       _onServerErrorCallBack = callback;
       return this;
     },
-    onBadRequest: function(callback) {
+    onBadRequest: function (callback) {
       _onBadRequestCallBack = callback;
       return this;
     },
-    notFound: function(callback) {
+    notFound: function (callback) {
       _notFoundCallBack = callback;
       return this;
     },
-    unAuthorized: function(callback) {
+    unAuthorized: function (callback) {
       _unAuthorizedCallBack = callback;
       return this;
     },
-    onRequestError: function(callback) {
+    onRequestError: function (callback) {
       _onRequestErrorCallBack = callback;
       return this;
     },
-    unKnownError: function(callback) {
+    unKnownError: function (callback) {
       _unKnownErrorCallBack = callback;
       return this;
-    }
+    },
   };
 }
