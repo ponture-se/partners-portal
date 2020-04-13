@@ -136,6 +136,7 @@ export default {
     APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
     APP_DETAIL_REJECT_ALERT_DESC: "Rejecting Lead will be removed from list.",
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
+    APP_SIGN_LOAN_FUNDED_MODAL_TITLE: "Sign Loan As Funded",
     //Business acquisition view
     APP_COMPANY_NAME: "Company name",
     APP_ADDITIONAL_FILES: "Additional file(s)",
@@ -341,6 +342,6 @@ export default {
     APP_OPEN_APP_LINK_INFO:
       "If you open this lead it will move to Opened Leads page.",
     APP_REVENUE: "Revenue",
-    APP_FUNDED_SUCCESSFULY: "App signed as funded successfuly."
-  }
+    APP_FUNDED_SUCCESSFULY: "App signed as funded successfuly.",
+  },
 };

@@ -1,0 +1,55 @@
+.rejectApp {
+  &__header {
+    display: flex;
+    height: 85px;
+    border-bottom: 0.5px solid lightgray;
+    align-items: center;
+    padding: 0 20px;
+    .title {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      font-size: 13px;
+      span:first-child {
+        font-size: 20px;
+        margin-bottom: 7px;
+        font-family: OpenSanceBold;
+      }
+    }
+    .closeIcon {
+      font-size: 13px;
+      color: gray;
+      transition-duration: 0.2s;
+      cursor: pointer;
+      &:hover {
+        color: black;
+        transition-duration: 0.2s;
+      }
+    }
+  }
+  &__body {
+    .fundedAppTitle {
+      margin: 0;
+      padding: 20px;
+      padding-bottom: 5px;
+    }
+    .fundedAppDesc {
+      display: inline-block;
+      font-size: 12px;
+      padding: 10px 20px;
+    }
+    .formInput {
+      padding: 0px 20px 0 20px;
+    }
+  }
+  &__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    padding: 10px 20px;
+    border-top: 0.5px solid lightgray;
+    button {
+      margin-left: 10px;
+    }
+  }
+}

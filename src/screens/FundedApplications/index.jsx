@@ -12,7 +12,7 @@ import { getFundedApps } from "api/main-api";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
 
-const FundedApps = props => {
+const FundedApps = (props) => {
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
   const [error, setError] = useState();
@@ -23,63 +23,63 @@ const FundedApps = props => {
   useEffect(() => {
     let didCancel = false;
     getFundedApps()
-      .onOk(result => {
+      .onOk((result) => {
         toggleSpinner(false);
         if (result && !didCancel) {
           setData(result);
         }
       })
-      .onServerError(result => {
+      .onServerError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("INTERNAL_SERVER_ERROR"),
-            message: t("INTERNAL_SERVER_ERROR_MSG")
+            message: t("INTERNAL_SERVER_ERROR_MSG"),
           });
         }
       })
-      .onBadRequest(result => {
+      .onBadRequest((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("BAD_REQUEST"),
-            message: t("BAD_REQUEST_MSG")
+            message: t("BAD_REQUEST_MSG"),
           });
         }
       })
-      .unAuthorized(result => {
+      .unAuthorized((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
+            message: t("UNKNOWN_ERROR_MSG"),
           });
         }
       })
-      .notFound(result => {
+      .notFound((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("NOT_FOUND"),
-            message: t("NOT_FOUND_MSG")
+            message: t("NOT_FOUND_MSG"),
           });
         }
       })
-      .unKnownError(result => {
+      .unKnownError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
+            message: t("UNKNOWN_ERROR_MSG"),
           });
         }
       })
-      .onRequestError(result => {
+      .onRequestError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("ON_REQUEST_ERROR"),
-            message: t("ON_REQUEST_ERROR_MSG")
+            message: t("ON_REQUEST_ERROR_MSG"),
           });
         }
       })
@@ -125,7 +125,7 @@ const FundedApps = props => {
           <span>{t("NEW_APPS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(offer => (
+        data.map((offer) => (
           <Item
             key={offer.Id}
             item={offer}

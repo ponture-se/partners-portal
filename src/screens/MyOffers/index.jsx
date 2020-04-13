@@ -9,17 +9,23 @@ import { Empty, Wrong } from "components/Commons/ErrorsComponent";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
 import RejectAppModal from "./../Shared/RejectAppModal";
+import FundedAppModal from "./../Shared/FundedAppModal/";
 //
 import {
   loadMyOffers,
-  resetOffersState
+  resetOffersState,
 } from "services/redux/offer/myOffers/actions";
 //Api
 import { cancelOffer } from "api/main-api";
-//
-import { toast } from "react-toastify";
 
-const MyOffers = props => {
+const MyOffers = ({
+  submittedIssueOffer,
+  _cancelOffer,
+  loadMyOffers,
+  loading,
+  error,
+  data,
+}) => {
   const [tab, changeTab] = useState(1);
   const [selectedOffer, setOffer] = useState();
   const [issueOfferVisibility, toggleIssueOffer] = useState();
@@ -28,20 +34,21 @@ const MyOffers = props => {
   const [rejectAppVisibility, handleCloseRejectAppModal] = useState({
     visibility: false,
     offerId: "",
-    callback: () => {}
+    callback: () => {},
   });
+  const [fundedAppVisibility, toggleFundedAppVisibility] = useState();
 
   useEffect(() => {
-    if (props.loadMyOffers) props.loadMyOffers();
+    if (loadMyOffers) loadMyOffers();
     return () => {
-      if (props.resetOffersState) props.resetOffersState();
+      if (resetOffersState) resetOffersState();
     };
-  }, []);
+  }, [loadMyOffers]);
   useEffect(() => {
-    if (props.submittedIssueOffer) {
-      if (props.loadMyOffers) props.loadMyOffers();
+    if (submittedIssueOffer) {
+      if (loadMyOffers) loadMyOffers();
     }
-  }, [props.submittedIssueOffer]);
+  }, [loadMyOffers, submittedIssueOffer]);
 
   function handleViewOffer(offer) {
     // changeTab(2);
@@ -63,7 +70,7 @@ const MyOffers = props => {
     toggleIssueOffer(false);
   }
   function handleCancelOffer(offer) {
-    if (props._cancelOffer) {
+    if (_cancelOffer) {
       setOffer(offer);
     }
   }
@@ -74,28 +81,34 @@ const MyOffers = props => {
   function handleCloseViewAppModal() {
     toggleViewApp(false);
   }
-
+  function handleFundedAppClicked(offer) {
+    setOffer(offer);
+    toggleFundedAppVisibility(true);
+  }
+  function handleCloseFundedAppModal() {
+    toggleFundedAppVisibility(false);
+  }
   return (
     <div className="myOffers">
-      {props.loading ? (
+      {loading ? (
         <div className="page-loading">
           <SquareSpinner />
           <h2>{t("NEW_APPS_LOADING_TEXT")}</h2>
         </div>
-      ) : props.error ? (
+      ) : error ? (
         <div className="page-list-error animated fadeIn">
           <Wrong />
-          <h2>{props.error && props.error.title}</h2>
-          <span>{props.error && props.error.message}</span>
+          <h2>{error && error.title}</h2>
+          <span>{error && error.message}</span>
         </div>
-      ) : !props.data || props.data.length === 0 ? (
+      ) : !data || data.length === 0 ? (
         <div className="page-empty-list animated fadeIn">
           <Empty />
           <h2>{t("NEW_APPS_EMPTY_LIST_TITLE")}</h2>
           <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : tab === 1 ? (
-        props.data.map((offer, idx) => (
+        data.map((offer, idx) => (
           <Item
             key={idx}
             item={offer}
@@ -105,6 +118,7 @@ const MyOffers = props => {
             onViewAppClicked={handleViewApplication}
             toggleReasonsModal={handleCloseRejectAppModal}
             reasonsModal={handleCloseRejectAppModal}
+            onFundedAppClicked={handleFundedAppClicked}
           />
         ))
       ) : null}
@@ -129,10 +143,10 @@ const MyOffers = props => {
           onClose={handleCloseRejectAppModal}
           activateApiCall={false}
           onSuccess={
-            props.loadMyOffers
+            loadMyOffers
               ? () => {
                   rejectAppVisibility.callback();
-                  props.loadMyOffers();
+                  loadMyOffers();
                 }
               : () => {
                   rejectAppVisibility.callback();
@@ -141,8 +155,14 @@ const MyOffers = props => {
           customApiFunc={cancelOffer}
           extraData={{
             offerId: rejectAppVisibility.offerId,
-            rejectSpo: true
+            rejectSpo: true,
           }}
+        />
+      )}
+      {fundedAppVisibility && (
+        <FundedAppModal
+          onClose={handleCloseFundedAppModal}
+          offer={selectedOffer}
         />
       )}
     </div>
@@ -170,13 +190,13 @@ function mapStateToProps(state) {
       ? state.offer.issueOfferReducer
         ? state.offer.issueOfferReducer.success
         : null
-      : null
+      : null,
   };
 }
 
 const mapDispatchToProps = {
   loadMyOffers,
-  resetOffersState
+  resetOffersState,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyOffers);

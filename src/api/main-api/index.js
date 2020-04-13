@@ -1159,7 +1159,7 @@ export function signLoanAsFunded() {
     }
   }
 
-  const _call = ({ Id, Amount, Loan_Period }) => {
+  const _call = (Id, Amount, Loan_Period) => {
     const url =
       signLoanAsFundedUrl +
       "?offerId=" +

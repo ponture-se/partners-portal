@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Field } from "formik";
 import NumberFormat from "react-number-format";
 //
@@ -7,13 +7,13 @@ export default function Number(props) {
   return (
     <Field
       name={field.apiName}
-      render={fieldProps => {
+      render={(fieldProps) => {
         const {
           errors,
           touched,
           handleChange,
           handleBlur,
-          values
+          values,
         } = fieldProps.form;
         return (
           <div

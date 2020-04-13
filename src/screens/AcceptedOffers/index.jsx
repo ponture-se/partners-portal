@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { t } from "services/languageManager";
 import {
   _cancelOffer,
-  _signLoanAsFunded
+  _signLoanAsFunded,
 } from "services/redux/offer/myOffers/actions";
 //
 import "./styles.scss";
@@ -16,8 +16,9 @@ import { cancelOffer, getAcceptedOffers } from "api/main-api";
 import IssueOfferModal from "./../IssueOffer";
 import ViewApplicationModal from "./../ViewApplication";
 import RejectAppModal from "./../Shared/RejectAppModal";
+import FundedAppModal from "./../Shared/FundedAppModal/";
 
-const AcceptedOffers = props => {
+const AcceptedOffers = (props) => {
   let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
@@ -28,8 +29,10 @@ const AcceptedOffers = props => {
   const [rejectAppVisibility, handleCloseRejectAppModal] = useState({
     visibility: false,
     offerId: "",
-    callback: () => {}
+    callback: () => {},
   });
+  const [fundedAppVisibility, toggleFundedAppVisibility] = useState();
+
   useEffect(() => {
     _getAcceptedOffer();
     return () => {
@@ -39,63 +42,63 @@ const AcceptedOffers = props => {
   function _getAcceptedOffer() {
     toggleSpinner(true);
     getAcceptedOffers()
-      .onOk(result => {
+      .onOk((result) => {
         toggleSpinner(false);
         if (result && !didCancel) {
           setData(result);
         }
       })
-      .onServerError(result => {
+      .onServerError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("INTERNAL_SERVER_ERROR"),
-            message: t("INTERNAL_SERVER_ERROR_MSG")
+            message: t("INTERNAL_SERVER_ERROR_MSG"),
           });
         }
       })
-      .onBadRequest(result => {
+      .onBadRequest((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("BAD_REQUEST"),
-            message: t("BAD_REQUEST_MSG")
+            message: t("BAD_REQUEST_MSG"),
           });
         }
       })
-      .unAuthorized(result => {
+      .unAuthorized((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
+            message: t("UNKNOWN_ERROR_MSG"),
           });
         }
       })
-      .notFound(result => {
+      .notFound((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("NOT_FOUND"),
-            message: t("NOT_FOUND_MSG")
+            message: t("NOT_FOUND_MSG"),
           });
         }
       })
-      .unKnownError(result => {
+      .unKnownError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("UNKNOWN_ERROR"),
-            message: t("UNKNOWN_ERROR_MSG")
+            message: t("UNKNOWN_ERROR_MSG"),
           });
         }
       })
-      .onRequestError(result => {
+      .onRequestError((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setError({
             title: t("ON_REQUEST_ERROR"),
-            message: t("ON_REQUEST_ERROR_MSG")
+            message: t("ON_REQUEST_ERROR_MSG"),
           });
         }
       })
@@ -133,6 +136,16 @@ const AcceptedOffers = props => {
       props._signLoanAsFunded(offer, () => _getAcceptedOffer());
     }
   }
+  function handleFundedAppClicked(offer) {
+    setOffer(offer);
+    toggleFundedAppVisibility(true);
+  }
+  function handleCloseFundedAppModal(isSuccess) {
+    toggleFundedAppVisibility(false);
+    if (isSuccess) {
+      _getAcceptedOffer();
+    }
+  }
   return (
     <div className="acceptedOffers">
       {spinner ? (
@@ -153,7 +166,7 @@ const AcceptedOffers = props => {
           <span>{t("OFFERS_EMPTY_LIST_MSG")}</span>
         </div>
       ) : (
-        data.map(offer => (
+        data.map((offer) => (
           <Item
             key={offer.Id}
             item={offer}
@@ -161,8 +174,8 @@ const AcceptedOffers = props => {
             onViewAppClicked={handleViewApplication}
             onCancelClicked={handleCancelOffer}
             toggleReasonsModal={handleCloseRejectAppModal}
-            handleFundedClicked={handleLoanAsFunded}
             reasonsModal={handleCloseRejectAppModal}
+            onFundedAppClicked={handleFundedAppClicked}
           />
         ))
       )}
@@ -192,8 +205,14 @@ const AcceptedOffers = props => {
           customApiFunc={cancelOffer}
           extraData={{
             offerId: rejectAppVisibility.offerId,
-            rejectSpo: true
+            rejectSpo: true,
           }}
+        />
+      )}
+      {fundedAppVisibility && (
+        <FundedAppModal
+          onClose={handleCloseFundedAppModal}
+          offer={selectedOffer}
         />
       )}
     </div>
@@ -206,7 +225,7 @@ function mapStateToProps(state) {
 
 const mapDispatchToProps = {
   _cancelOffer,
-  _signLoanAsFunded
+  _signLoanAsFunded,
 };
 
 export default connect(null, mapDispatchToProps)(AcceptedOffers);

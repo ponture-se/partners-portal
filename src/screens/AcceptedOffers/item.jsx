@@ -2,8 +2,8 @@ import React from "react";
 import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
-const Item = props => {
-  const { item } = props;
+const Item = (props) => {
+  const { item, onFundedAppClicked } = props;
 
   function handleViewOfferClicked() {
     if (props.onViewOfferClicked) {
@@ -19,9 +19,7 @@ const Item = props => {
     }
   }
   function handleFundedClicked() {
-    if (props.handleFundedClicked) {
-      props.handleFundedClicked(item);
-    }
+    if (onFundedAppClicked) onFundedAppClicked(item);
   }
   return (
     <div className="accOfferItem animated fadeIn">

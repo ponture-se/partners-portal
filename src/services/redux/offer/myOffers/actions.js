@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 import { t } from "services/languageManager";
 import { getMyOffers, cancelOffer, signLoanAsFunded } from "api/main-api";
 import { toggleAlert } from "components/Alert";
-import CircleSpinner from "components/CircleSpinner";
 
 export const LOADING = "main/myOffers/LOADING";
 export const LOADED = "main/myOffers/LOADED";
@@ -165,32 +164,34 @@ export const _cancelOffer = (offer, reasonsModal, onLocalSuccess) => (
   });
 };
 
-export const _signLoanAsFunded = (offer, onLocalSuccess) => (dispatch) => {
-  toggleAlert({
-    title: t("ISSUE_OFFER_SIGN_AS_FUNDED_TITLE"),
-    description: t("ISSUE_OFFER_SIGN_AS_FUNDED_DESC"),
-    cancelBtnText: t("NO"),
-    okBtnText: t("ISSUE_OFFER_SIGN_AS_FUNDED_OK_BTN"),
-    isAjaxCall: true,
-    func: signLoanAsFunded,
-    data: offer,
-    onCancel: () => {},
-    onSuccess: (result) => {
+export const _signLoanAsFunded = (
+  id,
+  loanAmount,
+  loanPeriod,
+  onLocalSuccess,
+  onLocalError
+) => (dispatch) => {
+  signLoanAsFunded()
+    .onOk((result) => {
+      dispatch(loadMyOffers());
       if (onLocalSuccess) onLocalSuccess();
-      else dispatch(loadMyOffers());
       toast.success(t("ISSUE_OFFER_SIGN_AS_FUNDED_SUCCESS_MSG"));
-    },
-    onServerError: (error) => {
+    })
+    .onServerError((error) => {
+      if (onLocalError) onLocalError();
       toast.error(t("INTERNAL_SERVER_ERROR"));
-    },
-    onBadRequest: (error) => {
+    })
+    .onBadRequest((error) => {
+      if (onLocalError) onLocalError();
       toast.error(t("BAD_REQUEST"));
-    },
-    notFound: (error) => {
+    })
+    .notFound((error) => {
+      if (onLocalError) onLocalError();
       toast.error(t("NOT_FOUND"));
-    },
-    unKnownError: (error) => {
+    })
+    .unKnownError((error) => {
+      if (onLocalError) onLocalError();
       toast.error(t("UNKNOWN_ERROR"));
-    },
-  });
+    })
+    .call(id, loanAmount, loanPeriod);
 };
