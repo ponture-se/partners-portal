@@ -2,7 +2,7 @@ import React from "react";
 import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
-const Item = props => {
+const Item = (props) => {
   const { item } = props;
 
   function handleViewOfferClicked() {
@@ -42,8 +42,7 @@ const Item = props => {
         <div className="myOfferItem__bodyRow">
           <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
           <span>
-            {item.opportunityData && item.opportunityData.amortizationPeriod}{" "}
-            {t("MONTH_S")}
+            {item.Loan_Period ? item.Loan_Period : ""} {t("MONTH_S")}
           </span>
         </div>
       </div>

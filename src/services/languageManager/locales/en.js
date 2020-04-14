@@ -28,7 +28,7 @@ export default {
     CREDIT_REPORT: "Credit Report",
     VIEW_OFFER: "View Offer",
     CANCEL: "Cancel",
-    SIGN_LOAN_AS_FUNDED: "Sign loan as funded",
+    SIGN_LOAN_AS_FUNDED: "Mark loan as funded",
     EDIT: "Edit",
     INPUT_NEGATIVE_VALUE: "It should be above 0",
     OFFER: "Offer",
@@ -136,7 +136,7 @@ export default {
     APP_DETAIL_REJECT_ALERT_OK_BTN: "Confirm",
     APP_DETAIL_REJECT_ALERT_DESC: "Rejecting Lead will be removed from list.",
     APP_DETAIL_REJECT_SUCCESS: "It is rejected successfully.",
-    APP_SIGN_LOAN_FUNDED_MODAL_TITLE: "Sign Loan As Funded",
+    APP_SIGN_LOAN_FUNDED_MODAL_TITLE: "Mark Loan As Funded",
     //Business acquisition view
     APP_COMPANY_NAME: "Company name",
     APP_ADDITIONAL_FILES: "Additional file(s)",
@@ -268,7 +268,7 @@ export default {
       "Please confirm that you want to sign this loan as funded.",
     ISSUE_OFFER_SIGN_AS_FUNDED_DESC:
       "The related loan will be sign as funded ,are sure to continue?",
-    ISSUE_OFFER_SIGN_AS_FUNDED_OK_BTN: "Yes and Sign the loan as funded",
+    ISSUE_OFFER_SIGN_AS_FUNDED_OK_BTN: "Yes and mark the loan as funded",
     OFFER_CANCEL_ALERT_MSG: "Canceling this selected offer.",
     ISSUE_OFFER_SIGN_AS_FUNDED_SUCCESS_MSG:
       "The loan has been signed as funded successfuly",

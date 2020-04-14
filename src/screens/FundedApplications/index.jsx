@@ -25,9 +25,7 @@ const FundedApps = (props) => {
     getFundedApps()
       .onOk((result) => {
         toggleSpinner(false);
-        if (result && !didCancel) {
-          setData(result);
-        }
+        if (result && !didCancel) setData(result);
       })
       .onServerError((result) => {
         if (!didCancel) {

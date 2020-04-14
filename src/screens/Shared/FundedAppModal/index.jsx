@@ -51,9 +51,6 @@ function FundedApp({ app, offer = {}, onClose, _signLoanAsFunded }) {
           </div>
         </div>
         <div className="rejectApp__body">
-          <h4 className="fundedAppTitle">
-            {t("ISSUE_OFFER_SIGN_AS_FUNDED_TITLE")}
-          </h4>
           <span className="fundedAppDesc">
             {t("ISSUE_OFFER_SIGN_AS_FUNDED_DESC")}
           </span>
@@ -84,10 +81,14 @@ function FundedApp({ app, offer = {}, onClose, _signLoanAsFunded }) {
                   defaultValue={offer.loanAmount}
                 />
                 <Integer
-                  field={{ apiName: "loanPeriod", label: "Loan Period" }}
+                  field={{
+                    apiName: "loanPeriod",
+                    label: "Loan Period",
+                    maxLength: 3,
+                  }}
                   viewMode={false}
                   index={2}
-                  defaultValue={offer.loanPEriod}
+                  defaultValue={offer.loanPeriod}
                 />
                 <div className="rejectApp__footer">
                   <button

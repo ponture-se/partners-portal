@@ -48,6 +48,7 @@ export default function Number(props) {
                 value={values[field.apiName]}
                 autoFocus={index === 0 ? true : false}
                 readOnly={viewMode}
+                maxLength={field.maxLength}
               />
             </div>
             <div className="formInput__footer">
