@@ -1,7 +1,7 @@
 import React from "react";
 import "./style.scss";
-const FileBox = props => {
-  const { title, src, idx } = props;
+const FileBox = (props) => {
+  const { title, src, idx, id } = props;
   const type = props.type.toLowerCase();
   let source = "";
   try {
@@ -9,6 +9,11 @@ const FileBox = props => {
   } catch (err) {
     source = require(`./assets/file.svg`);
   }
+
+  // const download = () => {
+  //   window.open(src);
+  // };
+
   return (
     <div className="fileBox" key={idx}>
       <div className="extension">
@@ -16,7 +21,12 @@ const FileBox = props => {
       </div>
       <span className="title">
         {title}
-        <a className="icon-arrow-down2" href={src} target="_blank"></a>
+        <a
+          className="icon-arrow-down2"
+          href={src}
+          target="_blank"
+          download={id}
+        ></a>
       </span>
 
       {/* <div className="hovered">

@@ -16,7 +16,7 @@ import { getApplicationById, downloadAppAsset } from "api/main-api";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
 import BusinessAcquisition from "./BusinessAcquisition";
 import RealEstate from "./RealEstate";
-const ViewApplication = props => {
+const ViewApplication = (props) => {
   let didCancel = false;
   const [spinner, toggleSpinner] = useState(true);
   const [data, setData] = useState();
@@ -36,11 +36,11 @@ const ViewApplication = props => {
       toggleSpinner(false);
       setError({
         title: t("INVALID_URL"),
-        message: t("UNKNOWN_ERROR_MSG")
+        message: t("UNKNOWN_ERROR_MSG"),
       });
     } else {
       getApplicationById()
-        .onOk(result => {
+        .onOk((result) => {
           toggleSpinner(false);
           if (!didCancel) {
             if (result) {
@@ -62,62 +62,62 @@ const ViewApplication = props => {
             } else {
               setError({
                 title: t("GET_APP_ERROR_RESULT"),
-                message: t("GET_APP_ERROR_RESULT_MSG")
+                message: t("GET_APP_ERROR_RESULT_MSG"),
               });
             }
           }
         })
-        .onServerError(result => {
+        .onServerError((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("INTERNAL_SERVER_ERROR"),
-              message: t("INTERNAL_SERVER_ERROR_MSG")
+              message: t("INTERNAL_SERVER_ERROR_MSG"),
             });
           }
         })
-        .onBadRequest(result => {
+        .onBadRequest((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("BAD_REQUEST"),
-              message: t("BAD_REQUEST_MSG")
+              message: t("BAD_REQUEST_MSG"),
             });
           }
         })
-        .unAuthorized(result => {
+        .unAuthorized((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("UNKNOWN_ERROR"),
-              message: t("UNKNOWN_ERROR_MSG")
+              message: t("UNKNOWN_ERROR_MSG"),
             });
           }
         })
-        .notFound(result => {
+        .notFound((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("NOT_FOUND"),
-              message: t("NOT_FOUND_MSG")
+              message: t("NOT_FOUND_MSG"),
             });
           }
         })
-        .unKnownError(result => {
+        .unKnownError((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("UNKNOWN_ERROR"),
-              message: t("UNKNOWN_ERROR_MSG")
+              message: t("UNKNOWN_ERROR_MSG"),
             });
           }
         })
-        .onRequestError(result => {
+        .onRequestError((result) => {
           if (!didCancel) {
             toggleSpinner(false);
             setError({
               title: t("ON_REQUEST_ERROR"),
-              message: t("ON_REQUEST_ERROR_MSG")
+              message: t("ON_REQUEST_ERROR_MSG"),
             });
           }
         })
@@ -159,6 +159,7 @@ const ViewApplication = props => {
         idx={idx}
         title={title || item.title}
         type={item.fileExtension}
+        id={item.id}
         src={downloadAppAsset.call(this, item.id)}
       />
     ));
@@ -497,7 +498,7 @@ const ViewApplication = props => {
                       </thead>
                       <tbody>
                         {data.accountDetails &&
-                          data.accountDetails.BoardMember.map(item => (
+                          data.accountDetails.BoardMember.map((item) => (
                             <tr key={item.personalNum}>
                               <td>
                                 <div>
@@ -734,7 +735,7 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = {
-  rejectApplication
+  rejectApplication,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ViewApplication);
