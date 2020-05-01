@@ -28,7 +28,7 @@ function RejectApp(props) {
   );
   useEffect(() => {
     getRejectReasons()
-      .onOk(result => {
+      .onOk((result) => {
         if (!didCancel) {
           toggleSpinner(false);
           setReasons(result);
@@ -54,7 +54,7 @@ function RejectApp(props) {
   function handleChangeReasons(item) {
     let r = selectedReasons ? [...selectedReasons] : [];
     if (r.indexOf(item.API_Name) > -1) {
-      const rr = r.filter(res => res !== item.API_Name);
+      const rr = r.filter((res) => res !== item.API_Name);
       setSelectedReasons(rr);
       if (item.API_Name.toLowerCase() === "other") toggleOtherInput(false);
     } else {
@@ -76,11 +76,11 @@ function RejectApp(props) {
         oppId: app ? app.opportunityID : null,
         spoId: app ? app.spoID : null,
         closeReasons: selectedReasons,
-        closeDesc: otherText ? otherText : ""
+        closeDesc: otherText ? otherText : "",
       };
       if (activateApiCall) {
         _rejectApp()
-          .onOk(result => {
+          .onOk((result) => {
             if (!didCancel) {
               toast.success(t("APP_DETAIL_REJECT_SUCCESS"));
               toggleBtnSpinner(false);
@@ -144,7 +144,7 @@ function RejectApp(props) {
             <div className="reasons">
               <span>{t("APP_REJECT_MODAL_BODY_TITLE")}</span>
               <div className="reasons__body">
-                {reasons.map(item => (
+                {reasons.map((item) => (
                   <Item
                     data={item}
                     key={item.Id}
@@ -208,12 +208,12 @@ function RejectApp(props) {
 
 function mapStateToProps(state) {
   return {
-    userInfo: state.authReducer ? state.authReducer.userInfo : {}
+    userInfo: state.authReducer ? state.authReducer.userInfo : {},
   };
 }
 
 const mapDispatchToProps = {
-  rejectApplication
+  rejectApplication,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(RejectApp);

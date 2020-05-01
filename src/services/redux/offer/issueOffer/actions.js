@@ -13,125 +13,125 @@ export const COLUMNS_FAILED = "main/loadOfferColumns/COLUMNS_ERROR";
 export function toggleLoading(value) {
   return {
     type: LOADING,
-    payload: value
+    payload: value,
   };
 }
 export function successSubmit() {
   return {
-    type: SUCCESS
+    type: SUCCESS,
   };
 }
 export function failed(error) {
   return {
     type: FAILED,
-    payload: error
+    payload: error,
   };
 }
 export function toggleColumnsLoading() {
   return {
     type: COLUMNS_LOADING,
-    payload: true
+    payload: true,
   };
 }
 export function successLoadColumns(result) {
   return {
     type: COLUMNS_SUCCESS,
-    payload: result
+    payload: result,
   };
 }
 export function failedLoadColumns(error) {
   return {
     type: COLUMNS_FAILED,
-    payload: error
+    payload: error,
   };
 }
 
-export const loadColumns = () => (dispatch, getState) => {
+export const loadColumns = (proMasterId) => (dispatch, getState) => {
   dispatch(toggleColumnsLoading(true));
-  const { authReducer: auth } = getState();
-  const partnerId = auth.userInfo ? auth.userInfo.partnerId : null;
+  // const { authReducer: auth } = getState();
+  // const partnerId = auth.userInfo ? auth.userInfo.partnerId : null;
   getOfferColumns()
-    .onOk(result => {
+    .onOk((result) => {
       if (result && result.length > 0) dispatch(successLoadColumns(result));
       else
         dispatch(
           failedLoadColumns({
             title: t("ISSUE_OFFER_COLUMNS_ERROR_TITLE"),
-            message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG")
+            message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG"),
           })
         );
     })
-    .unKnownError(result => {
+    .unKnownError((result) => {
       dispatch(
         failedLoadColumns({
           title: t("ISSUE_OFFER_COLUMNS_ERROR_TITLE"),
-          message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG")
+          message: t("ISSUE_OFFER_COLUMNS_ERROR_MSG"),
         })
       );
     })
 
-    .call(partnerId, currentLangName);
+    .call(proMasterId, currentLangName);
 };
-export const submitIssueOffer = (offer, onSuccess) => dispatch => {
+export const submitIssueOffer = (offer, onSuccess) => (dispatch) => {
   dispatch(toggleLoading(true));
   submitOffer()
-    .onOk(result => {
+    .onOk((result) => {
       toast.success(t("ISSUE_OFFER_SUCCESS_MSG"));
       dispatch(successSubmit());
       if (onSuccess) {
         onSuccess();
       }
     })
-    .onServerError(result => {
+    .onServerError((result) => {
       dispatch(failed(result));
       toast.error(t("INTERNAL_SERVER_ERROR"));
     })
-    .onBadRequest(result => {
+    .onBadRequest((result) => {
       dispatch(failed(result));
       toast.error(t("BAD_REQUEST"));
     })
-    .notFound(result => {
+    .notFound((result) => {
       dispatch(failed(result));
       toast.error(t("NOT_FOUND"));
     })
-    .unKnownError(result => {
+    .unKnownError((result) => {
       dispatch(failed(result));
       toast.error(t("UNKNOWN_ERROR"));
     })
-    .onRequestError(result => {
+    .onRequestError((result) => {
       dispatch(failed(result));
       toast.error(t("ON_REQUEST_ERROR"));
     })
     .call(offer);
 };
 
-export const updateIssueOffer = (offer, onSuccess) => dispatch => {
+export const updateIssueOffer = (offer, onSuccess) => (dispatch) => {
   dispatch(toggleLoading(true));
   updateOffer()
-    .onOk(result => {
+    .onOk((result) => {
       toast.success(t("ISSUE_OFFER_UPDATE_SUCCESS_MSG"));
       dispatch(successSubmit());
       if (onSuccess) {
         onSuccess();
       }
     })
-    .onServerError(result => {
+    .onServerError((result) => {
       dispatch(failed(result));
       toast.error(t("INTERNAL_SERVER_ERROR"));
     })
-    .onBadRequest(result => {
+    .onBadRequest((result) => {
       dispatch(failed(result));
       toast.error(t("BAD_REQUEST"));
     })
-    .notFound(result => {
+    .notFound((result) => {
       dispatch(failed(result));
       toast.error(t("NOT_FOUND"));
     })
-    .unKnownError(result => {
+    .unKnownError((result) => {
       dispatch(failed(result));
       toast.error(t("UNKNOWN_ERROR"));
     })
-    .onRequestError(result => {
+    .onRequestError((result) => {
       dispatch(failed(result));
       toast.error(t("ON_REQUEST_ERROR"));
     })

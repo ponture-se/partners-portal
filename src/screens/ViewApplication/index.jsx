@@ -721,7 +721,9 @@ const ViewApplication = (props) => {
         {rejectAppVisibility && (
           <RejectAppModal
             onClose={handleCloseRejectAppModal}
-            app={data ? data.opportunityDetails : null}
+            app={
+              data ? { ...data.opportunityDetails, spoID: props.spoId } : null
+            }
             onSuccess={closeModal}
           />
         )}
