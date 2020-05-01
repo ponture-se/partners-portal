@@ -1868,8 +1868,8 @@ export function getOfferColumns() {
     }
   }
 
-  const _call = (partnerId, lang = "en") => {
-    const url = offerColumnsUrl + `?partnerId=${partnerId}&lang=${lang}`;
+  const _call = (proMasterId, lang = "en") => {
+    const url = offerColumnsUrl + `?proMasterId=${proMasterId}&lang=${lang}`;
     axios
       .get(url, {
         headers: {

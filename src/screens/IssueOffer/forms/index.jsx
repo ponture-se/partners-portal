@@ -9,7 +9,7 @@ import {
   Currency,
   TextArea,
   Percent,
-  Integer
+  Integer,
 } from "components/Form";
 import Wrong from "components/Commons/ErrorsComponent/Wrong";
 //
@@ -17,20 +17,20 @@ import "./styles.scss";
 import {
   submitIssueOffer,
   updateIssueOffer,
-  loadColumns
+  loadColumns,
 } from "services/redux/offer/issueOffer/actions";
 import { t } from "services/languageManager";
 import { CircleSpinner } from "components";
 import initValidations from "./validation";
 //
-const Form = props => {
+const Form = (props) => {
   let initialValues;
-  const { offer } = props;
+  const { offer, product } = props;
   const [validations, setValidations] = useState();
-  useEffect(() => {
-    if (props.loadColumns) props.loadColumns();
-  }, []);
-
+  const useEffectFunc = () => {
+    if (props.loadColumns) props.loadColumns(product.Id);
+  };
+  React.useEffect(useEffectFunc, []);
   function backToProducts() {
     if (props.onBackClicked) props.onBackClicked();
   }
@@ -40,10 +40,7 @@ const Form = props => {
       if (col.type.toLowerCase() === "currency") {
         for (const key in obj) {
           if (obj[key] && key === col.apiName) {
-            obj[key] = obj[key]
-              .toString()
-              .split(" ")
-              .join("");
+            obj[key] = obj[key].toString().split(" ").join("");
             break;
           }
         }
@@ -55,7 +52,7 @@ const Form = props => {
     if (!props.loading) {
       if (props.submitIssueOffer) {
         let obj = {
-          ...values
+          ...values,
         };
         const finalObj = checkCurrencyValues(obj);
         if (props.updateMode) {
@@ -186,7 +183,7 @@ const Form = props => {
   function getInitialValues(renderColumns) {
     if (!renderColumns) return {};
     const initialValues = {};
-    renderColumns.forEach(c => {
+    renderColumns.forEach((c) => {
       if (c.apiName) {
         if (!initialValues[c.apiName]) {
           initialValues[c.apiName] = offer
@@ -209,7 +206,7 @@ const Form = props => {
     if (props.columns && !props.viewMode) {
       setValidations(initValidations(props.columns));
     }
-  }, [props.columns]);
+  }, [props.columns, props.viewMode]);
   return (
     <div className="issueOfferForm animated fadeIn">
       <div className="issueOfferForm__body">
@@ -229,7 +226,7 @@ const Form = props => {
             onSubmit={handleSubmitOffer}
             validationSchema={!props.viewMode && validations}
             initialValues={initialValues}
-            render={form => {
+            render={(form) => {
               return (
                 <div>
                   <form onSubmit={form.handleSubmit}>
@@ -295,14 +292,14 @@ function mapStateToProps(state) {
       ? state.offer.issueOfferReducer
         ? state.offer.issueOfferReducer.columnsError
         : null
-      : null
+      : null,
   };
 }
 
 const mapDispatchToProps = {
   submitIssueOffer,
   updateIssueOffer,
-  loadColumns
+  loadColumns,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Form);
