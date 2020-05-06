@@ -28,7 +28,8 @@ const Form = (props) => {
   const { offer, product } = props;
   const [validations, setValidations] = useState();
   const useEffectFunc = () => {
-    if (props.loadColumns) props.loadColumns(product.Id);
+    if (props.loadColumns)
+      props.loadColumns(product ? product.Id : offer.Product_Master);
   };
   React.useEffect(useEffectFunc, []);
   function backToProducts() {
