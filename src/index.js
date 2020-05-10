@@ -7,7 +7,7 @@ import store from "./services/redux/store";
 import { setAppLang } from "./services/languageManager";
 import setAuthorizationToken from "./utils/setAuthorizationToken";
 import { setAuthorization, setUser } from "./services/redux/auth/actions";
-liveView.start();
+liveView().start();
 // app language
 const pathName = window.location.pathname;
 const lang = pathName.split("/")[1];

@@ -1,7 +1,10 @@
 export default function liveView() {
   return {
     start() {
-      if (process.env.REACT_APP_ENABLE_LIVE_VIEW === "true") {
+      if (
+        process.env.REACT_APP_ENABLE_LIVE_VIEW === true ||
+        process.env.REACT_APP_ENABLE_LIVE_VIEW === "true"
+      ) {
         document.write(
           `<script>
       (function(h, o, t, j, a, r) {
