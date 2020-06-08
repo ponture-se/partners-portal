@@ -4,8 +4,6 @@ import { t } from "services/languageManager";
 import { types } from "services/redux/auth/actions";
 import store from "services/redux/store";
 
-const fileDownload = require("js-file-download");
-
 const axios = require("axios");
 const config = process.env;
 const baseUrl = config.REACT_APP_BASE_URL;
