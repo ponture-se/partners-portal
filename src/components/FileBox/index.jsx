@@ -22,12 +22,12 @@ const FileBox = (props) => {
         const downloadUrl = window.URL.createObjectURL(new Blob([data]));
         const link = document.createElement("a");
         link.href = downloadUrl;
-        link.setAttribute("download", id);
+        link.setAttribute("download", _id);
         document.body.appendChild(link);
         link.click();
         link.remove();
       })
-      .call(_id);
+      .call(id);
   }
   return (
     <div className="fileBox" key={idx}>
@@ -36,12 +36,7 @@ const FileBox = (props) => {
       </div>
       <span className="title">
         {title}
-        <a
-          href=""
-          className="icon-arrow-down2"
-          style={{ cursor: "pointer" }}
-          onClick={download}
-        ></a>
+        <a href="" className="icon-arrow-down2" onClick={download}></a>
       </span>
 
       {/* <div className="hovered">
