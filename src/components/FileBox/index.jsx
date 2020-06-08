@@ -1,7 +1,8 @@
 import React from "react";
 import "./style.scss";
+import { downloadAppAsset } from "api/main-api";
 const FileBox = (props) => {
-  const { title, src, idx, id } = props;
+  const { fileId, title, src, idx, id } = props;
   const type = props.type.toLowerCase();
   let source = "";
   try {
@@ -13,20 +14,29 @@ const FileBox = (props) => {
   // const download = () => {
   //   window.open(src);
   // };
-
+  function download(e) {
+    e.preventDefault();
+    const _id = fileId ? fileId + "." + type : id;
+    downloadAppAsset()
+      .onOk((data) => {
+        const downloadUrl = window.URL.createObjectURL(new Blob([data]));
+        const link = document.createElement("a");
+        link.href = downloadUrl;
+        link.setAttribute("download", _id);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      })
+      .call(id);
+  }
   return (
     <div className="fileBox" key={idx}>
       <div className="extension">
-        <img src={source} width="60" />
+        <img src={source} width="60" alt="" />
       </div>
       <span className="title">
         {title}
-        <a
-          className="icon-arrow-down2"
-          href={src}
-          target="_blank"
-          download={id}
-        ></a>
+        <a href="" className="icon-arrow-down2" onClick={download}></a>
       </span>
 
       {/* <div className="hovered">
