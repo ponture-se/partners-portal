@@ -12,7 +12,7 @@ import IssueOfferModal from "./../IssueOffer";
 import RejectAppModal from "./../Shared/RejectAppModal";
 import separateNumberByChar from "utils/separateNumberByChar";
 import SafeValue from "utils/SafeValue";
-import { getApplicationById, downloadAppAsset } from "api/main-api";
+import { getApplicationById } from "api/main-api";
 import { rejectApplication } from "services/redux/application/singleApp/actions";
 import BusinessAcquisition from "./BusinessAcquisition";
 import RealEstate from "./RealEstate";
@@ -156,11 +156,11 @@ const ViewApplication = (props) => {
   const File = (files, title) =>
     files.map((item, idx) => (
       <FileBox
+        fileId={item.fileId}
         idx={idx}
         title={title || item.title}
         type={item.fileExtension}
         id={item.id}
-        src={downloadAppAsset.call(this, item.id)}
       />
     ));
   return (
