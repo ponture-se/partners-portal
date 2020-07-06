@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { t } from "./../../services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
-const Item = props => {
+const Item = (props) => {
   const { item } = props;
   function viewApplication() {
     if (props.onViewAppClicked) props.onViewAppClicked(item);
@@ -47,18 +47,6 @@ const Item = props => {
               <i className="icon-cross" style={{ color: "red" }} />
             )}
             <span>{t("APP_BANKID_VERIFIED")}</span>
-          </span>
-        </div>
-        <div className="application__bodyRow">
-          <span>{t("APP_CREDITSAFE_SCRORE")}</span>
-          <span>{item.creditSafeScore}</span>
-          <span>
-            {item.activeCompany ? (
-              <i className="icon-checkmark" />
-            ) : (
-              <i className="icon-cross" style={{ color: "red" }} />
-            )}
-            <span>{t("APP_ACTIVE_COMPANY")}</span>
           </span>
         </div>
         <div className="application__bodyRow">
@@ -110,8 +98,8 @@ const Item = props => {
 export default Item;
 
 Item.propTypes = {
-  item: PropTypes.object.isRequired
+  item: PropTypes.object.isRequired,
 };
 Item.defaultProps = {
-  item: {}
+  item: {},
 };
