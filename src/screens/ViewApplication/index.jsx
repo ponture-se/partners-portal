@@ -255,26 +255,6 @@ const ViewApplication = (props) => {
                 </div>
                 <div className="viewAppItem__bodyRow">
                   <div className="viewAppItem__bodyRow__left">
-                    <span>{t("APP_CREDITSAFE_SCRORE")}</span>
-                  </div>
-                  <div className="viewAppItem__bodyRow__right">
-                    <span>
-                      {data.opportunityDetails &&
-                        data.opportunityDetails.creditSafeScore}
-                    </span>
-                    <span>
-                      {data.opportunityDetails &&
-                      data.opportunityDetails.activeCompany ? (
-                        <i className="icon-checkmark" />
-                      ) : (
-                        <i className="icon-cross" style={{ color: "red" }} />
-                      )}
-                      <span>{t("APP_ACTIVE_COMPANY")}</span>
-                    </span>
-                  </div>
-                </div>
-                <div className="viewAppItem__bodyRow">
-                  <div className="viewAppItem__bodyRow__left">
                     <span>{t("APP_REVENUE")}</span>
                   </div>
                   <div className="viewAppItem__bodyRow__right">
@@ -360,9 +340,6 @@ const ViewApplication = (props) => {
                       </button>
                     </>
                   )}
-                <button className="btn --primary" onClick={handleViewCredit}>
-                  {t("VIEW_CREDIT_REPORT")}
-                </button>
               </div>
               <div className="detail__body">
                 <div className="detail__row">

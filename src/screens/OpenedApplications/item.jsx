@@ -2,7 +2,7 @@ import React from "react";
 import { t } from "services/languageManager";
 import separateNumberByChar from "utils/separateNumberByChar";
 //
-const Item = props => {
+const Item = (props) => {
   const { item } = props;
 
   function handleViewClicked() {
@@ -64,22 +64,6 @@ const Item = props => {
                 <i className="icon-cross" style={{ color: "red" }} />
               )}
               <span>{t("APP_BANKID_VERIFIED")}</span>
-            </span>
-          </div>
-        </div>
-        <div className="openedApp__bodyRow">
-          <div className="openedApp__bodyRow__left">
-            <span>{t("APP_CREDITSAFE_SCRORE")}</span>
-          </div>
-          <div className="openedApp__bodyRow__right">
-            <span>{item.creditSafeScore}</span>
-            <span>
-              {item.activeCompany ? (
-                <i className="icon-checkmark" />
-              ) : (
-                <i className="icon-cross" style={{ color: "red" }} />
-              )}
-              <span>{t("APP_ACTIVE_COMPANY")}</span>
             </span>
           </div>
         </div>
