@@ -60,7 +60,7 @@ const Item = (props) => {
           <div className="myOfferItem__bodyRow">
             <span>{t("OFFER_AMORTIZATION_PERIOD")}</span>
             <span>
-              {item.opportunityData && item.opportunityData.amortizationPeriod}{" "}
+              {item.Loan_Period ? item.Loan_Period : ""}{" "}
               {t("MONTH_S")}
             </span>
           </div>

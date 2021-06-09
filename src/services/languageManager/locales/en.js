@@ -327,7 +327,7 @@ export default {
     CREDIT_REPORT_SECONDARY_INDUSTRY: "Secondary Industry",
     OFFER_ISSUE_DATE: "Issue Date",
     OFFER_AMOUNT: "Amount",
-    OFFER_AMORTIZATION_PERIOD: "Amortization Period",
+    OFFER_AMORTIZATION_PERIOD: "Loan Period",
     OFFER_DETAIL_BACK: "Back to My Offers",
     APPLICATION_DATE: "Lead date",
 
