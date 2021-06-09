@@ -24,7 +24,8 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
-    "build": "GENERATE_SOURCEMAP=false react-scripts build && mv build tmp_build && mkdir build &&  mv tmp_build build/app && mv build/app/index.html build/index.html",
+    "build": "GENERATE_SOURCEMAP=false && react-scripts build && mv build tmp_build && mkdir build &&  mv tmp_build build/app && mv build/app/index.html build/index.html",
+    "winBuild": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build && robocopy build tmp_build /E /MOVE && mkdir build && robocopy tmp_build build/app /E /MOVE && move build/app/index.html build/index.html",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

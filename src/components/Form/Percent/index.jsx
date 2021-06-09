@@ -37,7 +37,7 @@ export default function Number(props) {
               <input
                 type="number"
                 min="0"
-                step="0.1"
+                step="0.01"
                 name={field.apiName}
                 className="element"
                 placeholder={field.label}
